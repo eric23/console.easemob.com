@@ -203,22 +203,22 @@ var EasemobCommon = function () {
 
         disPatcher: {
             openPageWWWHome: function () {
-                window.open('http://www.easemob.com')
+                window.open('http://global.easemob.com/index.html')
             },
             openPageWWWDocs: function () {
-                window.open('http://docs.easemob.com/docs.php');
+                window.open('http://docs.easemob.com/doku.php?id=en:start');
             },
             openPageWWWSupport: function () {
                 window.open('http://www.easemob.com/support')
             },
             openPageWWWSDK: function () {
-                window.open('http://www.easemob.com/downloads')
+                window.open('http://global.easemob.com/download.html')
             },
             openPageIMGeek: function () {
                 window.open('http://www.imgeek.org')
             },
             openPageAboutTerms: function () {
-                window.open('http://www.easemob.com/Webpage/view/id/4')
+                window.open('http://global.easemob.com/term.html')
             },
             openPageIOSPushCertificate: function () {
                 window.open('http://www.easemob.com/docs/ios/push/certificate/')
