@@ -932,6 +932,14 @@ var I18NPropsLoader = function(){
                     $('#page_title').text($.i18n.prop('page_title'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+
+                    var tag = $('#allowOpenHdd').val();
+                    if (tag == '0') {
+                        $('#allowOpen').text($.i18n.prop('app_profile_text_registrationModel_open'));
+                    } else {
+                        $('#allowOpen').text($.i18n.prop('app_profile_text_registrationModel_auth'));
+                    }
+
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#app_profile_text_appkey').text($.i18n.prop('app_profile_text_appkey'));
