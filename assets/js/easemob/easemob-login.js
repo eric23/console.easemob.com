@@ -796,13 +796,13 @@ function orgAdminLogin() {
                 } else {
                     var date = new Date();
                     date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-                    $.cookie('access_token', accessToken, {path: '/', expires: date});
-                    $.cookie('cuser', cuser, {path: '/', expires: date});
-                    $.cookie('cuserName', cuserName, {path: '/', expires: date});
-                    $.cookie('email', email, {path: '/', expires: date});
-                    $.cookie('orgName', orgName, {path: '/', expires: date});
-                    $.cookie('companyName', companyName, {path: '/', expires: date});
-                    $.cookie('telephone', telephone, {path: '/', expires: date});
+                    $.cookie('access_token', accessToken, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('cuser', cuser, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('cuserName', cuserName, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('email', email, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('orgName', orgName, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('companyName', companyName, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('telephone', telephone, {path: '/', domain: baseDomain, expires: date});
 
                     EasemobCommon.disPatcher.toPageAppList();
                 }
