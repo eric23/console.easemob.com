@@ -63,8 +63,9 @@ function updateAdminInfo(username, companyName, telephone) {
 
                 var date = new Date();
                 date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-                $.cookie('companyName', companyName, {path: '/', expires: date});
-                $.cookie('telephone', telephone, {path: '/', expires: date});
+                $.cookie('companyName', companyName, {path: '/', domain: baseDomain, expires: date});
+                $.cookie('telephone', telephone, {path: '/', domain: baseDomain, expires: date});
+
 
                 loginAdminInfo();
             }

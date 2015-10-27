@@ -239,10 +239,10 @@ var EasemobCommon = function () {
                 window.open('https://kefu.easemob.com');
             },
             toPageKefuRegister: function () {
-                window.open('https://kefu.easemob.com/register');
+                window.open('https://kefu.easemob.com/mo/register');
             },
             toPageKefuForgotPassword: function () {
-                window.open('https://kefu.easemob.com/forgotPassword');
+                window.open('https://kefu.easemob.com/mo/forgotPassword');
             },
             toPageIndex: function () {
                 window.location.href = 'index.html';
