@@ -58,6 +58,10 @@
             $('#chatmessagsChartSelector').change(function() {
                 applyCountersAndDraw(this, null);
             });
+
+            $('#bigdata_protocol_yes_Btn').click(function() {
+                redirectToBigdataPage();
+            });
         });
 
         var _hmt = _hmt || [];
@@ -148,14 +152,12 @@
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><font color="green"><span id="third_nav_counter"></span></font></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()">
+                            <font color="green"><span id="third_nav_counter"></span></font>
+                            <span class="label label-warning pull-right">New !!</span></a></li>
                     </ul>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <ul class="hidden" id="showLinkBigdata">
-                        <li>
-                            <a data-toggle="modal" href="#example" class="btn btn-primary btn-large">Launch demo modal</a>
-                        </li>
-                    </ul>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a data-toggle="modal" href="#example">进入我的IM数据平台>>></a>
                     <hr/>
                 </div>
             </div>
@@ -338,8 +340,8 @@
         </div>
     </div>
     <div class="bigdata_protocol_ft clearfix">
-        <span data-id="cancel" class="bigdata_protocol_no close" data-dismiss="modal">取消</span>
-        <span class="bigdata_protocol_yes_waiting"><a href="http://d.easemob.com" target="_blank">接受</a></span>
+        <span data-id="cancel" id="bigdata_protocol_no_btn" class="bigdata_protocol_no close" data-dismiss="modal">取消</span>
+        <span class="bigdata_protocol_yes_waiting" id="bigdata_protocol_yes_Btn"><a id="bigdata_domain" target_href='' href="javascript:void(0)" target="_blank">接受</a></span>
     </div>
 </div>
 

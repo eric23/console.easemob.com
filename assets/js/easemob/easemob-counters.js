@@ -564,6 +564,7 @@ function showLinkForBigdata() {
                     var showLinkBigdata = this.show_link_bigdata;
                     if(showLinkBigdata) {
                         $('#showLinkBigdata').removeClass('hidden');
+                        $('#bigdata_domain').attr('target_href', baseUrl + '/' + orgName + '/' + appName + '/views/bigdata');
                     } else {
                         $('#showLinkBigdata').addClass('hidden');
                     }
@@ -579,4 +580,11 @@ function showLinkForBigdata() {
         });
     }
 
+}
+
+
+function redirectToBigdataPage(){
+    var bigdata_domain = $('#bigdata_domain').attr('target_href');
+    $('#bigdata_protocol_no_btn').click();
+    window.open(bigdata_domain);
 }
