@@ -2,6 +2,8 @@
  * Created by kenshinn on 15-6-2.
  */
 
+var orgName = $.cookie('orgName');
+
 //初始开始时间段
 //记录当前时间
 var nowTime;
@@ -536,3 +538,45 @@ function showChatmessagsChartTab() {
 //            $('#chatgroupsChartSelector').show();
 //            $('#drawCountersChartsType').val('');
 //        }
+
+
+function showLinkForBigdata() {
+
+    var accessToken = $.cookie('access_token');
+    var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
+    if (!accessToken || accessToken == '') {
+        EasemobCommon.disPatcher.sessionTimeOut();
+    } else {
+        $.ajax({
+            url: baseUrl + '/management/organizations/' + orgName + '/applications/' + appName,
+            type: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            },
+            success: function (respData, textStatus, jqXHR) {
+                $(respData.entities).each(function () {
+                    var applicationName = this.applicationName;
+                    var organizationName = this.organizationName;
+                    var showLinkBigdata = this.show_link_bigdata;
+                    if(showLinkBigdata) {
+                        $('#showLinkBigdata').removeClass('hidden');
+                    } else {
+                        $('#showLinkBigdata').addClass('hidden');
+                    }
+                    var date = new Date();
+                    date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+                    if(showLinkBigdata) {
+                        $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata', showLinkBigdata, {path: '/', domain: baseDomain, expires: date});
+                    } else {
+                        $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata', null, {path: "/", domain: baseDomain, expires: date-1000});
+                    }
+                });
+            }
+        });
+    }
+
+}
