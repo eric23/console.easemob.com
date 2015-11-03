@@ -187,6 +187,16 @@ function fetchAppInfo(accessToken, orgName, appName) {
                 var modified = format(this.modified);
                 var applicationName = this.applicationName;
                 var organizationName = this.organizationName;
+                var showLinkBigdata = this.show_link_bigdata;
+
+                var date = new Date();
+                date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+                if(showLinkBigdata) {
+                    $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata', showLinkBigdata, {path: '/', domain: baseDomain, expires: date});
+                } else {
+                    $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata', null, {path: "/", domain: baseDomain, expires: date-1000});
+                }
+
                 var allowOpen = this.allow_open_registration ?
                     $.i18n.prop('app_profile_text_registrationModel_open') :
                     $.i18n.prop('app_profile_text_registrationModel_auth');

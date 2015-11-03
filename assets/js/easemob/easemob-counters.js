@@ -2,6 +2,8 @@
  * Created by kenshinn on 15-6-2.
  */
 
+var orgName = $.cookie('orgName');
+
 //初始开始时间段
 //记录当前时间
 var nowTime;
