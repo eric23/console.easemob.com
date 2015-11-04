@@ -462,11 +462,9 @@ function showLinkForBigdata() {
                     var organizationName = this.organizationName;
                     var showLinkBigdata = this.allow_access_bigdata;
 
-                    console.log(showLinkBigdata);
-
                     if(showLinkBigdata) {
                         $('#showLinkBigdata').removeClass('hidden');
-                        $('#bigdata_domain').attr('target_href', baseUrl + '/' + orgName + '/' + appName + '/views/bigdata');
+                        $('#showLinkBigdataBtn').attr('target_href', baseUrl + '/' + orgName + '/' + appName + '/views/bigdata');
                     } else {
                         $('#showLinkBigdata').addClass('hidden');
                     }
@@ -487,8 +485,7 @@ function showLinkForBigdata() {
 
 
 function redirectToBigdataPage(){
-    var bigdata_domain = $('#bigdata_domain').attr('target_href');
-    $('#bigdata_protocol_no_btn').click();
+    var bigdata_domain = $('#showLinkBigdataBtn').attr('target_href');
     window.open(bigdata_domain);
 }
 
