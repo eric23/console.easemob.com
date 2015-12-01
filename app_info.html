@@ -7,7 +7,6 @@
     <link href="/assets/css/bigdata_reset.css" rel="stylesheet" type="text/css" media="screen"/>
     <link href="/assets/css/bigdata_protocol.css" rel="stylesheet" type="text/css" media="screen"/>
 
-
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="/assets/js/easemob/easemob-app.js"></script>
     <script charset="utf-8">
@@ -24,13 +23,12 @@
             $('#showName').text(appName);
 
             EasemobCommon.init();
+            showLinkForBigdata();
 
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAppProfile();
 
             getAppOverView(appName);
-
-            showLinkForBigdata();
 
             $('#showLinkBigdataBtn').click(function(){
                 redirectToBigdataPage();
@@ -123,7 +121,7 @@
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li style="position: absolute"><img src="/assets/img/tag_new.png" style="width: 25px; height: 30px"></li>
+                        <li id="countNameButton" style="position: absolute" class="hidden"><img src="/assets/img/tag_new.png" style="width: 25px; height: 30px"></li>
                         <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><span id="third_nav_counter"></span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

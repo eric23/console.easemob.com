@@ -478,16 +478,18 @@ function showLinkForBigdata() {
                     if(showLinkBigdata) {
                         $('#showLinkBigdata').removeClass('hidden');
                         $('#showLinkBigdataBtn').attr('target_href', baseUrl + '/' + orgName + '/' + appName + '/views/bigdata');
+                        $('#countNameButton').removeClass('hidden');
                     } else {
                         $('#showLinkBigdata').addClass('hidden');
+                        $('#countNameButton').addClass('hidden');
                     }
 
                     var date = new Date();
                     date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
                     if(showLinkBigdata) {
-                        $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata', showLinkBigdata, {path: '/', domain: baseDomain, expires: date});
+                        $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata'+getCookieNameSufix(), showLinkBigdata, {path: '/', domain: baseDomain, expires: date});
                     } else {
-                        $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata', null, {path: "/", domain: baseDomain, expires: date-1000});
+                        $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata'+getCookieNameSufix(), null, {path: "/", domain: baseDomain, expires: date-1000});
                     }
                 });
             }

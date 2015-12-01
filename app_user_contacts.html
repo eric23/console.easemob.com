@@ -41,6 +41,7 @@
             getAppIMUserContactsList(owner_username);
 
             EasemobCommon.init();
+            showLinkForBigdata();
 
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAppUsersContacts();
@@ -137,8 +138,11 @@
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
+                        <li id="countNameButton" style="position: absolute" class="hidden"><img src="/assets/img/tag_new.png" style="width: 25px; height: 30px"></li>
                         <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><span id="third_nav_counter"></span></a></li>
                     </ul>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="showLinkBigdata" class="hidden"><a id="showLinkBigdataBtn" target_href="" href="javascript:void(0)" target="_blank">进入我的IM数据平台>>></a></span>
                     <hr/>
                 </div>
                 <div class="pagination pagination-left">

@@ -31,6 +31,7 @@
 
         $(function () {
             EasemobCommon.init();
+            showLinkForBigdata();
 
             $('#showName').text($.cookie('appName'));
 
@@ -48,8 +49,6 @@
 
             DatePikerHandler.fillDatePikerInput();
             showUsersChartTab();
-
-            showLinkForBigdata();
 
             $('#showLinkBigdataBtn').click(function(){
                 redirectToBigdataPage();
@@ -174,13 +173,10 @@
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li style="position: absolute"><img src="/assets/img/tag_new.png" style="width: 25px; height: 30px"></li>
-                        <li>
-                            <a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()">
-                                <font color="green"><span id="third_nav_counter"></span></font>
-                            </a></li>
+                        <li id="countNameButton" style="position: absolute" class="hidden"><img src="/assets/img/tag_new.png" style="width: 25px; height: 30px"></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><span id="third_nav_counter"></span></a></li>
                     </ul>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="showLinkBigdata" class="hidden"><a id="showLinkBigdataBtn" target_href="" href="javascript:void(0)" target="_blank">进入我的IM数据平台>>></a></span>
                     <hr/>
                 </div>
