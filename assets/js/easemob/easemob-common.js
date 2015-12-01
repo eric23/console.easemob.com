@@ -11,7 +11,7 @@ $(function () {
     // support crossDomain
     $.support.cors = true;
 
-    $('#user_info').html('<small id="nav_welcome">' + $.i18n.prop('nav_welcome') + '</small>' + $.cookie('cuserName'));
+    $('#user_info').html('<small id="nav_welcome">' + $.i18n.prop('nav_welcome') + '</small>' + getCusername());
 
     var agreeCBoxObj = $("#agreeCBox");
 
@@ -89,9 +89,9 @@ cursors1[1] = '';
 
 // 分页条更新
 function updateUsersPageStatus() {
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var cuser = getCuser();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
@@ -142,8 +142,8 @@ function setUsername(username) {
 
 //调用方法
 function deleteAppUsers(username) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
     var flag = false;
     $.ajax({
@@ -168,7 +168,7 @@ function deleteAppUsers(username) {
 var EasemobCommon = function () {
     // fetch token from cookie
     var getToken = function () {
-        return $.cookie('access_token');
+        return getAccessToken();
     };
 
     // responsive logo
@@ -305,13 +305,26 @@ var EasemobCommon = function () {
 
         logOut: function () {
             // 销毁cookie
-            $.cookie("access_token", null, {path: "/"});
-            $.cookie("cuser", null, {path: "/"});
-            $.cookie("cuserName", null, {path: "/"});
-            $.cookie("orgName", null, {path: "/"});
-            $.cookie("email", null, {path: "/"});
-            $.cookie("companyName", null, {path: "/"});
-            $.cookie("telephone", null, {path: "/"});
+            var date = new Date();
+            date.setTime(date.getTime() - (7 * 24 * 60 * 60 * 1000));
+
+            var cookieNameSufix = getCookieNameSufix();
+
+            $.cookie('access_token'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('cuser'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('cuserName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('email'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('orgName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('companyName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('telephone'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+
+            //$.cookie("access_token", null, {path: "/"});
+            //$.cookie("cuser", null, {path: "/"});
+            //$.cookie("cuserName", null, {path: "/"});
+            //$.cookie("orgName", null, {path: "/"});
+            //$.cookie("email", null, {path: "/"});
+            //$.cookie("companyName", null, {path: "/"});
+            //$.cookie("telephone", null, {path: "/"});
 
             this.disPatcher.toPageIndex();
         },
@@ -441,8 +454,8 @@ $(function () {
 
 function showLinkForBigdata() {
 
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
@@ -494,3 +507,47 @@ function close () {
     $("#bigdata_protocol_no_btn").click();
 }
 
+
+function getCookieNameSufix() {
+    var url = window.location.href;
+    var cookieNameSufix = '';
+
+    if(url.indexOf('console') > -1 && url.indexOf('easemob.com') > -1) {
+        var targetFreg = url.substring(url.indexOf('console') + 8, url.indexOf('easemob.com') - 1);
+        if('.' == targetFreg) {
+            cookieNameSufix = '';
+        } else {
+            cookieNameSufix = '-' + targetFreg;
+        }
+
+        return cookieNameSufix;
+    }
+}
+
+function getAccessToken() {
+   return $.cookie('access_token'+getCookieNameSufix());
+}
+
+function getCuser() {
+    return $.cookie('cuser'+getCookieNameSufix());
+}
+
+function getCusername() {
+    return $.cookie('cuserName'+getCookieNameSufix());
+}
+
+function getEmail() {
+    return $.cookie('email'+getCookieNameSufix());
+}
+
+function getOrgname() {
+    return $.cookie('orgName'+getCookieNameSufix());
+}
+
+function getCompanyName() {
+    return $.cookie('companyName'+getCookieNameSufix());
+}
+
+function getTelephone() {
+    return $.cookie('telephone'+getCookieNameSufix());
+}

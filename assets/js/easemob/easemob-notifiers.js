@@ -5,8 +5,8 @@
 // 查询证书信息
 function getAppCertificateIOS(pageAction){
     $('#paginauIOS').html('');
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
     if('next' == pageAction){
         pageNo += 1;
@@ -129,8 +129,8 @@ function getAppCertificateIOS(pageAction){
 // 查询Google推送证书
 function getAppCertificateAndroid(pageAction){
     $('#paginauAndroid').html('');
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
     if('next' == pageAction){
         pageNo += 1;
@@ -253,8 +253,8 @@ function getAppCertificateAndroid(pageAction){
 
 // 删除开发者推送证书
 function deleteAppNotifiersIOS(credentialId){
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
 
     var confirmOk = $.i18n.prop('confirm_ok');
@@ -289,8 +289,8 @@ function deleteAppNotifiersIOS(credentialId){
 
 // 删除开发者推送证书
 function deleteAppNotifiersAndroid(credentialId){
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
 
     var confirmOk = $.i18n.prop('confirm_ok');
@@ -351,8 +351,8 @@ function isBtnEnable() {
 
 function submitIOSCertificateForm() {
     if (isBtnEnable()) {
-        var accessToken = $.cookie('access_token');
-        var orgName = $.cookie('orgName');
+        var accessToken = getAccessToken();
+        var orgName = getOrgname();
         var appName = $.cookie('appName');
 
         var notifierName = $('#nameIOS').val();
@@ -405,8 +405,8 @@ function submitIOSCertificateForm() {
 
 function submitAndroidCertificateForm() {
     if (isBtnEnable()) {
-        var accessToken = $.cookie('access_token');
-        var orgName = $.cookie('orgName');
+        var accessToken = getAccessToken();
+        var orgName = getOrgname();
         var appName = $.cookie('appName');
 
         var notifierName = $('#nameAndroid').val();

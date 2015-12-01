@@ -72,8 +72,8 @@ function saveNewIMUser() {
     var password = $('#password').val();
     var confirmPassword = $('#confirmPassword').val();
 
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
 
     var flag = onBlurCheckIMUsername(imUsername) && onBlurCheckIMPassword(password) && onBlurCheckIMConfirmPassword(confirmPassword);
@@ -136,9 +136,9 @@ function getAppUserList(pageAction) {
     $('#checkAll').attr('checked', false);
     $('#paginau').html('');
 
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var cuser = getCuser();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
 
     if (!accessToken || accessToken == '') {
@@ -304,9 +304,9 @@ function searchAppIMUser() {
         return;
     }
 
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var cuser = getCuser();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
@@ -390,8 +390,8 @@ function searchAppIMUser() {
 // 重置app用户密码
 function updateAppUserPassword() {
     var username = $('#usernameMondify').val();
-    var orgName = $.cookie('orgName');
-    var token = $.cookie('access_token');
+    var orgName = getOrgname();
+    var accessToken = getAccessToken();
     var appName = $('#appNameHide').val();
 
     var pwdModifyObj = $('#pwdMondify');
@@ -428,7 +428,7 @@ function updateAppUserPassword() {
                 type: 'POST',
                 data: JSON.stringify(requestData),
                 headers: {
-                    'Authorization': 'Bearer ' + token,
+                    'Authorization': 'Bearer ' + accessToken,
                     'Content-Type': 'application/json'
                 },
                 success: function (respData) {
@@ -452,8 +452,8 @@ function updateAppUserPassword() {
 
 // 删除app下的用户
 function deleteAppUser(username) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
 
     var confirmOk = $.i18n.prop('confirm_ok');
@@ -575,8 +575,8 @@ function sendMessageOneUser(users) {
 function sendUserMessage1() {
     var users = $('#usernameMessage').val();
     var appName = $('#appNameMessage').val();
-    var orgName = $.cookie('orgName');
-    var accessToken = $.cookie('access_token');
+    var orgName = getOrgname();
+    var accessToken = getAccessToken();
     var messageContent = $('#messegeContent').val().trim();
 
     var target = users.split(',');
@@ -617,8 +617,8 @@ function sendUserMessage1() {
 function sendUserMessage() {
     var users = $('#usernameMessage').val();
     var appName = $('#appNameMessage').val();
-    var orgName = $.cookie('orgName');
-    var accessToken = $.cookie('access_token');
+    var orgName = getOrgname();
+    var accessToken = getAccessToken();
     var messageContent = $('#messegeContent').val().trim();
     var target = users.split(',');
     if (messageContent == '') {
@@ -667,8 +667,8 @@ function sendUserImgMessage() {
     } else {
         var users = $('#usernameMessage').val();
         var appName = $('#appNameMessage').val();
-        var orgName = $.cookie('orgName');
-        var accessToken = $.cookie('access_token');
+        var orgName = getOrgname();
+        var accessToken = getAccessToken();
         var target = users.split(',');
         var str = $('#share-secret').val().split(',');
         var requestData = {
@@ -706,9 +706,9 @@ function sendUserImgMessage() {
 
 //获取用户好友列表
 function getAppIMUserContactsList(owner_username) {
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var cuser = getCuser();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
 
     if (!accessToken || accessToken == '') {
@@ -771,9 +771,9 @@ function getAppIMUserContactsList(owner_username) {
 //删除某个好友
 function deleteAppIMFriend(owner_username, friend_username) {
     //获取token
-    var orgName = $.cookie('orgName');
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
-    var accessToken = $.cookie('access_token');
+    var accessToken = getAccessToken();
 
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
@@ -817,8 +817,8 @@ function showAddIMUserContactWindow() {
 
 //添加好友
 function doAddIMUserContact() {
-    var orgName = $.cookie('orgName');
-    var accessToken = $.cookie('access_token');
+    var orgName = getOrgname();
+    var accessToken = getAccessToken();
     var owner_username = $('#usernameFriend').val();
     var appName = $('#appNameFriend').val();
     var friend_username = $('#friendUsername').val();
@@ -868,10 +868,9 @@ function doAddIMUserContact() {
 
 // 好友分页条更新
 function updateIMPageStatus(owner_username) {
-    // 获取token
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var cuser = getCuser();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
@@ -915,9 +914,9 @@ function updateIMPageStatus(owner_username) {
 //弹出修改信息框
 function showUpdateIMUserInfoWindow(username) {
     // 获取token
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var cuser = getCuser();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
 
     if (!accessToken || accessToken == '') {
@@ -971,9 +970,9 @@ function showUpdateIMUserInfoWindow(username) {
 
 //修改信息
 function doUpdateIMUserInfo() {
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var cuser = getCuser();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
     var username = $('#username').text();
 
@@ -1120,8 +1119,8 @@ function uploadImagesForSendMsgtoUser() {
     var imagesSuffixes = ['png', 'jpg', 'bmp', 'gif', 'jpeg'];
     var img = $('#file').val().substr($('#file').val().lastIndexOf('.') + 1).toLowerCase();
     if (imagesSuffixes.indexOf(img) > -1) {
-        var accessToken = $.cookie('access_token');
-        var orgName = $.cookie('orgName');
+        var accessToken = getAccessToken();
+        var orgName = getOrgname();
         var appName = $.cookie('appName');
 
         $('#app_users_alert_upload_picture_waiting').text($.i18n.prop('app_users_alert_upload_picture_pending'));

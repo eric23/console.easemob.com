@@ -69,8 +69,8 @@ function createAppFormValidate() {
 
 // create new app
 function saveNewApp() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $('#appName').val().trim();
     var allow_open_registration = $('input[name="allow_open_registration"]:checked').val();
     var appDesc = $('#appDesc').val().trim();
@@ -119,9 +119,9 @@ function saveNewApp() {
 
 // fetch app list
 function getAppList() {
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var cuser = getCuser();
+    var orgName = getOrgname();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -246,8 +246,8 @@ function fetchAppCredentials(accessToken, orgName, appName) {
 
 // 获取app详情
 function getAppOverView() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
@@ -298,8 +298,8 @@ function fetchAppUserCount(accessToken, orgName, appName) {
 
 //修改缩略图大小
 function updateImage() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $.cookie('appName');
     var imgReg = /^[0-9]*$/;
     var imgWidth = $('#imageWidth').val();
@@ -354,8 +354,8 @@ function updateImage() {
 
 // 切换app注册模式
 function changeAllowOpen() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appKey = $('#appKey').text().replace('#', '/');
     var tag = $('#allowOpenHdd').val();
 

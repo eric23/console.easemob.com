@@ -2,7 +2,7 @@
  * Created by kenshinn on 15-6-2.
  */
 
-var orgName = $.cookie('orgName');
+var orgName = getOrgname();
 
 //初始开始时间段
 //记录当前时间
@@ -323,8 +323,8 @@ function drawCountersChartsPeriodSearch() {
  */
 function applyCountersData(counterName, resolution, startTimeTime, endTimeMilSec, restStr) {
     var applyRequest = {
-        orgName: $.cookie('orgName'),
-        accessToken: $.cookie('access_token'),
+        orgName: getOrgname(),
+        accessToken: getAccessToken(),
         appName: $.cookie('appName'),
         start_time: '',
         end_time: '',

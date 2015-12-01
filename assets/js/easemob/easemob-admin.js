@@ -4,12 +4,11 @@
 
 // 登录用户信息
 function loginAdminInfo() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var loginAdminUser = $.cookie('cuser');
-    var companyName = $.cookie('companyName');
-    var telephone = $.cookie('telephone');
-    var email = $.cookie('email');
+    var accessToken = getAccessToken();
+    var loginAdminUser = getCuser();
+    var companyName = getCompanyName();
+    var telephone = getTelephone();
+    var email = getEmail();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -23,8 +22,8 @@ function loginAdminInfo() {
 
 // 修改登录用户信息
 function updateAdminInfo(username, companyName, telephone) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var requestData = {};
     if (companyName != '' && companyName != null) {
         requestData.companyName = companyName;
@@ -63,8 +62,8 @@ function updateAdminInfo(username, companyName, telephone) {
 
                 var date = new Date();
                 date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-                $.cookie('companyName', companyName, {path: '/', domain: baseDomain, expires: date});
-                $.cookie('telephone', telephone, {path: '/', domain: baseDomain, expires: date});
+                $.cookie('companyName'+getCookieNameSufix(), companyName, {path: '/', domain: baseDomain, expires: date});
+                $.cookie('telephone'+getCookieNameSufix(), telephone, {path: '/', domain: baseDomain, expires: date});
 
 
                 loginAdminInfo();
@@ -131,7 +130,7 @@ validateAccessToken = '';
 function updateAdminPasswd() {
     var oldPassword = $('#oldpassword').val();
     var newPassword = $('#newpassword').val();
-    var username = $.cookie('cuser');
+    var username = getCuser();
 
     var fetchTokenData = {
         'grant_type': 'password',
@@ -185,9 +184,9 @@ function updateAdminPasswd() {
 
 // 获取orgadmin列表
 function getOrgAdminList() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var loginUser = $.cookie('cuser');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var loginUser = getCuser();
 
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
@@ -263,9 +262,9 @@ function getOrgAdminList() {
 
 // remove user from organization
 function disConnAdminAndOrg(adminUserName) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var loginUser = $.cookie('cuser');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var loginUser = getCuser();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -414,8 +413,8 @@ function createAdminUserFormValidate() {
 
 // add new organization admin user
 function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminCompany, adminTel) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
 
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();

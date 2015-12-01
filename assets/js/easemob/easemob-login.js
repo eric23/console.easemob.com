@@ -796,13 +796,16 @@ function orgAdminLogin() {
                 } else {
                     var date = new Date();
                     date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-                    $.cookie('access_token', accessToken, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('cuser', cuser, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('cuserName', cuserName, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('email', email, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('orgName', orgName, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('companyName', companyName, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('telephone', telephone, {path: '/', domain: baseDomain, expires: date});
+
+                    var cookieNameSufix = getCookieNameSufix();
+
+                    $.cookie('access_token'+cookieNameSufix, accessToken, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('cuser'+cookieNameSufix, cuser, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('cuserName'+cookieNameSufix, cuserName, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('email'+cookieNameSufix, email, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('orgName'+cookieNameSufix, orgName, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('companyName'+cookieNameSufix, companyName, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('telephone'+cookieNameSufix, telephone, {path: '/', domain: baseDomain, expires: date});
 
                     EasemobCommon.disPatcher.toPageAppList();
                 }
@@ -812,4 +815,6 @@ function orgAdminLogin() {
         $('#cont').text($.i18n.prop('index_text_login'));
         $('#loginBtn').attr("disabled", false);
     }
+
+
 }
