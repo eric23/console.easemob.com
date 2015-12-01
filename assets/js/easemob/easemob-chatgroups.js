@@ -507,29 +507,30 @@ function createNewChatgroups(chatgroupName, chatgroupDesc, approval, publics, ch
         $('#groupnameSpan').text($.i18n.prop('app_chatgroups_add_alert_groupname_null'));
         return false;
     }
+    $('#groupnameSpan').text('');
+
     if (chatgroupDesc == '') {
-        $('#groupnameSpan').text('');
         $('#app_chatgroups_form_add_groupdescSpan').text($.i18n.prop('app_chatgroups_add_alert_groupdesc_null'));
         return false;
     }
+    $('#groupnameSpan').text('');
+
     var maxusersReg = /^[0-9]+$/;
     if (maxusers == '') {
-        $('#groupnameSpan').text('');
         $('#app_chatgroups_form_add_groupdescSpan').text('');
         $('#app_chatgroups_form_add_groupMaxuserSpan').text($.i18n.prop('app_chatgroups_add_alert_groupmaxusers_null'));
         return false;
     } else if (!(maxusersReg.test(maxusers) && parseInt(maxusers) >= 1)) {
         $('#app_chatgroups_form_add_groupMaxuserSpan').text($.i18n.prop('app_chatgroups_add_alert_groupmaxuser_duration'));
     } else if (chatgroupOwner == '') {
-        $('#groupnameSpan').text('');
         $('#app_chatgroups_form_add_groupdescSpan').text('');
         $('#app_chatgroups_form_add_groupMaxuserSpan').text('');
         $('#app_chatgroups_form_add_groupOwnerSpan').text($.i18n.prop('app_chatgroups_add_alert_groupowner_null'));
         return false;
     } else {
-        //
+        $('#groupnameSpan').text('');
+
         if(isIMUserExists(chatgroupOwner)) {
-            $('#groupnameSpan').text('');
             $('#app_chatgroups_form_add_groupdescSpan').text('');
             $('#app_chatgroups_form_add_groupMaxuserSpan').text('');
             $('#app_chatgroups_form_add_groupOwnerSpan').text('');
@@ -804,12 +805,12 @@ function createNewChatgroupPre() {
     if (BtnHandler.isBtnEnable()) {
         var groupName = $("#groupName").val().trim();
         var groupDesc = $("#groupDesc").val().trim();
+        var groupPublic = $('input:radio[name="isPublic"]:checked').val() == 'public';
+        var groupApproval = $("input:radio[name='approval']:checked").val() == 'approval';
         var groupOwner = $("#groupOwner").val().trim();
         var maxusers = $("#maxusers").val().trim();
-        var res = createNewChatgroups(groupName, groupDesc, approval, publics, groupOwner);
-        if (!res) {
-            BtnHandler.setBtnEnable();
-        }
+        createNewChatgroups(groupName, groupDesc, groupApproval, groupPublic, groupOwner);
+        BtnHandler.setBtnEnable();
     }
 }
 

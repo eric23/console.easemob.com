@@ -216,8 +216,8 @@
                     <label class="control-label" for="private"><span id="app_chatgroups_form_label_isPublic"></span>:</label>
                     <div class="controls">
                         <input type="radio" id="private" name="isPublic" onclick="numss();" checked="checked"
-                               value="false" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_add_private"></span>
-                        <input type="radio" id="public" name="isPublic" onclick="nums();" value="true"
+                               value="private" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_add_private"></span>
+                        <input type="radio" id="public" name="isPublic" onclick="nums();" value="public"
                                style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_add_public"></span>
                         <span style="color: red;" id="grouppulicSpan"></span>
                     </div>
@@ -230,9 +230,9 @@
                     <label class="control-label" for="approval"><span id="app_chatgroups_form_label_isApprovals"></span>:</label>
 
                     <div class="controls">
-                        <input type="radio" id="unApproval" name="approval" onclick="approvals();" value="false"
+                        <input type="radio" id="unApproval" name="approval" onclick="approvals();" value="unApproval"
                                style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_add_unApproval"></span>
-                        <input type="radio" id="approval" name="approval" onclick="approvalon();" value="true"
+                        <input type="radio" id="approval" name="approval" onclick="approvalon();" value="approval"
                                checked="checked" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_add_approval"></span>
                         <span style="color: red;" id="app_chatgroups_form_add_groupApprovalSpan"></span>
                     </div>
