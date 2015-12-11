@@ -60,7 +60,7 @@
                 applyCountersAndDraw(this, 'selectorChange');
             });
             $('#chatmessagsChartSelector').change(function () {
-                applyCountersAndDraw(this, null);
+                applyCountersAndDraw(this, 'selectorChange');
             });
 
         });
@@ -207,6 +207,10 @@
                                     id="app_collection_counters_chatType_dailyNewActiveUser"></option>
                             <option value="daily_chat_users"
                                     id="app_collection_counters_chatType_dailySendMsgUser"></option>
+                        </select>
+                        <select id="chatmessagsChartSelector">
+                            <option value="msg_outgoing_chat">单聊 - 上行消息</option>
+                            <option value="msg_outgoing_groupchat">群聊 - 上行消息</option>
                         </select>
                         <!--<select id="chatmessagsChartSelector">
                             <option value="msg_outgoing" disabled="disabled">消息</option>

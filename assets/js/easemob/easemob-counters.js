@@ -173,11 +173,11 @@ function getCounterNameFromHtml() {
             break;
         case 'msg_outgoing_chat':
             counterName = 'application.collection.chatmessages';
-            //restStr = '&direction=outgoing&chat_type=chat';
+            restStr = '&direction=outgoing&chat_type=chat';
             break;
         case 'msg_outgoing_groupchat':
             counterName = 'application.collection.chatmessages';
-            //restStr = '&direction=outgoing&chat_type=groupchat';
+            restStr = '&direction=outgoing&chat_type=groupchat';
             break;
         case 'msg_offline_chat':
             counterName = 'application.collection.chatmessages';
@@ -469,6 +469,16 @@ function applyCountersAndDraw(selector, event) {
             chartTitle.text($.i18n.prop('app_collection_counters_chartTileUsers'));
             //chartTitle.text(chartTileDailyNewActiveUser);
             break;
+        case 'msg_outgoing_chat':
+            chartTitle.text('单聊 - 上行消息');
+            //chartTitle.text($.i18n.prop('app_collection_counters_chartTileUsers'));
+            //chartTitle.text(chartTileDailyNewActiveUser);
+            break;
+        case 'msg_outgoing_groupchat':
+            chartTitle.text('群聊 - 上行消息');
+            //chartTitle.text($.i18n.prop('app_collection_counters_chartTileUsers'));
+            //chartTitle.text(chartTileDailyNewActiveUser);
+            break;
         default:
             break;
     }
@@ -488,7 +498,7 @@ function showUsersChartTab() {
 
     $('#userChartSelector').show();
     $('#countersChartType').show();
-//            $('#chatmessagsChartSelector').hide();
+    $('#chatmessagsChartSelector').hide();
     $('#chatgroupsChartSelector').hide();
 
     $('#drawCountersChartsType').val('register_users');
@@ -521,10 +531,13 @@ function showUsersChartTab() {
 function showChatmessagsChartTab() {
     $('#tabChatmessages').parent().attr('class', 'active');
     $('#tabUsers').parent().removeAttr('class');
-    $('#countersChartType').hide();
-    //$('#chatmessagsChartSelector').show();
+
+    $('#countersChartType').show();
+    $('#chatmessagsChartSelector').show();
+
     $('#userChartSelector').hide();
     $('#chatgroupsChartSelector').hide();
+
     $('#drawCountersChartsType').val('msg_outgoing_chat');
 
     var period = $("input[name='chartsRadio1']:checked").val();
@@ -532,9 +545,9 @@ function showChatmessagsChartTab() {
     var chartTitle = $('#chartTitle').text($.i18n.prop('app_collection_counters_chartTileChatmessages'));
 }
 
-//        function showChatgroupsChartTab() {
-//            $('#userChartSelector').hide();
-//            $('#chatmessagsChartSelector').hide();
-//            $('#chatgroupsChartSelector').show();
-//            $('#drawCountersChartsType').val('');
-//        }
+//function showChatgroupsChartTab() {
+//    $('#userChartSelector').hide();
+//    $('#chatmessagsChartSelector').hide();
+//    $('#chatgroupsChartSelector').show();
+//    $('#drawCountersChartsType').val('');
+//}
