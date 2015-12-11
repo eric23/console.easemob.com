@@ -38,7 +38,8 @@
             I18NPropsLoader.loadPropertiesForPageAppCounters();
 
             chartTileUsers = $.i18n.prop('app_collection_counters_chartTileUsers');
-            chartTileChatmessages = $.i18n.prop('app_collection_counters_chartTileChatmessages');
+//            chartTileChatmessages = $.i18n.prop('app_collection_counters_chartTileChatmessages');
+            chartTileChatmessages = $.i18n.prop('app_collection_counters_chartTileChatmessages_chat_incoming');
             chartTileDailyActiveUser = $.i18n.prop('app_collection_counters_chartTileDailyActiveUser');
             chartTileDailyNewActiveUser = $.i18n.prop('app_collection_counters_chartTileDailyNewActiveUser');
             chartTileDailyChatUser = $.i18n.prop('app_collection_counters_chartTileDailyChatUser');
@@ -181,7 +182,7 @@
                             </a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span id="showLinkBigdata" class="hidden"><a id="showLinkBigdataBtn" target_href="" href="javascript:void(0)" target="_blank">进入我的IM数据平台>>></a></span>
+                    <span id="showLinkBigdata" class="hidden"><a id="showLinkBigdataBtn" target_href="" href="javascript:void(0)" target="_blank"><span id="bigdataEntry"></span></a></span>
                     <hr/>
                 </div>
             </div>
@@ -209,8 +210,8 @@
                                     id="app_collection_counters_chatType_dailySendMsgUser"></option>
                         </select>
                         <select id="chatmessagsChartSelector">
-                            <option value="msg_outgoing_chat">单聊 - 上行消息</option>
-                            <option value="msg_outgoing_groupchat">群聊 - 上行消息</option>
+                            <option value="msg_outgoing_chat" id="chatmessagsChartSelector_msg_outgoing_chat"></option>
+                            <option value="msg_outgoing_groupchat" id="chatmessagsChartSelector_msg_outgoing_groupchat"></option>
                         </select>
                         <!--<select id="chatmessagsChartSelector">
                             <option value="msg_outgoing" disabled="disabled">消息</option>

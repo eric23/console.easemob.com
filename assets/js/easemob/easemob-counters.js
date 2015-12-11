@@ -470,12 +470,12 @@ function applyCountersAndDraw(selector, event) {
             //chartTitle.text(chartTileDailyNewActiveUser);
             break;
         case 'msg_outgoing_chat':
-            chartTitle.text('单聊 - 上行消息');
+            chartTitle.text($.i18n.prop('app_collection_counters_chartTileChatmessages_chat_incoming'));
             //chartTitle.text($.i18n.prop('app_collection_counters_chartTileUsers'));
             //chartTitle.text(chartTileDailyNewActiveUser);
             break;
         case 'msg_outgoing_groupchat':
-            chartTitle.text('群聊 - 上行消息');
+            chartTitle.text($.i18n.prop('app_collection_counters_chartTileChatmessages_groupchat_incoming'));
             //chartTitle.text($.i18n.prop('app_collection_counters_chartTileUsers'));
             //chartTitle.text(chartTileDailyNewActiveUser);
             break;
@@ -534,6 +534,8 @@ function showChatmessagsChartTab() {
 
     $('#countersChartType').show();
     $('#chatmessagsChartSelector').show();
+    $('#chatmessagsChartSelector_msg_outgoing_chat').text($.i18n.prop('app_collection_counters_chatType_chat_incoming'));
+    $('#chatmessagsChartSelector_msg_outgoing_groupchat').text($.i18n.prop('app_collection_counters_chatType_groupchat_incoming'));
 
     $('#userChartSelector').hide();
     $('#chatgroupsChartSelector').hide();
@@ -542,7 +544,8 @@ function showChatmessagsChartTab() {
 
     var period = $("input[name='chartsRadio1']:checked").val();
     drawCountersCharts(period, null);
-    var chartTitle = $('#chartTitle').text($.i18n.prop('app_collection_counters_chartTileChatmessages'));
+    //var chartTitle = $('#chartTitle').text($.i18n.prop('app_collection_counters_chartTileChatmessages'));
+    var chartTitle = $('#chartTitle').text($.i18n.prop('app_collection_counters_chartTileChatmessages_chat_incoming'));
 }
 
 //function showChatgroupsChartTab() {
