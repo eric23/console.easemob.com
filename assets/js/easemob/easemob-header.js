@@ -12,6 +12,7 @@ document.write(
     <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" /> -->\
         <!--ace styles-->\
     <link href="/assets/css/ace.min.css" rel="stylesheet" type="text/css" media="screen"/>\
+    <link href="/assets/css/account_pay.css" rel="stylesheet" type="text/css" media="screen"/>\
     <link href="/assets/css/ace-responsive.min.css" rel="stylesheet" type="text/css" media="screen"/>\
     <link href="/assets/css/ace-skins.min.css" rel="stylesheet" type="text/css" media="screen"/>\
     <!--[if lte IE 8]>\
@@ -24,6 +25,8 @@ document.write(
     <script src="/assets/js/jquery.cookie-1.3.js"></script>\
     <script src="/assets/js/json2.js"></script>\
     <script src="/assets/js/ace-elements.min.js"></script>\
+    <script src="/assets/js/highcharts.js"></script>\
+    <script src="/assets/js/My97DatePicker/WdatePicker.js"></script>\
     <script src="/assets/js/ace.min.js"></script>\
     <script src="/assets/js/layer/layer.min.js"></script>\
     <script src="/assets/js/easemob/easemob-common.js"></script>\
