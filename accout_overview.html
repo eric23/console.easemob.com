@@ -22,7 +22,9 @@
             loginAdminInfo();
 
             I18NPropsLoader.loadPropertiesCommon();
-            I18NPropsLoader.loadPropertiesForPageAdminCreate()
+            I18NPropsLoader.loadPropertiesForPageAdminCreate();
+
+            I18NPropsLoader.accout_overview();
 
             initOrgAminCreateForm();
         });
@@ -112,15 +114,15 @@
         <div class="clearfix" id="page-content">
         <div class="pagination pagination-left">
                 <ul>
-                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminHome()" target="_self"><font color="green"><span id="admin_home_second_nav_btn_accountInfo">帐户总览</span></font></a></li>
+                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminHome()" target="_self"><font color="green"><span id="account_overview"></span></font></a></li>
                 </ul>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <ul>
-                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="admin_home_second_nav_resetpassword">充值记录</span></a></li>
+                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="recharge_record">充值记录</span></a></li>
                 </ul>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <ul>
-                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="admin_home_second_nav_resetpassword">消费记录</span></a></li>
+                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="records_of_consumption">消费记录</span></a></li>
                 </ul>
             </div>
             <div class="row-fluid">
@@ -135,14 +137,14 @@
                                     <!-- 应用开始 -->
                                     <div class="big_overview_info">
                                         <div class="big_overview_info_block1 clearfix">
-                                            <em class="account_balance">帐户余额：</em>
+                                            <em class="account_balance" id="account_balance">帐户余额：</em>
                                             <!-- <em class="account_pay">￥123456.78</em> -->
                                             <em class="account_pay">￥</em>
-                                            <a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="admin_home_second_nav_resetpassword">马上充值</span></a>
+                                            <a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="immediately_recharge">马上充值</span></a>
                                         </div>
                                         <div class="big_overview_info_block2">
                                             <div class="big_overview_info_block2_hd">
-                                                <em class="consumption_overview">消费概览：</em>
+                                                <em class="consumption_overview" id="consumption_overview">消费概览：</em>
                                             </div>
                                             <div class="big_overview_info_block2_bd">
                                                     

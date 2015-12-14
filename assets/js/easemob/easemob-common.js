@@ -355,6 +355,7 @@ var EasemobCommon = function () {
 
             var pageName = I18NPropsLoader.getPageName();
             if (pageName != '') {
+                console.log(pageName);
                 I18NPropsLoader.loadPropertiesByPage(pageName);
             } else {
                 I18NPropsLoader.loadPropertiesForPageIndexLogin();

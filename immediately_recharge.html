@@ -23,7 +23,9 @@
             loginAdminInfo();
 
             I18NPropsLoader.loadPropertiesCommon();
-            I18NPropsLoader.loadPropertiesForPageAdminCreate()
+            I18NPropsLoader.loadPropertiesForPageAdminCreate();
+
+            I18NPropsLoader.loadImmediately_recharge();
 
             initOrgAminCreateForm();
         });
@@ -106,22 +108,22 @@
     <div class="clearfix" id="main-content">
         <div id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="icon-account"></i>&nbsp;&nbsp;<span id="accout_overview_myaccount">帐户</span><span class="divider"> <i class="icon-angle-right"></i> </span><span id="recharge_record">充值</span>
+                <li><i class="icon-account"></i>&nbsp;&nbsp;<span id="accout_overview_myaccount">帐户</span><span class="divider"> <i class="icon-angle-right"></i> </span><span id="j_recharge">充值</span>
                 </li>
             </ul>
         </div>
         <div class="clearfix" id="page-content">
         <div class="pagination pagination-left">
                 <ul>
-                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminHome()" target="_self"><span id="admin_home_second_nav_btn_accountInfo">帐户总览</span></a></li>
+                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminHome()" target="_self"><span id="account_overview">帐户总览</span></a></li>
                 </ul>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <ul>
-                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="admin_home_second_nav_resetpassword">充值记录</span></a></li>
+                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="recharge_record">充值记录</span></a></li>
                 </ul>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <ul>
-                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="admin_home_second_nav_resetpassword">消费记录</span></a></li>
+                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="records_of_consumption">消费记录</span></a></li>
                 </ul>
             </div>
             <div class="row-fluid">
@@ -137,48 +139,47 @@
                                         <div class="imm_recharge_box">
                                             <div class="bd">
                                                 <div class="item">
-                                                    <em class="curr_price">当前余额：</em>
+                                                    <em class="curr_price" id="j_current_balance">当前余额：</em>
                                                     <em class="price">￥123456.78</em>
                                                 </div>
                                                 <div class="item">
-                                                    <em class="recharge_amount">充值金额：</em>
+                                                    <em class="recharge_amount" id="j_recharge_amount">充值金额：</em>
                                                     <input class="input_price" type="text" name="price_num" value="" placeholder="e.g.  500.00"></input>
-                                                    <em class="text_info">只能填写数字，和小数点2位，不能为空</em>
+                                                    <em class="text_info" id="j_bxshuzi">只能填写数字，和小数点2位，不能为空</em>
                                                 </div>
                                                 <div class="item">
-                                                    <em class="recharge_mode">充值方式：</em>
+                                                    <em class="recharge_mode" id="j_rechargerMode_imm">充值方式：</em>
                                                 </div>
                                                 <div class="item h120 clearfix">
                                                     <em class="radio">
-                                                        <input class="pay_radio" type="radio" checked></input>    
+                                                        <input class="pay_radio" type="radio" checked></input>
                                                     </em>
                                                     <em class="img">
                                                         <img src="assets/img/u24.png" />
                                                     </em>
                                                     
-                                                    
                                                 </div>
                                             </div>
                                             <div class="ft">
-                                                <a href="#">下一步</a>
+                                                <a href="#" id="j_next_step">下一步</a>
                                             </div>
                                         </div>
                                         <hr />
                                         <div class="imm_recharge_info">
                                             <div class="imm_recharge_info_hd">
-                                                <p>银行对公汇款：</p>
+                                                <p id="j_bank_of_public_money">银行对公汇款：</p>
                                             </div>
                                             <div class="imm_recharge_info_bd">
-                                                <p>汇款时请在备注中写明您在云通讯的认证名，以便入账；若未能及时入账或其他问题，请联系客户经理或客服人员</p>
+                                                <p id="j_huikuan">汇款时请在备注中写明您在云通讯的认证名，以便入账；若未能及时入账或其他问题，请联系客户经理或客服人员</p>
                                             </div>
                                             <div class="imm_recharge_info_ft">
-                                                <p>
+                                                <p id="j_account_name">
                                                     开户名称：北京易掌云峰科技有限公司
                                                 </p>
-                                                <p>
+                                                <p id="j_shroff_account_number">
                                                     收款账号：1234567890
                                                 </p>
-                                                <p>
+                                                <p id="j_bank_of_deposit">
                                                     开户银行：XX银行北京XX支行
                                                 </p>
                                             </div>

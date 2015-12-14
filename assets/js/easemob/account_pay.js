@@ -221,7 +221,6 @@ function RechargeRecord(opt) {
 	if (!(this instanceof RechargeRecord)) {
 		return new RechargeRecord(opt);
 	}
-	alert('aasdfasdf');
 	this.start_time_ele = opt.start_time_ele;
 	this.end_time_ele = opt.end_time_ele;
 
@@ -396,7 +395,6 @@ RechargeRecord.prototype = {
 	 */
 	setRanderTable: function (msg, that) {
 
-
 		//渲染tboby
 		var SetTbody = {
 			init: function (msg) {
@@ -412,7 +410,7 @@ RechargeRecord.prototype = {
 					self.tr_start += '<td>' + v.id + '</td>';
 					self.tr_start += '<td>' + v.lstUpdTime	 + '</td>';
 					self.tr_start += '<td>' + v.amount	 + '</td>';
-					self.tr_start += '<td>支付宝</td>';
+					self.tr_start += '<td>' + v.type +'</td>';
 					self.tr_start += '</tr>';
 				});
 
@@ -474,7 +472,13 @@ function RechargeOfRecord(opt) {
 	if (this.flag == 'recharge') {
 		this.flag_name = '支付宝';
 	} else if (this.flag == 'consumption') {
-		this.flag_name = '消费';
+		//todo:中英文硬编码
+		if ($('#nav_index').text() == '首页') {
+			this.flag_name = '消费';
+	    } else {
+			this.flag_name = 'consumption';
+	    }
+
 	}
 
 }
@@ -641,7 +645,7 @@ RechargeOfRecord.prototype = {
 	 */
 	setRanderTable: function (msg, that) {
 
-		console.log(that,'asdfasdfasdfasdfasdf+++_+_');
+		console.log(msg,'msg,msg');
 
 		//渲染tboby
 		var SetTbody = {
@@ -661,6 +665,7 @@ RechargeOfRecord.prototype = {
 					self.tr_start += '<td>' + v.lstUpdTime	 + '</td>';
 					self.tr_start += '<td>' + v.amount	 + '</td>';
 					self.tr_start += '<td>'+ that.flag_name +'</td>';
+					//self.tr_start += '<td>'+ v.type +'</td>';
 					self.tr_start += '</tr>';
 				});
 
@@ -778,9 +783,23 @@ ImmediatelyRecharge.prototype = {
     	if (msg.status == 400) {
     		is_success = 'cancel';
     		message = msg.message;
+    		if ($('#nav_index').text() == '首页') {
+
+	    		is_ok_btn = '确认充值';
+	    	} else {
+	    		is_ok_btn = 'close';
+	    	}
     	} else if (msg.status == 200) {
     		is_sucess = 'ok';
     		message = '支付成功';
+
+    		if ($('#nav_index').text() == '首页') {
+    			message = '支付成功';
+	    		is_ok_btn = '确认充值';
+	    	} else {
+	    		is_ok_btn = 'close';
+	    		message = 'Payment success';
+	    	}
 
     	}
 		var protocol_text = '<div class="bigdata_protocol">' +
@@ -797,7 +816,7 @@ ImmediatelyRecharge.prototype = {
 		        '</div>'+
 		    '</div>'+
 		    '<div class="bigdata_protocol_ft clearfix">'+
-		        '<span data-id='+is_sucess+' class="bigdata_protocol_yes">闭关</span>'+
+		        '<span data-id='+is_sucess+' class="bigdata_protocol_yes">'+is_ok_btn+'</span>'+
 		    '</div>'+
 		'</div>'; 
 
@@ -831,17 +850,41 @@ ImmediatelyRecharge.prototype = {
      */
     startStartRander: function (msg,that) {
     	
+
+    	//todo:中英文切换
+    	var i81n_message = '请在新打开的页面完成支付，付款完成后再关闭此窗口。';
+    	var is_ok_btn = '确认';
+
+
     	var is_sucess = 'ok';
-    	var messsage = '请在新打开的页面完成支付，付款完成后再关闭此窗口。';
+    	//var messsage = '请在新打开的页面完成支付，付款完成后再关闭此窗口。';
     	if (msg.status == 400) {
     		is_success = 'cancel';
-    		messsage = msg.messsage;
+    		message = msg.message;
+
+    		if ($('#nav_index').text() == '首页') {
+    			//message = '请在新打开的页面完成支付，付款完成后再关闭此窗口。';
+	    		is_ok_btn = '确认充值';
+	    	} else {
+	    		is_ok_btn = 'Confirm recharge';
+	    		//message = 'Please complete the payment in the newly opened page, and close the window after the payment is completed.';
+	    	}
     	} else if (msg.status == 200) {
     		is_sucess = 'ok';
-    		messsage = '请在新打开的页面完成支付，付款完成后再关闭此窗口。';
+    		if ($('#nav_index').text() == '首页') {
+    			message = '请在新打开的页面完成支付，付款完成后再关闭此窗口。';
+	    		is_ok_btn = '确认充值';
+	    	} else {
+	    		is_ok_btn = 'Confirm recharge';
+	    		message = 'Please complete the payment in the newly opened page, and close the window after the payment is completed.';
+	    	}
     	}
+
+
     	that.internalOrderNo = msg.data.internalOrderNo;
     	var rechargeUrl = msg.data.rechargeUrl;
+
+
 
     	//获取这个链接跳转
 		var protocol_text = '<div class="bigdata_protocol">' +
@@ -853,12 +896,12 @@ ImmediatelyRecharge.prototype = {
 		        '<div class="bigdata_protocol_bd">'+
 		            '<div class="bigdata_protocol_content">'+
 
-		           	messsage +
+		           	message +
 
 		        '</div>'+
 		    '</div>'+
 		    '<div class="bigdata_protocol_ft clearfix">'+
-		        '<span data-id='+is_sucess+' class="bigdata_protocol_yes">确认充值</span>'+
+		        '<span data-id='+is_sucess+' class="bigdata_protocol_yes">'+is_ok_btn+'</span>'+
 		    '</div>'+
 		'</div>'; 
 

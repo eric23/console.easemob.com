@@ -133,6 +133,23 @@ var I18NPropsLoader = function(){
                     this.loadPropertiesCommon();
                     this.loadPropertiesForPageAppNotifiers();
                     break;
+                 case 'accout_overview':
+                    this.loadPropertiesCommon();
+                    this.accout_overview();
+                    break;
+                 case 'recharge_record':
+                    this.loadPropertiesCommon();
+                    this.loadRecharge_record();
+                    break;
+                 case 'records_of_consumption':
+                    this.loadPropertiesCommon();
+                    this.loadRecords_of_consumption();
+                    break;
+                 case 'immediately_recharge':
+                    this.loadPropertiesCommon();
+                    this.loadImmediately_recharge();
+                    break;
+
             }
         },
 
@@ -220,6 +237,393 @@ var I18NPropsLoader = function(){
                     $('#index_span_register_agree_service').text($.i18n.prop('index_span_register_agree_service'));
                     $('#index_span_register_agree_returntilogin').text($.i18n.prop('index_span_register_agree_returntilogin'));
 
+                    var usernameEMsgVal = $('#usernameEMsg').text();
+                    if(usernameEMsgVal != ''){
+                        $('#usernameEMsg').text($.i18n.prop('index_alert_register_username_empty'));
+                    }
+                    var passwordEMsgVal = $('#passwordEMsg').text();
+                    if(passwordEMsgVal != ''){
+                        $('#passwordEMsg').text($.i18n.prop('index_alert_register_password_empty'));
+                    }
+                }
+            });
+        },
+        //我的帐户accout_overview.html
+        accout_overview: function(){
+            $.i18n.properties({
+                name: resourceFilePrefix,
+                path: resourceFilePath,
+                mode: resourcePropertiesMode,
+                language : this.getNavigatorLanguage(),
+                callback : function() {
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+
+
+                    $('#account_overview').text($.i18n.prop('account_overview'));
+                    $('#recharge_record').text($.i18n.prop('recharge_record'));
+                    $('#records_of_consumption').text($.i18n.prop('records_of_consumption'));
+                    $('#account_balance').text($.i18n.prop('account_balance'));
+                    $('#immediately_recharge').text($.i18n.prop('immediately_recharge'));
+                    $('#consumption_overview').text($.i18n.prop('consumption_overview'));
+                    $('#chars_wrap_hd_text').text($.i18n.prop('chars_wrap_hd_text'));
+
+
+
+                    $('#page_title').text($.i18n.prop('page_title'));
+                    $('#logo_index').attr('src', $.i18n.prop('logo_index'));
+                    $('#index_span_login').text($.i18n.prop('index_span_login'));
+                    $('#index_span_title_imcloud').text($.i18n.prop('index_span_title_imcloud'));
+                    $('#index_span_title_kefu').text($.i18n.prop('index_span_title_kefu'));
+                    $('#index_span_imcloud_nobody').text($.i18n.prop('index_span_imcloud_nobody'));
+                    $('#index_span_imcloud_gotoregister').text($.i18n.prop('index_span_imcloud_gotoregister'));
+
+                    $('#index_span_register').text($.i18n.prop('index_span_register'));
+                    $('#index_login_username').text($.i18n.prop('index_login_username'));
+                    $('#index_login_password').text($.i18n.prop('index_login_password'));
+                    $('#index_login_rememberme').text($.i18n.prop('index_login_rememberme'));
+                    $('#index_bnt_login').text($.i18n.prop('index_bnt_login'));
+                    $('#index_input_username').text($.i18n.prop('index_input_username'));
+
+                    $('#index_forgot_username').text($.i18n.prop('index_forgot_username'));
+                    $('#index_forgot_btn_password').text($.i18n.prop('index_forgot_btn_password'));
+                    $('#email').attr('placeholder', $.i18n.prop('index_forgot_username_placeHolder'));
+                    $('#index_forgot_password_link').text($.i18n.prop('index_forgot_password_link'));
+                    $('#index_bnt_backtologin').text($.i18n.prop('index_bnt_backtologin'));
+                    $('#emailEMsg').text('');
+
+                    $('#index_span_register_orgname').text($.i18n.prop('index_span_register_orgname'));
+                    $('#regOrgName').attr('placeholder', $.i18n.prop('index_span_register_orgname_placeholder'));
+                    $('#regOrgNameSMsg').text($.i18n.prop('index_alert_register_regOrgName_regix'));
+                    $('#index_span_register_userneme').text($.i18n.prop('index_span_register_userneme'));
+                    $('#regUserName').attr('placeholder', $.i18n.prop('index_span_register_userneme_placeholder'));
+                    $('#regUserNameSMsg').text($.i18n.prop('index_alert_register_regUserName_regix'));
+                    $('#index_span_register_password').text($.i18n.prop('index_span_register_password'));
+                    $('#regPassword').attr('placeholder', $.i18n.prop('index_span_register_password_placeholder'));
+                    $('#index_span_register_tel').text($.i18n.prop('index_span_register_tel'));
+                    $('#regTel').attr('placeholder', $.i18n.prop('index_span_register_tel_placeholder'));
+                    $('#index_span_register_repassword').text($.i18n.prop('index_span_register_repassword'));
+                    $('#regRePassword').attr('placeholder', $.i18n.prop('index_span_register_repassword_placeholder'));
+                    $('#index_span_register_email').text($.i18n.prop('index_span_register_email'));
+                    $('#regEmail').attr('placeholder', $.i18n.prop('index_span_register_email_placeholder'));
+                    $('#index_span_register_company').text($.i18n.prop('index_span_register_company'));
+                    $('#regCompanyName').attr('placeholder', $.i18n.prop('index_span_register_company_placeholder'));
+                    $('#index_span_register_comeFromNote').text($.i18n.prop('index_span_register_comeFromNote'));
+                    $('#index_span_register_comefromInternet').text($.i18n.prop('index_span_register_comefromInternet'));
+                    $('#index_span_register_comefromFriends').text($.i18n.prop('index_span_register_comefromFriends'));
+                    $('#index_span_register_comefromOfficial').text($.i18n.prop('index_span_register_comefromOfficial'));
+                    $('#index_span_register_comefromExhibition').text($.i18n.prop('index_span_register_comefromExhibition'));
+                    $('#index_span_register_comefromMedia').text($.i18n.prop('index_span_register_comefromMedia'));
+                    $('#index_span_register_formSubBtn').text($.i18n.prop('index_span_register_formSubBtn'));
+                    $('#index_span_register_agree').text($.i18n.prop('index_span_register_agree'));
+                    $('#index_span_register_agree_service').text($.i18n.prop('index_span_register_agree_service'));
+                    $('#index_span_register_agree_returntilogin').text($.i18n.prop('index_span_register_agree_returntilogin'));
+
+                    $('#left_nav_account').text($.i18n.prop('left_nav_account'));
+                    var usernameEMsgVal = $('#usernameEMsg').text();
+                    if(usernameEMsgVal != ''){
+                        $('#usernameEMsg').text($.i18n.prop('index_alert_register_username_empty'));
+                    }
+                    var passwordEMsgVal = $('#passwordEMsg').text();
+                    if(passwordEMsgVal != ''){
+                        $('#passwordEMsg').text($.i18n.prop('index_alert_register_password_empty'));
+                    }
+                }
+            });
+        },
+
+
+        //充值记录recharge_record.html
+        loadRecharge_record: function(){
+            $.i18n.properties({
+                name: resourceFilePrefix,
+                path: resourceFilePath,
+                mode: resourcePropertiesMode,
+                language : this.getNavigatorLanguage(),
+                callback : function() {
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#recharge_record_top').text($.i18n.prop('recharge_record_top'));
+
+                    $('#accout_overview_myaccount').text($.i18n.prop('accout_overview_myaccount'));
+                    $('#account_overview').text($.i18n.prop('account_overview'));
+                    $('#recharge_record').text($.i18n.prop('recharge_record'));
+                    $('#records_of_consumption').text($.i18n.prop('records_of_consumption'));
+                    $('#account_balance').text($.i18n.prop('account_balance'));
+                    $('#immediately_recharge').text($.i18n.prop('immediately_recharge'));
+                    $('#consumption_overview').text($.i18n.prop('consumption_overview'));
+                    $('#chars_wrap_hd_text').text($.i18n.prop('chars_wrap_hd_text'));
+
+                    $('#j_timename').text($.i18n.prop('j_timename'));
+                    $('#j_zhi').text($.i18n.prop('j_zhi'));
+                    $('#j_searchBtn').text($.i18n.prop('j_searchBtn'));
+
+                    $('#j_numericalOrder').text($.i18n.prop('j_numericalOrder'));
+                    $('#j_exchangeHour').text($.i18n.prop('j_numericalOrder'));
+                    $('#j_price').text($.i18n.prop('j_price'));
+                    $('#j_rechargerMode').text($.i18n.prop('j_rechargerMode'));
+                    
+
+                    $('#page_title').text($.i18n.prop('page_title'));
+                    $('#logo_index').attr('src', $.i18n.prop('logo_index'));
+                    $('#index_span_login').text($.i18n.prop('index_span_login'));
+                    $('#index_span_title_imcloud').text($.i18n.prop('index_span_title_imcloud'));
+                    $('#index_span_title_kefu').text($.i18n.prop('index_span_title_kefu'));
+                    $('#index_span_imcloud_nobody').text($.i18n.prop('index_span_imcloud_nobody'));
+                    $('#index_span_imcloud_gotoregister').text($.i18n.prop('index_span_imcloud_gotoregister'));
+
+                    $('#index_span_register').text($.i18n.prop('index_span_register'));
+                    $('#index_login_username').text($.i18n.prop('index_login_username'));
+                    $('#index_login_password').text($.i18n.prop('index_login_password'));
+                    $('#index_login_rememberme').text($.i18n.prop('index_login_rememberme'));
+                    $('#index_bnt_login').text($.i18n.prop('index_bnt_login'));
+                    $('#index_input_username').text($.i18n.prop('index_input_username'));
+
+                    $('#index_forgot_username').text($.i18n.prop('index_forgot_username'));
+                    $('#index_forgot_btn_password').text($.i18n.prop('index_forgot_btn_password'));
+                    $('#email').attr('placeholder', $.i18n.prop('index_forgot_username_placeHolder'));
+                    $('#index_forgot_password_link').text($.i18n.prop('index_forgot_password_link'));
+                    $('#index_bnt_backtologin').text($.i18n.prop('index_bnt_backtologin'));
+                    $('#emailEMsg').text('');
+
+                    $('#index_span_register_orgname').text($.i18n.prop('index_span_register_orgname'));
+                    $('#regOrgName').attr('placeholder', $.i18n.prop('index_span_register_orgname_placeholder'));
+                    $('#regOrgNameSMsg').text($.i18n.prop('index_alert_register_regOrgName_regix'));
+                    $('#index_span_register_userneme').text($.i18n.prop('index_span_register_userneme'));
+                    $('#regUserName').attr('placeholder', $.i18n.prop('index_span_register_userneme_placeholder'));
+                    $('#regUserNameSMsg').text($.i18n.prop('index_alert_register_regUserName_regix'));
+                    $('#index_span_register_password').text($.i18n.prop('index_span_register_password'));
+                    $('#regPassword').attr('placeholder', $.i18n.prop('index_span_register_password_placeholder'));
+                    $('#index_span_register_tel').text($.i18n.prop('index_span_register_tel'));
+                    $('#regTel').attr('placeholder', $.i18n.prop('index_span_register_tel_placeholder'));
+                    $('#index_span_register_repassword').text($.i18n.prop('index_span_register_repassword'));
+                    $('#regRePassword').attr('placeholder', $.i18n.prop('index_span_register_repassword_placeholder'));
+                    $('#index_span_register_email').text($.i18n.prop('index_span_register_email'));
+                    $('#regEmail').attr('placeholder', $.i18n.prop('index_span_register_email_placeholder'));
+                    $('#index_span_register_company').text($.i18n.prop('index_span_register_company'));
+                    $('#regCompanyName').attr('placeholder', $.i18n.prop('index_span_register_company_placeholder'));
+                    $('#index_span_register_comeFromNote').text($.i18n.prop('index_span_register_comeFromNote'));
+                    $('#index_span_register_comefromInternet').text($.i18n.prop('index_span_register_comefromInternet'));
+                    $('#index_span_register_comefromFriends').text($.i18n.prop('index_span_register_comefromFriends'));
+                    $('#index_span_register_comefromOfficial').text($.i18n.prop('index_span_register_comefromOfficial'));
+                    $('#index_span_register_comefromExhibition').text($.i18n.prop('index_span_register_comefromExhibition'));
+                    $('#index_span_register_comefromMedia').text($.i18n.prop('index_span_register_comefromMedia'));
+                    $('#index_span_register_formSubBtn').text($.i18n.prop('index_span_register_formSubBtn'));
+                    $('#index_span_register_agree').text($.i18n.prop('index_span_register_agree'));
+                    $('#index_span_register_agree_service').text($.i18n.prop('index_span_register_agree_service'));
+                    $('#index_span_register_agree_returntilogin').text($.i18n.prop('index_span_register_agree_returntilogin'));
+
+                    $('#left_nav_account').text($.i18n.prop('left_nav_account'));
+                    var usernameEMsgVal = $('#usernameEMsg').text();
+                    if(usernameEMsgVal != ''){
+                        $('#usernameEMsg').text($.i18n.prop('index_alert_register_username_empty'));
+                    }
+                    var passwordEMsgVal = $('#passwordEMsg').text();
+                    if(passwordEMsgVal != ''){
+                        $('#passwordEMsg').text($.i18n.prop('index_alert_register_password_empty'));
+                    }
+                }
+            });
+        },
+
+        //消费记录records_of_consumption.html
+        loadRecords_of_consumption: function(){
+            $.i18n.properties({
+                name: resourceFilePrefix,
+                path: resourceFilePath,
+                mode: resourcePropertiesMode,
+                language : this.getNavigatorLanguage(),
+                callback : function() {
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#recharge_record_top').text($.i18n.prop('recharge_record_top'));
+
+                    $('#records_of_consumption_top').text($.i18n.prop('records_of_consumption_top'));
+                    $('#j_consumption_details').text($.i18n.prop('j_consumption_details'));
+                    $('#accout_overview_myaccount').text($.i18n.prop('accout_overview_myaccount'));
+                    $('#account_overview').text($.i18n.prop('account_overview'));
+                    $('#recharge_record').text($.i18n.prop('recharge_record'));
+                    $('#records_of_consumption').text($.i18n.prop('records_of_consumption'));
+                    $('#account_balance').text($.i18n.prop('account_balance'));
+                    $('#immediately_recharge').text($.i18n.prop('immediately_recharge'));
+                    $('#consumption_overview').text($.i18n.prop('consumption_overview'));
+                    $('#chars_wrap_hd_text').text($.i18n.prop('chars_wrap_hd_text'));
+
+                    $('#j_timename').text($.i18n.prop('j_timename'));
+                    $('#j_zhi').text($.i18n.prop('j_zhi'));
+                    $('#j_searchBtn').text($.i18n.prop('j_searchBtn'));
+
+                    $('#j_numericalOrder').text($.i18n.prop('j_numericalOrder'));
+                    $('#j_exchangeHour').text($.i18n.prop('j_numericalOrder'));
+                    $('#j_price').text($.i18n.prop('j_price'));
+                    $('#j_rechargerMode').text($.i18n.prop('j_rechargerMode'));
+                    
+
+                    $('#page_title').text($.i18n.prop('page_title'));
+                    $('#logo_index').attr('src', $.i18n.prop('logo_index'));
+                    $('#index_span_login').text($.i18n.prop('index_span_login'));
+                    $('#index_span_title_imcloud').text($.i18n.prop('index_span_title_imcloud'));
+                    $('#index_span_title_kefu').text($.i18n.prop('index_span_title_kefu'));
+                    $('#index_span_imcloud_nobody').text($.i18n.prop('index_span_imcloud_nobody'));
+                    $('#index_span_imcloud_gotoregister').text($.i18n.prop('index_span_imcloud_gotoregister'));
+
+                    $('#index_span_register').text($.i18n.prop('index_span_register'));
+                    $('#index_login_username').text($.i18n.prop('index_login_username'));
+                    $('#index_login_password').text($.i18n.prop('index_login_password'));
+                    $('#index_login_rememberme').text($.i18n.prop('index_login_rememberme'));
+                    $('#index_bnt_login').text($.i18n.prop('index_bnt_login'));
+                    $('#index_input_username').text($.i18n.prop('index_input_username'));
+
+                    $('#index_forgot_username').text($.i18n.prop('index_forgot_username'));
+                    $('#index_forgot_btn_password').text($.i18n.prop('index_forgot_btn_password'));
+                    $('#email').attr('placeholder', $.i18n.prop('index_forgot_username_placeHolder'));
+                    $('#index_forgot_password_link').text($.i18n.prop('index_forgot_password_link'));
+                    $('#index_bnt_backtologin').text($.i18n.prop('index_bnt_backtologin'));
+                    $('#emailEMsg').text('');
+
+                    $('#index_span_register_orgname').text($.i18n.prop('index_span_register_orgname'));
+                    $('#regOrgName').attr('placeholder', $.i18n.prop('index_span_register_orgname_placeholder'));
+                    $('#regOrgNameSMsg').text($.i18n.prop('index_alert_register_regOrgName_regix'));
+                    $('#index_span_register_userneme').text($.i18n.prop('index_span_register_userneme'));
+                    $('#regUserName').attr('placeholder', $.i18n.prop('index_span_register_userneme_placeholder'));
+                    $('#regUserNameSMsg').text($.i18n.prop('index_alert_register_regUserName_regix'));
+                    $('#index_span_register_password').text($.i18n.prop('index_span_register_password'));
+                    $('#regPassword').attr('placeholder', $.i18n.prop('index_span_register_password_placeholder'));
+                    $('#index_span_register_tel').text($.i18n.prop('index_span_register_tel'));
+                    $('#regTel').attr('placeholder', $.i18n.prop('index_span_register_tel_placeholder'));
+                    $('#index_span_register_repassword').text($.i18n.prop('index_span_register_repassword'));
+                    $('#regRePassword').attr('placeholder', $.i18n.prop('index_span_register_repassword_placeholder'));
+                    $('#index_span_register_email').text($.i18n.prop('index_span_register_email'));
+                    $('#regEmail').attr('placeholder', $.i18n.prop('index_span_register_email_placeholder'));
+                    $('#index_span_register_company').text($.i18n.prop('index_span_register_company'));
+                    $('#regCompanyName').attr('placeholder', $.i18n.prop('index_span_register_company_placeholder'));
+                    $('#index_span_register_comeFromNote').text($.i18n.prop('index_span_register_comeFromNote'));
+                    $('#index_span_register_comefromInternet').text($.i18n.prop('index_span_register_comefromInternet'));
+                    $('#index_span_register_comefromFriends').text($.i18n.prop('index_span_register_comefromFriends'));
+                    $('#index_span_register_comefromOfficial').text($.i18n.prop('index_span_register_comefromOfficial'));
+                    $('#index_span_register_comefromExhibition').text($.i18n.prop('index_span_register_comefromExhibition'));
+                    $('#index_span_register_comefromMedia').text($.i18n.prop('index_span_register_comefromMedia'));
+                    $('#index_span_register_formSubBtn').text($.i18n.prop('index_span_register_formSubBtn'));
+                    $('#index_span_register_agree').text($.i18n.prop('index_span_register_agree'));
+                    $('#index_span_register_agree_service').text($.i18n.prop('index_span_register_agree_service'));
+                    $('#index_span_register_agree_returntilogin').text($.i18n.prop('index_span_register_agree_returntilogin'));
+
+                    $('#left_nav_account').text($.i18n.prop('left_nav_account'));
+                    var usernameEMsgVal = $('#usernameEMsg').text();
+                    if(usernameEMsgVal != ''){
+                        $('#usernameEMsg').text($.i18n.prop('index_alert_register_username_empty'));
+                    }
+                    var passwordEMsgVal = $('#passwordEMsg').text();
+                    if(passwordEMsgVal != ''){
+                        $('#passwordEMsg').text($.i18n.prop('index_alert_register_password_empty'));
+                    }
+                }
+            });
+        },
+
+        //马上充值immediately_recharge.html
+        loadImmediately_recharge: function(){
+            $.i18n.properties({
+                name: resourceFilePrefix,
+                path: resourceFilePath,
+                mode: resourcePropertiesMode,
+                language : this.getNavigatorLanguage(),
+                callback : function() {
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#recharge_record_top').text($.i18n.prop('recharge_record_top'));
+
+                    $('#records_of_consumption_top').text($.i18n.prop('records_of_consumption_top'));
+                    $('#j_consumption_details').text($.i18n.prop('j_consumption_details'));
+                    $('#accout_overview_myaccount').text($.i18n.prop('accout_overview_myaccount'));
+                    $('#account_overview').text($.i18n.prop('account_overview'));
+                    $('#recharge_record').text($.i18n.prop('recharge_record'));
+                    $('#records_of_consumption').text($.i18n.prop('records_of_consumption'));
+                    $('#account_balance').text($.i18n.prop('account_balance'));
+                    $('#immediately_recharge').text($.i18n.prop('immediately_recharge'));
+                    $('#consumption_overview').text($.i18n.prop('consumption_overview'));
+                    $('#chars_wrap_hd_text').text($.i18n.prop('chars_wrap_hd_text'));
+
+                    $('#j_recharge').text($.i18n.prop('j_recharge'));
+                    $('#j_current_balance').text($.i18n.prop('j_current_balance'));
+                    $('#j_recharge_amount').text($.i18n.prop('j_recharge_amount'));
+                    $('#j_bxshuzi').text($.i18n.prop('j_bxshuzi'));
+                    $('#j_rechargerMode').text($.i18n.prop('j_rechargerMode'));
+                    $('#j_next_step').text($.i18n.prop('j_next_step'));
+                    $('#j_bank_of_public_money').text($.i18n.prop('j_bank_of_public_money'));
+
+                    $('#j_rechargerMode_imm').text($.i18n.prop('j_rechargerMode_imm'));
+
+                    $('#j_huikuan').text($.i18n.prop('j_huikuan'));
+                    $('#j_account_name').text($.i18n.prop('j_account_name'));
+                    $('#j_shroff_account_number').text($.i18n.prop('j_shroff_account_number'));
+                    $('#j_bank_of_deposit').text($.i18n.prop('j_bank_of_deposit'));
+
+
+                    $('#j_timename').text($.i18n.prop('j_timename'));
+                    $('#j_zhi').text($.i18n.prop('j_zhi'));
+                    $('#j_searchBtn').text($.i18n.prop('j_searchBtn'));
+
+                    $('#j_numericalOrder').text($.i18n.prop('j_numericalOrder'));
+                    $('#j_exchangeHour').text($.i18n.prop('j_numericalOrder'));
+                    $('#j_price').text($.i18n.prop('j_price'));
+                    $('#j_rechargerMode').text($.i18n.prop('j_rechargerMode'));
+                    
+
+                    $('#page_title').text($.i18n.prop('page_title'));
+                    $('#logo_index').attr('src', $.i18n.prop('logo_index'));
+                    $('#index_span_login').text($.i18n.prop('index_span_login'));
+                    $('#index_span_title_imcloud').text($.i18n.prop('index_span_title_imcloud'));
+                    $('#index_span_title_kefu').text($.i18n.prop('index_span_title_kefu'));
+                    $('#index_span_imcloud_nobody').text($.i18n.prop('index_span_imcloud_nobody'));
+                    $('#index_span_imcloud_gotoregister').text($.i18n.prop('index_span_imcloud_gotoregister'));
+
+                    $('#index_span_register').text($.i18n.prop('index_span_register'));
+                    $('#index_login_username').text($.i18n.prop('index_login_username'));
+                    $('#index_login_password').text($.i18n.prop('index_login_password'));
+                    $('#index_login_rememberme').text($.i18n.prop('index_login_rememberme'));
+                    $('#index_bnt_login').text($.i18n.prop('index_bnt_login'));
+                    $('#index_input_username').text($.i18n.prop('index_input_username'));
+
+                    $('#index_forgot_username').text($.i18n.prop('index_forgot_username'));
+                    $('#index_forgot_btn_password').text($.i18n.prop('index_forgot_btn_password'));
+                    $('#email').attr('placeholder', $.i18n.prop('index_forgot_username_placeHolder'));
+                    $('#index_forgot_password_link').text($.i18n.prop('index_forgot_password_link'));
+                    $('#index_bnt_backtologin').text($.i18n.prop('index_bnt_backtologin'));
+                    $('#emailEMsg').text('');
+
+                    $('#index_span_register_orgname').text($.i18n.prop('index_span_register_orgname'));
+                    $('#regOrgName').attr('placeholder', $.i18n.prop('index_span_register_orgname_placeholder'));
+                    $('#regOrgNameSMsg').text($.i18n.prop('index_alert_register_regOrgName_regix'));
+                    $('#index_span_register_userneme').text($.i18n.prop('index_span_register_userneme'));
+                    $('#regUserName').attr('placeholder', $.i18n.prop('index_span_register_userneme_placeholder'));
+                    $('#regUserNameSMsg').text($.i18n.prop('index_alert_register_regUserName_regix'));
+                    $('#index_span_register_password').text($.i18n.prop('index_span_register_password'));
+                    $('#regPassword').attr('placeholder', $.i18n.prop('index_span_register_password_placeholder'));
+                    $('#index_span_register_tel').text($.i18n.prop('index_span_register_tel'));
+                    $('#regTel').attr('placeholder', $.i18n.prop('index_span_register_tel_placeholder'));
+                    $('#index_span_register_repassword').text($.i18n.prop('index_span_register_repassword'));
+                    $('#regRePassword').attr('placeholder', $.i18n.prop('index_span_register_repassword_placeholder'));
+                    $('#index_span_register_email').text($.i18n.prop('index_span_register_email'));
+                    $('#regEmail').attr('placeholder', $.i18n.prop('index_span_register_email_placeholder'));
+                    $('#index_span_register_company').text($.i18n.prop('index_span_register_company'));
+                    $('#regCompanyName').attr('placeholder', $.i18n.prop('index_span_register_company_placeholder'));
+                    $('#index_span_register_comeFromNote').text($.i18n.prop('index_span_register_comeFromNote'));
+                    $('#index_span_register_comefromInternet').text($.i18n.prop('index_span_register_comefromInternet'));
+                    $('#index_span_register_comefromFriends').text($.i18n.prop('index_span_register_comefromFriends'));
+                    $('#index_span_register_comefromOfficial').text($.i18n.prop('index_span_register_comefromOfficial'));
+                    $('#index_span_register_comefromExhibition').text($.i18n.prop('index_span_register_comefromExhibition'));
+                    $('#index_span_register_comefromMedia').text($.i18n.prop('index_span_register_comefromMedia'));
+                    $('#index_span_register_formSubBtn').text($.i18n.prop('index_span_register_formSubBtn'));
+                    $('#index_span_register_agree').text($.i18n.prop('index_span_register_agree'));
+                    $('#index_span_register_agree_service').text($.i18n.prop('index_span_register_agree_service'));
+                    $('#index_span_register_agree_returntilogin').text($.i18n.prop('index_span_register_agree_returntilogin'));
+
+                    $('#left_nav_account').text($.i18n.prop('left_nav_account'));
                     var usernameEMsgVal = $('#usernameEMsg').text();
                     if(usernameEMsgVal != ''){
                         $('#usernameEMsg').text($.i18n.prop('index_alert_register_username_empty'));
@@ -412,6 +816,7 @@ var I18NPropsLoader = function(){
                 mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
+                    $('#left_nav_account').text($.i18n.prop('left_nav_account'));
                     $('#page_title').text($.i18n.prop('page_title'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
@@ -459,6 +864,7 @@ var I18NPropsLoader = function(){
                 mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
+                    $('#left_nav_account').text($.i18n.prop('left_nav_account'));
                     $('#page_title').text($.i18n.prop('page_title'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
@@ -496,6 +902,7 @@ var I18NPropsLoader = function(){
                 mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
+                    $('#left_nav_account').text($.i18n.prop('left_nav_account'));
                     $('#page_title').text($.i18n.prop('page_title'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
@@ -541,6 +948,7 @@ var I18NPropsLoader = function(){
                 mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
+                    $('#left_nav_account').text($.i18n.prop('left_nav_account'));
                     $('#page_title').text($.i18n.prop('page_title'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
@@ -766,6 +1174,7 @@ var I18NPropsLoader = function(){
                 mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
+                    $('#left_nav_account').text($.i18n.prop('left_nav_account'));
                     $('#page_title').text($.i18n.prop('page_title'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
@@ -817,6 +1226,7 @@ var I18NPropsLoader = function(){
                 mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
+                    $('#left_nav_account').text($.i18n.prop('left_nav_account'));
                     $('#page_title').text($.i18n.prop('page_title'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
