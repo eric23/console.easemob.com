@@ -39,7 +39,8 @@
             I18NPropsLoader.loadPropertiesForPageAppCounters();
 
             chartTileUsers = $.i18n.prop('app_collection_counters_chartTileUsers');
-            chartTileChatmessages = $.i18n.prop('app_collection_counters_chartTileChatmessages');
+//            chartTileChatmessages = $.i18n.prop('app_collection_counters_chartTileChatmessages');
+            chartTileChatmessages = $.i18n.prop('app_collection_counters_chartTileChatmessages_chat_incoming');
             chartTileDailyActiveUser = $.i18n.prop('app_collection_counters_chartTileDailyActiveUser');
             chartTileDailyNewActiveUser = $.i18n.prop('app_collection_counters_chartTileDailyNewActiveUser');
             chartTileDailyChatUser = $.i18n.prop('app_collection_counters_chartTileDailyChatUser');
@@ -59,7 +60,7 @@
                 applyCountersAndDraw(this, 'selectorChange');
             });
             $('#chatmessagsChartSelector').change(function () {
-                applyCountersAndDraw(this, null);
+                applyCountersAndDraw(this, 'selectorChange');
             });
 
         });
@@ -189,8 +190,8 @@
                         <li id="countNameButton" style="position: absolute" class="hidden"><img src="/assets/img/tag_new.png" style="width: 25px; height: 30px"></li>
                         <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><span id="third_nav_counter"></span></a></li>
                     </ul>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span id="showLinkBigdata" class="hidden"><a id="showLinkBigdataBtn" target_href="" href="javascript:void(0)" target="_blank">进入我的IM数据平台>>></a></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="showLinkBigdata" class="hidden"><a id="showLinkBigdataBtn" target_href="" href="javascript:void(0)" target="_blank"><span id="bigdataEntry"></span></a></span>
                     <hr/>
                 </div>
             </div>
@@ -216,6 +217,10 @@
                                     id="app_collection_counters_chatType_dailyNewActiveUser"></option>
                             <option value="daily_chat_users"
                                     id="app_collection_counters_chatType_dailySendMsgUser"></option>
+                        </select>
+                        <select id="chatmessagsChartSelector">
+                            <option value="msg_outgoing_chat" id="chatmessagsChartSelector_msg_outgoing_chat"></option>
+                            <option value="msg_outgoing_groupchat" id="chatmessagsChartSelector_msg_outgoing_groupchat"></option>
                         </select>
                         <!--<select id="chatmessagsChartSelector">
                             <option value="msg_outgoing" disabled="disabled">消息</option>

@@ -145,6 +145,7 @@ var I18NPropsLoader = function(){
                 language: this.getNavigatorLanguage(),
                 callback: function () {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#nav_index').text($.i18n.prop('nav_index'));
                     $('#nav_doc').text($.i18n.prop('nav_doc'));
                     $('#nav_help').text($.i18n.prop('nav_help'));
@@ -172,6 +173,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_index').attr('src', $.i18n.prop('logo_index'));
                     $('#index_span_login').text($.i18n.prop('index_span_login'));
                     $('#index_span_title_imcloud').text($.i18n.prop('index_span_title_imcloud'));
@@ -241,6 +243,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_index').attr('src', $.i18n.prop('logo_index'));
                     $('#index_span_login').text($.i18n.prop('index_span_login'));
                     $('#index_span_title_imcloud').text($.i18n.prop('index_span_title_imcloud'));
@@ -346,6 +349,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_index').attr('src', $.i18n.prop('logo_index'));
                     $('#index_span_login').text($.i18n.prop('index_span_login'));
                     $('#index_span_title_imcloud').text($.i18n.prop('index_span_title_imcloud'));
@@ -413,6 +417,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -460,6 +465,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -497,6 +503,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -542,6 +549,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -587,6 +595,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#second_nav_chatgroups').text($.i18n.prop('second_nav_chatgroups'));
@@ -634,6 +643,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -708,6 +718,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -737,10 +748,12 @@ var I18NPropsLoader = function(){
                     }
                     var tabChatmessagesClass = $('#tabChatmessages').parent().attr('class');
                     if(tabChatmessagesClass == 'active') {
-                        chartTitle.text($.i18n.prop('app_collection_counters_chartTileChatmessages'));
+                        //chartTitle.text($.i18n.prop('app_collection_counters_chartTileChatmessages'));
+                        chartTitle.text($.i18n.prop('app_collection_counters_chartTileChatmessages_chat_incoming'));
                     }
 
                     var drawCountersChartsType = $('#drawCountersChartsType').val();
+
                     switch(drawCountersChartsType){
                         case 'daily_active_users':
                             chartTitle.text($.i18n.prop('app_collection_counters_chartTileDailyActiveUser'));
@@ -750,6 +763,14 @@ var I18NPropsLoader = function(){
                             break;
                         case 'daily_new_active_users':
                             chartTitle.text($.i18n.prop('app_collection_counters_chartTileDailyNewActiveUser'));
+                            break;
+                        case 'msg_outgoing_chat':
+                            $('#chatmessagsChartSelector_msg_outgoing_chat').text($.i18n.prop('app_collection_counters_chatType_chat_incoming'));
+                            $('#chatmessagsChartSelector_msg_outgoing_groupchat').text($.i18n.prop('app_collection_counters_chatType_groupchat_incoming'));
+                            break;
+                        case 'msg_outgoing_groupchat':
+                            $('#chatmessagsChartSelector_msg_outgoing_groupchat').text($.i18n.prop('app_collection_counters_chatType_groupchat_incoming'));
+                            $('#chatmessagsChartSelector_msg_outgoing_chat').text($.i18n.prop('app_collection_counters_chatType_chat_incoming'));
                             break;
                     }
 
@@ -767,6 +788,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -818,6 +840,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -845,6 +868,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -930,6 +954,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
 
@@ -973,6 +998,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -1107,6 +1133,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -1141,6 +1168,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
                     $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
