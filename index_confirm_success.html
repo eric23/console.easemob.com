@@ -35,15 +35,24 @@
             I18NPropsLoader.loadPropertiesForPageConfirmSuccess();
         });
 
-        /*var _hmt = _hmt || [];
+        var _hmt = _hmt || [];
         (function() {
             var hm = document.createElement("script");
             hm.src = "//hm.baidu.com/hm.js?3e5b3453fdcff1e4dec124ea22f1e189";
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
-        })();*/
+        })();
 
         var _vds = _vds || [];
+        var cookieNameSufix = getCookieNameSufix();
+        var orgname = 'OrgId - ' + $.cookie('orgName'+cookieNameSufix);
+        _vds.push(['setOrgId'], getPatform() + '-OrgId', orgname);
+        var admin = 'userId - ' + $.cookie('cuser'+cookieNameSufix);
+        _vds.push(['setUserId'], getPatform() + 'userId', admin);
+        _vds.push(['setClientID'], 'clientID', '环信IM管理后台');
+        var appName = $.cookie('appName');
+        _vds.push(['setAppkey'], getPatform() + '-appkey', orgname+'#'+appName);
+
         (function(){
             _vds.push(['setAccountId', '8bb5da75505521d9fa9a3dea82f4e2e2']);
             (function() {

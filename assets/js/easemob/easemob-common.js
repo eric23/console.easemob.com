@@ -517,9 +517,26 @@ function getCookieNameSufix() {
     if(url.indexOf('console') > -1 && url.indexOf('easemob.com') > -1) {
         var targetFreg = url.substring(url.indexOf('console') + 8, url.indexOf('easemob.com') - 1);
         if('.' == targetFreg) {
-            cookieNameSufix = '';
+            cookieNameSufix = 'bj';
         } else {
             cookieNameSufix = '-' + targetFreg;
+        }
+
+        return cookieNameSufix;
+    }
+}
+
+
+function getPatform() {
+    var url = window.location.href;
+    var cookieNameSufix = '';
+
+    if(url.indexOf('console') > -1 && url.indexOf('easemob.com') > -1) {
+        var targetFreg = url.substring(url.indexOf('console') + 8, url.indexOf('easemob.com') - 1);
+        if('.' == targetFreg) {
+            cookieNameSufix = 'bj';
+        } else {
+            cookieNameSufix = targetFreg;
         }
 
         return cookieNameSufix;
