@@ -11,7 +11,7 @@ $(function () {
     // support crossDomain
     $.support.cors = true;
 
-    $('#user_info').html('<small id="nav_welcome">' + $.i18n.prop('nav_welcome') + '</small>' + $.cookie('cuserName'));
+    $('#user_info').html('<small id="nav_welcome">' + $.i18n.prop('nav_welcome') + '</small>' + getCusername());
 
     var agreeCBoxObj = $("#agreeCBox");
 
@@ -89,10 +89,9 @@ cursors1[1] = '';
 
 // 分页条更新
 function updateUsersPageStatus() {
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -135,16 +134,16 @@ function updateUsersPageStatus() {
 
 function setUsername(username) {
     $('#usernameMondify').val(username);
-    $('#appNameHide').val($.cookie('appName'));
+    $('#appNameHide').val(getAppName());
     $('#pwdMondify').val('');
 }
 
 
 //调用方法
 function deleteAppUsers(username) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     var flag = false;
     $.ajax({
         async: false,
@@ -168,7 +167,7 @@ function deleteAppUsers(username) {
 var EasemobCommon = function () {
     // fetch token from cookie
     var getToken = function () {
-        return $.cookie('access_token');
+        return getAccessToken();
     };
 
     // responsive logo
@@ -304,14 +303,31 @@ var EasemobCommon = function () {
         },
 
         logOut: function () {
+
             // 销毁cookie
-            $.cookie("access_token", null, {path: "/"});
-            $.cookie("cuser", null, {path: "/"});
-            $.cookie("cuserName", null, {path: "/"});
-            $.cookie("orgName", null, {path: "/"});
-            $.cookie("email", null, {path: "/"});
-            $.cookie("companyName", null, {path: "/"});
-            $.cookie("telephone", null, {path: "/"});
+            clearCookieIfExist();
+
+            /*var date = new Date();
+            date.setTime(date.getTime() - (7 * 24 * 60 * 60 * 1000));
+
+            var cookieNameSufix = getCookieNameSufix();
+
+            $.cookie('access_token'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('cuser'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('cuserName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('email'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('orgName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('companyName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('telephone'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+            $.cookie('appName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+*/
+            //$.cookie("access_token", null, {path: "/"});
+            //$.cookie("cuser", null, {path: "/"});
+            //$.cookie("cuserName", null, {path: "/"});
+            //$.cookie("orgName", null, {path: "/"});
+            //$.cookie("email", null, {path: "/"});
+            //$.cookie("companyName", null, {path: "/"});
+            //$.cookie("telephone", null, {path: "/"});
 
             this.disPatcher.toPageIndex();
         },
@@ -323,7 +339,8 @@ var EasemobCommon = function () {
 
         // 每次访问index.html的时候,如果上次设置的语言未过期，则显示上次设置好了的语言偏好，如果过期了根据浏览器信息来显示.
         initLocale: function () {
-            var localeInfo = $.cookie('localeInfo');
+            var localeInfo = $.cookie('localeInfo'+getCookieNameSufix());
+
             if (!localeInfo) {
                 var language = navigator.userLanguage ? navigator.userLanguage : navigator.language;
                 localeInfo = 'en';
@@ -338,7 +355,7 @@ var EasemobCommon = function () {
         setLocale: function (localeInfo) {
             var date = new Date();
             date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-            $.cookie('localeInfo', localeInfo, {path: '/', expires: date});
+            $.cookie('localeInfo'+getCookieNameSufix(), localeInfo, {path: '/', domain: baseDomain, expires: date});
 
             var pageName = I18NPropsLoader.getPageName();
             if (pageName != '') {
@@ -349,6 +366,25 @@ var EasemobCommon = function () {
         }
     }
 }();
+
+
+
+function clearCookieIfExist() {
+    // 销毁cookie
+    var date = new Date();
+    date.setTime(date.getTime() - (7 * 24 * 60 * 60 * 1000));
+
+    var cookieNameSufix = getCookieNameSufix();
+
+    $.cookie('access_token'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+    $.cookie('cuser'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+    $.cookie('cuserName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+    $.cookie('email'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+    $.cookie('orgName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+    $.cookie('companyName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+    $.cookie('telephone'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+    $.cookie('appName'+cookieNameSufix, null, {path: '/', domain: baseDomain, expires: date});
+}
 
 var BtnHandler = function() {
     var isBtnEnableTag = 0;
@@ -441,9 +477,9 @@ $(function () {
 
 function showLinkForBigdata() {
 
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -465,16 +501,18 @@ function showLinkForBigdata() {
                     if(showLinkBigdata) {
                         $('#showLinkBigdata').removeClass('hidden');
                         $('#showLinkBigdataBtn').attr('target_href', baseUrl + '/' + orgName + '/' + appName + '/views/bigdata');
+                        $('#countNameButton').removeClass('hidden');
                     } else {
                         $('#showLinkBigdata').addClass('hidden');
+                        $('#countNameButton').addClass('hidden');
                     }
 
                     var date = new Date();
                     date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
                     if(showLinkBigdata) {
-                        $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata', showLinkBigdata, {path: '/', domain: baseDomain, expires: date});
+                        $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata'+getCookieNameSufix(), showLinkBigdata, {path: '/', domain: baseDomain, expires: date});
                     } else {
-                        $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata', null, {path: "/", domain: baseDomain, expires: date-1000});
+                        $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata'+getCookieNameSufix(), null, {path: "/", domain: baseDomain, expires: date-1000});
                     }
                 });
             }
@@ -494,3 +532,72 @@ function close () {
     $("#bigdata_protocol_no_btn").click();
 }
 
+
+function getCookieNameSufix() {
+    var url = window.location.href;
+    var cookieNameSufix = '';
+
+    if(url.indexOf('console') > -1 && url.indexOf('easemob.com') > -1) {
+        var targetFreg = url.substring(url.indexOf('console') + 8, url.indexOf('easemob.com') - 1);
+        if('.' == targetFreg) {
+            cookieNameSufix = 'bj';
+        } else {
+            cookieNameSufix = '-' + targetFreg;
+        }
+
+        return cookieNameSufix;
+    }
+}
+
+
+function getPatform() {
+    var url = window.location.href;
+    var cookieNameSufix = '';
+
+    if(url.indexOf('console') > -1 && url.indexOf('easemob.com') > -1) {
+        var targetFreg = url.substring(url.indexOf('console') + 8, url.indexOf('easemob.com') - 1);
+        if('.' == targetFreg) {
+            cookieNameSufix = 'bj';
+        } else {
+            cookieNameSufix = targetFreg;
+        }
+
+        return cookieNameSufix;
+    }
+}
+
+function getAccessToken() {
+   return $.cookie('access_token'+getCookieNameSufix());
+}
+
+function getCuser() {
+    return $.cookie('cuser'+getCookieNameSufix());
+}
+
+function getCusername() {
+    return $.cookie('cuserName'+getCookieNameSufix());
+}
+
+function getEmail() {
+    return $.cookie('email'+getCookieNameSufix());
+}
+
+function getOrgname() {
+    return $.cookie('orgName'+getCookieNameSufix());
+}
+
+function getLocaleInfo() {
+    return $.cookie('localeInfo'+getCookieNameSufix());
+}
+
+function getAppName() {
+    return $.cookie('appName'+getCookieNameSufix());
+}
+
+function getCompanyName() {
+    return $.cookie('companyName'+getCookieNameSufix());
+}
+
+function getTelephone() {
+    return $.cookie('telephone'+getCookieNameSufix());
+}

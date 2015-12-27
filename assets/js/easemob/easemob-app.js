@@ -69,8 +69,8 @@ function createAppFormValidate() {
 
 // create new app
 function saveNewApp() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appName = $('#appName').val().trim();
     var allow_open_registration = $('input[name="allow_open_registration"]:checked').val();
     var appDesc = $('#appDesc').val().trim();
@@ -103,7 +103,9 @@ function saveNewApp() {
                     $(respData.entities).each(function () {
                         var appName = this.applicationName;
                         if (appName != null && appName != "") {
-                            $.cookie('appName', appName);
+                            var date = new Date();
+                            date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+                            $.cookie('appName'+getCookieNameSufix(), appName, {path: '/', domain: baseDomain, expires: date});
                             EasemobCommon.disPatcher.toPageAppInfo();
                         } else {
                             $.cookie("appName", null, {path: "/"});
@@ -119,9 +121,8 @@ function saveNewApp() {
 
 // fetch app list
 function getAppList() {
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -150,7 +151,7 @@ function getAppList() {
                     uuidArr.push(value);
                     key = key.substring(key.indexOf('/') + 1);
 
-                    option += '<tr><td class="text-center"><a href="app_info.html?appName=' + key + '&appName=' + key + '">' + key + '</a></td>' +
+                    option += '<tr><td class="text-center"><a href="app_info.html?appName=' + key + '">' + key + '</a></td>' +
                         '<td class="text-center"><span id="app_list_appstatus_content_' + statusOrder + '">' + $.i18n.prop('app_list_appstatus_content') + '</span></td>' +
                         '</tr>';
                 });
@@ -192,9 +193,9 @@ function fetchAppInfo(accessToken, orgName, appName) {
                 var date = new Date();
                 date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
                 if(showLinkBigdata) {
-                    $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata', showLinkBigdata, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata'+getCookieNameSufix(), showLinkBigdata, {path: '/', domain: baseDomain, expires: date});
                 } else {
-                    $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata', null, {path: "/", domain: baseDomain, expires: date-1000});
+                    $.cookie(organizationName + '_' + applicationName + '_showLinkBigdata'+getCookieNameSufix(), null, {path: "/", domain: baseDomain, expires: date-1000});
                 }
 
                 var allowOpen = this.allow_open_registration ?
@@ -246,9 +247,9 @@ function fetchAppCredentials(accessToken, orgName, appName) {
 
 // 获取app详情
 function getAppOverView() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -298,9 +299,9 @@ function fetchAppUserCount(accessToken, orgName, appName) {
 
 //修改缩略图大小
 function updateImage() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     var imgReg = /^[0-9]*$/;
     var imgWidth = $('#imageWidth').val();
     var imgHeight = $('#imageHeight').val();
@@ -354,8 +355,8 @@ function updateImage() {
 
 // 切换app注册模式
 function changeAllowOpen() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var appKey = $('#appKey').text().replace('#', '/');
     var tag = $('#allowOpenHdd').val();
 

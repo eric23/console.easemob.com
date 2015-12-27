@@ -64,6 +64,32 @@
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
         })();
+
+        var _vds = _vds || [];
+        var cookieNameSufix = getCookieNameSufix();
+
+        var orgName = $.cookie('orgName'+cookieNameSufix);
+        _vds.push(['setCS1', getPatform() + '-orgId', orgName]);
+
+        var admin = $.cookie('cuser'+cookieNameSufix);
+        _vds.push(['setCS2', getPatform() + '-userId', admin]);
+
+        _vds.push(['setCS3', 'clientID', '环信IM管理后台']);
+
+        var appkey = getOrgname()+"#"+getAppName();
+        _vds.push(['setCS4', getPatform() + '-appkey', appkey]);
+
+        (function(){
+            _vds.push(['setAccountId', '8bb5da75505521d9fa9a3dea82f4e2e2']);
+            (function() {
+                var vds = document.createElement('script');
+                vds.type='text/javascript';
+                vds.async = true;
+                vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(vds, s);
+            })();
+        })();
     </script>
 </head>
 
@@ -157,6 +183,35 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--<div class="row-fluid">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <label for="appCategory" class="control-label" style="width:300px;"><span id="app_create_form_appCategory">应用行业</span><span style="color:red">*&nbsp;</span>&nbsp;:&nbsp;</label>
+                                                    <div class="form-group draggable ui-draggable">
+                                                        <select id="appCategory" class="form-control" style="width: 220px">
+                                                            <option>请选择应用所属分类</option>
+                                                            <option>理财</option>
+                                                            <option>健康</option>
+                                                            <option>教育</option>
+                                                            <option>旅行</option>
+                                                            <option>美食</option>
+                                                            <option>社交</option>
+                                                            <option>体育</option>
+                                                            <option>天气</option>
+                                                            <option>音乐</option>
+                                                            <option>娱乐</option>
+                                                            <option>摄影</option>
+                                                            <option>电商</option>
+                                                            <option>新闻阅读</option>
+                                                            <option>视频</option>
+                                                            <option>游戏</option>
+                                                            <option>交通导航</option>
+                                                            <option>金融</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>-->
                                         <div class="row-fluid">
                                             <div class="span12">
                                                 <div class="control-group">

@@ -2,7 +2,7 @@
  * Created by kenshinn on 15-6-2.
  */
 
-var orgName = $.cookie('orgName');
+var orgName = getOrgname();
 
 //初始开始时间段
 //记录当前时间
@@ -173,11 +173,11 @@ function getCounterNameFromHtml() {
             break;
         case 'msg_outgoing_chat':
             counterName = 'application.collection.chatmessages';
-            //restStr = '&direction=outgoing&chat_type=chat';
+            restStr = '&direction=outgoing&chat_type=chat';
             break;
         case 'msg_outgoing_groupchat':
             counterName = 'application.collection.chatmessages';
-            //restStr = '&direction=outgoing&chat_type=groupchat';
+            restStr = '&direction=outgoing&chat_type=groupchat';
             break;
         case 'msg_offline_chat':
             counterName = 'application.collection.chatmessages';
@@ -323,9 +323,9 @@ function drawCountersChartsPeriodSearch() {
  */
 function applyCountersData(counterName, resolution, startTimeTime, endTimeMilSec, restStr) {
     var applyRequest = {
-        orgName: $.cookie('orgName'),
-        accessToken: $.cookie('access_token'),
-        appName: $.cookie('appName'),
+        orgName: getOrgname(),
+        accessToken: getAccessToken(),
+        appName: getAppName(),
         start_time: '',
         end_time: '',
         pad: 'true',
@@ -469,6 +469,16 @@ function applyCountersAndDraw(selector, event) {
             chartTitle.text($.i18n.prop('app_collection_counters_chartTileUsers'));
             //chartTitle.text(chartTileDailyNewActiveUser);
             break;
+        case 'msg_outgoing_chat':
+            chartTitle.text($.i18n.prop('app_collection_counters_chartTileChatmessages_chat_incoming'));
+            //chartTitle.text($.i18n.prop('app_collection_counters_chartTileUsers'));
+            //chartTitle.text(chartTileDailyNewActiveUser);
+            break;
+        case 'msg_outgoing_groupchat':
+            chartTitle.text($.i18n.prop('app_collection_counters_chartTileChatmessages_groupchat_incoming'));
+            //chartTitle.text($.i18n.prop('app_collection_counters_chartTileUsers'));
+            //chartTitle.text(chartTileDailyNewActiveUser);
+            break;
         default:
             break;
     }
@@ -488,7 +498,7 @@ function showUsersChartTab() {
 
     $('#userChartSelector').show();
     $('#countersChartType').show();
-//            $('#chatmessagsChartSelector').hide();
+    $('#chatmessagsChartSelector').hide();
     $('#chatgroupsChartSelector').hide();
 
     $('#drawCountersChartsType').val('register_users');
@@ -521,20 +531,26 @@ function showUsersChartTab() {
 function showChatmessagsChartTab() {
     $('#tabChatmessages').parent().attr('class', 'active');
     $('#tabUsers').parent().removeAttr('class');
-    $('#countersChartType').hide();
-    //$('#chatmessagsChartSelector').show();
+
+    $('#countersChartType').show();
+    $('#chatmessagsChartSelector').show();
+    $('#chatmessagsChartSelector_msg_outgoing_chat').text($.i18n.prop('app_collection_counters_chatType_chat_incoming'));
+    $('#chatmessagsChartSelector_msg_outgoing_groupchat').text($.i18n.prop('app_collection_counters_chatType_groupchat_incoming'));
+
     $('#userChartSelector').hide();
     $('#chatgroupsChartSelector').hide();
+
     $('#drawCountersChartsType').val('msg_outgoing_chat');
 
     var period = $("input[name='chartsRadio1']:checked").val();
     drawCountersCharts(period, null);
-    var chartTitle = $('#chartTitle').text($.i18n.prop('app_collection_counters_chartTileChatmessages'));
+    //var chartTitle = $('#chartTitle').text($.i18n.prop('app_collection_counters_chartTileChatmessages'));
+    var chartTitle = $('#chartTitle').text($.i18n.prop('app_collection_counters_chartTileChatmessages_chat_incoming'));
 }
 
-//        function showChatgroupsChartTab() {
-//            $('#userChartSelector').hide();
-//            $('#chatmessagsChartSelector').hide();
-//            $('#chatgroupsChartSelector').show();
-//            $('#drawCountersChartsType').val('');
-//        }
+//function showChatgroupsChartTab() {
+//    $('#userChartSelector').hide();
+//    $('#chatmessagsChartSelector').hide();
+//    $('#chatgroupsChartSelector').show();
+//    $('#drawCountersChartsType').val('');
+//}

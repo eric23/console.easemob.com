@@ -8,14 +8,18 @@ $(function () {
         layer.msg($.i18n.prop('index_alert_IEDisable'), 3, 5);
     }
 
-    //读取cookie
-    if ($('#rememberme:checked').length > 0) {
+    /*if ($('#rememberme:checked').length > 0) {
         $('#username').val($.cookie('tvs-cookies-userName'));
         $('#password').val($.cookie('tvs-cookies-password'));
     } else {
         $('#username').val($.cookie('tvs-cookies-userName'));
         $('#password').val($.cookie('tvs-cookies-password'));
-    }
+    }*/
+
+    var tvsCookiesUserName = $.cookie('tvs-cookies-userName'+getCookieNameSufix());
+    var tvsCookiesPassword = $.cookie('tvs-cookies-password'+getCookieNameSufix());
+    $('#username').val(tvsCookiesUserName);
+    $('#password').val(tvsCookiesPassword);
 
     $('#username').focus();
 
@@ -231,6 +235,19 @@ function onBlurCheckLoginPassword() {
     $('#passwordEMsg').text('');
 }
 
+
+function onBlurCheckLoginVerifyCode() {
+    var verifyCodeCache = $('#verifyCodeCache').val();
+    var verifyCodeInput = $('#verifyCodeInput').val();
+
+    if (verifyCodeCache != verifyCodeInput) {
+        $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_notmatch'));
+        return false;
+    }
+
+    $('#verifyCodeEMsg').text('');
+}
+
 function onBlurCheckResetEmail() {
     var resetEmail = $('#email').val();
     if ('' == resetEmail) {
@@ -334,7 +351,7 @@ function resetOrgAdminPasswordRequest() {
             type: 'PUT',
             headers: {'Content-Type': 'application/json' },
             data: JSON.stringify({
-                'webLocale': $.cookie('localeInfo')
+                'webLocale': getLocaleInfo()
             }),
             crossDomain: true,
             success: function (respData) {
@@ -479,6 +496,12 @@ function createNewOrgAndAdminUserFormValidate() {
         $('#regPasswordEMsgHidden').val('illegal');
         return false;
     }
+    if (regPassword == regUserName) {
+        regPasswordObj.focus();
+        $('#regPasswordEMsg').text($.i18n.prop('index_alert_register_password_username_must_not_consistent'));
+        $('#regPasswordEMsgHidden').val('illegal');
+        return false;
+    }
     $('#regPasswordEMsg').text('');
     $('#regPasswordEMsgHidden').val('');
 
@@ -608,7 +631,7 @@ function createNewOrgAndAdminUser() {
         companyName: regCompanyName,
         telephone: regTel,
         comefrom: comeFrom,
-        'webLocale': $.cookie('localeInfo')
+        'webLocale': getLocaleInfo()
     };
 
     if (createNewOrgAndAdminUserFormValidate()) {
@@ -705,23 +728,37 @@ function onBlurCheckLoginPassword() {
 
 // 登录表单校验
 function loginFormValidate() {
-    // 表单校验
+
+    var verifyCodeInput = $('#verifyCodeInput').val();
+    var verifyCodeCache = $('#verifyCodeCache').val();
+
+    if (verifyCodeInput.length <= 0) {
+        $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_notmatch'));
+        return false;
+    } else if (verifyCodeInput != verifyCodeCache) {
+        $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_notmatch'));
+        return false;
+    }
+    $('#verifyCodeEMsg').text('');
+
     var loginUserName = $('#username').val();
     var loginPassword = $('#password').val();
     if ('' == loginUserName) {
         $('#usernameEMsg').text($.i18n.prop('index_alert_register_username_empty'));
         $('#username').focus();
+        generateVerifyCode()
         return false;
     }
     $('#usernameEMsg').text('');
+
     if ('' == loginPassword) {
         $('#passwordEMsg').text($.i18n.prop('index_alert_register_password_empty'));
         $('#password').focus();
+        generateVerifyCode()
         return false;
     }
-
-    $('#usernameEMsg').text('');
     $('#passwordEMsg').text('');
+
     return true;
 }
 
@@ -734,13 +771,18 @@ function orgAdminLogin() {
         'username': loginUser,
         'password': $('#password').val()
     };
+
+    var date = new Date();
+    date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+
     if ($('#rememberme:checked').length > 0) {
-        $.cookie('tvs-cookies-userName', $('#username').val());
-        $.cookie('tvs-cookies-password', $('#password').val());
+        $.cookie('tvs-cookies-userName'+getCookieNameSufix(), $('#username').val(), {path: '/', domain: baseDomain, expires: date});
+        $.cookie('tvs-cookies-password'+getCookieNameSufix(), $('#password').val(), {path: '/', domain: baseDomain, expires: date});
     } else {
-        $.cookie('tvs-cookies-userName', '');
-        $.cookie('tvs-cookies-password', '');
+        $.cookie('tvs-cookies-userName'+getCookieNameSufix(), '', {path: '/', domain: baseDomain, expires: date});
+        $.cookie('tvs-cookies-password'+getCookieNameSufix(), '', {path: '/', domain: baseDomain, expires: date});
     }
+
     if (loginFormValidate()) {
         $('#cont').text($.i18n.prop('index_alert_login_pending'));
         $('#loginBtn').attr("disabled", true);
@@ -774,8 +816,9 @@ function orgAdminLogin() {
                     }
                 }
 
-
                 layer.msg(errorMsg, 2, 5);
+
+                generateVerifyCode();
             },
             success: function (respData, textStatus, jqXHR) {
                 var accessToken = respData.access_token;
@@ -796,13 +839,16 @@ function orgAdminLogin() {
                 } else {
                     var date = new Date();
                     date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-                    $.cookie('access_token', accessToken, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('cuser', cuser, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('cuserName', cuserName, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('email', email, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('orgName', orgName, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('companyName', companyName, {path: '/', domain: baseDomain, expires: date});
-                    $.cookie('telephone', telephone, {path: '/', domain: baseDomain, expires: date});
+
+                    var cookieNameSufix = getCookieNameSufix();
+
+                    $.cookie('access_token'+cookieNameSufix, accessToken, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('cuser'+cookieNameSufix, cuser, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('cuserName'+cookieNameSufix, cuserName, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('email'+cookieNameSufix, email, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('orgName'+cookieNameSufix, orgName, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('companyName'+cookieNameSufix, companyName, {path: '/', domain: baseDomain, expires: date});
+                    $.cookie('telephone'+cookieNameSufix, telephone, {path: '/', domain: baseDomain, expires: date});
 
                     EasemobCommon.disPatcher.toPageAppList();
                 }
@@ -812,4 +858,32 @@ function orgAdminLogin() {
         $('#cont').text($.i18n.prop('index_text_login'));
         $('#loginBtn').attr("disabled", false);
     }
+}
+
+
+function generateVerifyCode() {
+    $('#verifyCodeEMsg').text('');
+    $('#verifyCodeInput').val('');
+
+    var verifyCode = $('#verifyCodeGenerated');
+    var num = RndNum(2);
+    var num2 = RndNum(2);
+
+    var code = num + "+" + num2;
+    var code2 = parseInt(num) + parseInt(num2);
+
+    if (verifyCode) {
+        verifyCode.addClass('code');
+        verifyCode.val(code);
+        $('#verifyCodeCache').val(code2);
+    }
+}
+
+function RndNum(n) {
+    var rnd = "";
+    for (var i = 0; i < n; i++) {
+        rnd += Math.floor(Math.random() * 10);
+    }
+
+    return rnd;
 }

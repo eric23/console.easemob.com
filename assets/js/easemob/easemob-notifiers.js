@@ -5,9 +5,9 @@
 // 查询证书信息
 function getAppCertificateIOS(pageAction){
     $('#paginauIOS').html('');
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     if('next' == pageAction){
         pageNo += 1;
     } else if('forward' == pageAction){
@@ -129,9 +129,9 @@ function getAppCertificateIOS(pageAction){
 // 查询Google推送证书
 function getAppCertificateAndroid(pageAction){
     $('#paginauAndroid').html('');
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     if('next' == pageAction){
         pageNo += 1;
     } else if('forward' == pageAction){
@@ -253,9 +253,9 @@ function getAppCertificateAndroid(pageAction){
 
 // 删除开发者推送证书
 function deleteAppNotifiersIOS(credentialId){
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
 
     var confirmOk = $.i18n.prop('confirm_ok');
     var confirmCancel = $.i18n.prop('confirm_cancel');
@@ -289,9 +289,9 @@ function deleteAppNotifiersIOS(credentialId){
 
 // 删除开发者推送证书
 function deleteAppNotifiersAndroid(credentialId){
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
 
     var confirmOk = $.i18n.prop('confirm_ok');
     var confirmCancel = $.i18n.prop('confirm_cancel');
@@ -351,14 +351,14 @@ function isBtnEnable() {
 
 function submitIOSCertificateForm() {
     if (isBtnEnable()) {
-        var accessToken = $.cookie('access_token');
-        var orgName = $.cookie('orgName');
-        var appName = $.cookie('appName');
+        var accessToken = getAccessToken();
+        var orgName = getOrgname();
+        var appName = getAppName();
 
         var notifierName = $('#nameIOS').val();
         var passphrase = $('#passphraseIOS').val();
 
-        var notifierNameRegex = /^[A-Za-z0-9_-]{1,30}$/;
+        var notifierNameRegex = /^[A-Za-z0-9_-]{1,50}$/;
         if (!notifierNameRegex.test(notifierName)) {
             layer.msg($.i18n.prop('app_notifiers_formIOS_name_illegal'), 3, 5);
             count = 0;
@@ -405,9 +405,9 @@ function submitIOSCertificateForm() {
 
 function submitAndroidCertificateForm() {
     if (isBtnEnable()) {
-        var accessToken = $.cookie('access_token');
-        var orgName = $.cookie('orgName');
-        var appName = $.cookie('appName');
+        var accessToken = getAccessToken();
+        var orgName = getOrgname();
+        var appName = getAppName();
 
         var notifierName = $('#nameAndroid').val();
         var certificate = $('#certificateAndroid').val();
@@ -485,5 +485,5 @@ function showIOSPushCertificateTab() {
     $('#iosCertificateDiv').show();
     $('#tableCertificateIOS').show();
     $('#app_notifiers_tableIOS_title').text($.i18n.prop('app_notifiers_tableIOS_title'));
-    getAppCertificateIOS($.cookie('appName'));
+    getAppCertificateIOS(getAppName());
 }

@@ -7,8 +7,8 @@
 function sendUserMessages() {
     var users = $('#usernameMessage').val();
     var appName = $('#appNameMessage').val();
-    var orgName = $.cookie('orgName');
-    var accessToken = $.cookie('access_token');
+    var orgName = getOrgname();
+    var accessToken = getAccessToken();
     var messageContent = $('#messegeContent').val().trim();
     var target = users.split(',');
     if (messageContent == '') {
@@ -50,8 +50,8 @@ function sendUserImgMessages() {
     } else {
         var users = $('#usernameMessage').val();
         var appName = $('#appNameMessage').val();
-        var orgName = $.cookie('orgName');
-        var accessToken = $.cookie('access_token');
+        var orgName = getOrgname();
+        var accessToken = getAccessToken();
         var target = users.split(',');
         var str = $('#share-secret').val().split(',');
         var requestData = {
@@ -88,10 +88,9 @@ function sendUserImgMessages() {
 // 获取app群组列表
 function getAppChatgroups(pageAction) {
 
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -204,10 +203,9 @@ function getAppChatgroups(pageAction) {
 // 搜索app群组
 function searchAppChatgroupById(groupid, pageAction) {
     $('#paginau').html('');
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -295,10 +293,10 @@ function searchAppChatgroupById(groupid, pageAction) {
 // 获取群组成员列表
 function getAppChatgroupUser(groupid, pageAction) {
     $('#paginau').html('');
-    var accessToken = $.cookie('access_token');
-    var cuser = $.cookie('cuser');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var cuser = getCuser();
+    var orgName = getOrgname();
+    var appName = getAppName();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -386,9 +384,9 @@ function getAppChatgroupUser(groupid, pageAction) {
 }
 // 删除app下的群组
 function deleteAppChatroom(groupuuid) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
 
     var confirmOk = $.i18n.prop('confirm_ok');
     var confirmCancel = $.i18n.prop('confirm_cancel');
@@ -419,9 +417,9 @@ function deleteAppChatroom(groupuuid) {
 
 // 移除群组下的成员
 function deleteAppChatgroupUsers(groupuuid, usersname) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
 
     var confirmOk = $.i18n.prop('confirm_ok');
     var confirmCancel = $.i18n.prop('confirm_cancel');
@@ -452,9 +450,9 @@ function deleteAppChatgroupUsers(groupuuid, usersname) {
 
 // 添加群内成员
 function addChatgroupMember(groupid, newmember) {
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
-    var accessToken = $.cookie('access_token');
+    var orgName = getOrgname();
+    var appName = getAppName();
+    var accessToken = getAccessToken();
     if (newmember == '') {
         $('#newmemberEMsg').text($.i18n.prop('app_chatgroups_add_alert_user_invalid'));
         $('#newMemberEMsgTag').val('user_invalid');
@@ -499,37 +497,38 @@ function addChatgroupMember(groupid, newmember) {
 
 // 添加群组
 function createNewChatgroups(chatgroupName, chatgroupDesc, approval, publics, chatgroupOwner) {
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
-    var accessToken = $.cookie('access_token');
+    var orgName = getOrgname();
+    var appName = getAppName();
+    var accessToken = getAccessToken();
     var maxusers = $('#maxusers').val();
     if (chatgroupName == '') {
         $('#groupnameSpan').text($.i18n.prop('app_chatgroups_add_alert_groupname_null'));
         return false;
     }
+    $('#groupnameSpan').text('');
+
     if (chatgroupDesc == '') {
-        $('#groupnameSpan').text('');
         $('#app_chatgroups_form_add_groupdescSpan').text($.i18n.prop('app_chatgroups_add_alert_groupdesc_null'));
         return false;
     }
+    $('#groupnameSpan').text('');
+
     var maxusersReg = /^[0-9]+$/;
     if (maxusers == '') {
-        $('#groupnameSpan').text('');
         $('#app_chatgroups_form_add_groupdescSpan').text('');
         $('#app_chatgroups_form_add_groupMaxuserSpan').text($.i18n.prop('app_chatgroups_add_alert_groupmaxusers_null'));
         return false;
     } else if (!(maxusersReg.test(maxusers) && parseInt(maxusers) >= 1)) {
         $('#app_chatgroups_form_add_groupMaxuserSpan').text($.i18n.prop('app_chatgroups_add_alert_groupmaxuser_duration'));
     } else if (chatgroupOwner == '') {
-        $('#groupnameSpan').text('');
         $('#app_chatgroups_form_add_groupdescSpan').text('');
         $('#app_chatgroups_form_add_groupMaxuserSpan').text('');
         $('#app_chatgroups_form_add_groupOwnerSpan').text($.i18n.prop('app_chatgroups_add_alert_groupowner_null'));
         return false;
     } else {
-        //
+        $('#groupnameSpan').text('');
+
         if(isIMUserExists(chatgroupOwner)) {
-            $('#groupnameSpan').text('');
             $('#app_chatgroups_form_add_groupdescSpan').text('');
             $('#app_chatgroups_form_add_groupMaxuserSpan').text('');
             $('#app_chatgroups_form_add_groupOwnerSpan').text('');
@@ -578,9 +577,9 @@ function createNewChatgroups(chatgroupName, chatgroupDesc, approval, publics, ch
  * @param username
  */
 var isIMUserExists = function(username) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     var result = false;
     $.ajax({
         url: baseUrl + '/' + orgName + '/' + appName + '/users/' + username,
@@ -602,9 +601,9 @@ var isIMUserExists = function(username) {
 
 // 批量删除app下的群组的Ajax
 function deleteAppChatgroup(groupuuid) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
     $.ajax({
         async: false,
         url: baseUrl + '/' + orgName + '/' + appName + '/chatgroups/' + groupuuid,
@@ -657,7 +656,7 @@ function deleteAppChatgroupsBatch() {
 function sendMessgeOne(users) {
 
     $('#usernameMessage').val(users);
-    $('#appNameMessage').val($.cookie('appName'));
+    $('#appNameMessage').val(getAppName());
     $('#messegeContent').val('');
     document.getElementById('messegeContent').style.display = "block";
     $('#img1').remove();
@@ -684,7 +683,7 @@ function sendMessagesForChatgroups() {
             }
         }
         $('#usernameMessage').val(users);
-        $('#appNameMessage').val($.cookie('appName'));
+        $('#appNameMessage').val(getAppName());
         $('#messegeContent').val('');
         document.getElementById('messegeContent').style.display = "block";
         $('#img1').remove();
@@ -705,9 +704,9 @@ function checkMaxusers() {
         ii++;
     });
 
-    var orgName = $.cookie('orgName');
-    var appName = $.cookie('appName');
-    var accessToken = $.cookie('access_token');
+    var orgName = getOrgname();
+    var appName = getAppName();
+    var accessToken = getAccessToken();
     $.ajax({
         url: baseUrl + '/' + orgName + "/" + appName + '/chatgroups/' + groupid,
         type: 'GET',
@@ -804,12 +803,12 @@ function createNewChatgroupPre() {
     if (BtnHandler.isBtnEnable()) {
         var groupName = $("#groupName").val().trim();
         var groupDesc = $("#groupDesc").val().trim();
+        var groupPublic = $('input:radio[name="isPublic"]:checked').val() == 'public';
+        var groupApproval = $("input:radio[name='approval']:checked").val() == 'approval';
         var groupOwner = $("#groupOwner").val().trim();
         var maxusers = $("#maxusers").val().trim();
-        var res = createNewChatgroups(groupName, groupDesc, approval, publics, groupOwner);
-        if (!res) {
-            BtnHandler.setBtnEnable();
-        }
+        createNewChatgroups(groupName, groupDesc, groupApproval, groupPublic, groupOwner);
+        BtnHandler.setBtnEnable();
     }
 }
 
@@ -856,9 +855,9 @@ function imgMessage() {
     var img = $('#file').val().substr($('#file').val().lastIndexOf('.') + 1);
     img = img.toLowerCase();
     if (img == 'jpg' || img == 'png' || img == 'bmp' || img == 'gif' || img == 'jpeg') {
-        var accessToken = $.cookie('access_token');
-        var orgName = $.cookie('orgName');
-        var appName = $.cookie('appName');
+        var accessToken = getAccessToken();
+        var orgName = getOrgname();
+        var appName = getAppName();
 
         $('#app_chatgroups_sendMsg_label_wait').text($.i18n.prop('app_chatgroups_sendMsg_label_uploading'));
 

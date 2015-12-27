@@ -15,19 +15,20 @@
     <script charset="utf-8">
 
         var count = 0;
+        var cookieNameSufix = getCookieNameSufix();
+        var appName = getAppName();
         $(function () {
             count = 0;
-            $('#showName').text($.cookie('appName'));
+            $('#showName').text(getAppName());
             $('#certificate').hide();
 
             EasemobCommon.init();
+            showLinkForBigdata();
 
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAppNotifiers();
 
             showAndroidPushCertificateTab();
-
-            showLinkForBigdata();
 
             $('#showLinkBigdataBtn').click(function(){
                 redirectToBigdataPage();
@@ -40,6 +41,31 @@
             hm.src = "//hm.baidu.com/hm.js?3e5b3453fdcff1e4dec124ea22f1e189";
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
+        })();
+
+        var _vds = _vds || [];
+
+        var orgName = $.cookie('orgName'+cookieNameSufix);
+        _vds.push(['setCS1', getPatform() + '-orgId', orgName]);
+
+        var admin = $.cookie('cuser'+cookieNameSufix);
+        _vds.push(['setCS2', getPatform() + '-userId', admin]);
+
+        _vds.push(['setCS3', 'clientID', '环信IM管理后台']);
+
+        var appkey = getOrgname()+"#"+getAppName();
+        _vds.push(['setCS4', getPatform() + '-appkey', appkey]);
+
+        (function(){
+            _vds.push(['setAccountId', '8bb5da75505521d9fa9a3dea82f4e2e2']);
+            (function() {
+                var vds = document.createElement('script');
+                vds.type='text/javascript';
+                vds.async = true;
+                vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(vds, s);
+            })();
         })();
     </script>
 </head>
@@ -120,11 +146,11 @@
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li style="position: absolute"><img src="/assets/img/tag_new.png" style="width: 25px; height: 30px"></li>
+                        <li id="countNameButton" style="position: absolute" class="hidden"><img src="/assets/img/tag_new.png" style="width: 25px; height: 30px"></li>
                         <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><span id="third_nav_counter"></span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span id="showLinkBigdata" class="hidden"><a id="showLinkBigdataBtn"target_href="" href="javascript:void(0)" target="_blank">进入我的IM数据平台>>></a></span>
+                    <span id="showLinkBigdata" class="hidden"><a id="showLinkBigdataBtn"target_href="" href="javascript:void(0)" target="_blank"><span id="bigdataEntry"></span></a></span>
                     <hr/>
                 </div>
             </div>

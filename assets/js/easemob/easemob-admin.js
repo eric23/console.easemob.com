@@ -4,12 +4,11 @@
 
 // 登录用户信息
 function loginAdminInfo() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var loginAdminUser = $.cookie('cuser');
-    var companyName = $.cookie('companyName');
-    var telephone = $.cookie('telephone');
-    var email = $.cookie('email');
+    var accessToken = getAccessToken();
+    var loginAdminUser = getCuser();
+    var companyName = getCompanyName();
+    var telephone = getTelephone();
+    var email = getEmail();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -23,8 +22,8 @@ function loginAdminInfo() {
 
 // 修改登录用户信息
 function updateAdminInfo(username, companyName, telephone) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
     var requestData = {};
     if (companyName != '' && companyName != null) {
         requestData.companyName = companyName;
@@ -63,8 +62,8 @@ function updateAdminInfo(username, companyName, telephone) {
 
                 var date = new Date();
                 date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-                $.cookie('companyName', companyName, {path: '/', domain: baseDomain, expires: date});
-                $.cookie('telephone', telephone, {path: '/', domain: baseDomain, expires: date});
+                $.cookie('companyName'+getCookieNameSufix(), companyName, {path: '/', domain: baseDomain, expires: date});
+                $.cookie('telephone'+getCookieNameSufix(), telephone, {path: '/', domain: baseDomain, expires: date});
 
 
                 loginAdminInfo();
@@ -131,7 +130,7 @@ validateAccessToken = '';
 function updateAdminPasswd() {
     var oldPassword = $('#oldpassword').val();
     var newPassword = $('#newpassword').val();
-    var username = $.cookie('cuser');
+    var username = getCuser();
 
     var fetchTokenData = {
         'grant_type': 'password',
@@ -185,9 +184,9 @@ function updateAdminPasswd() {
 
 // 获取orgadmin列表
 function getOrgAdminList() {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var loginUser = $.cookie('cuser');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var loginUser = getCuser();
 
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
@@ -263,9 +262,9 @@ function getOrgAdminList() {
 
 // remove user from organization
 function disConnAdminAndOrg(adminUserName) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    var loginUser = $.cookie('cuser');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var loginUser = getCuser();
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -339,6 +338,15 @@ function createAdminUserFormValidate() {
     if (adminPassword == '') {
         $('#admin_create_adminPasswordMsg').hide();
         $('#admin_create_adminPasswordEMsg').show();
+        $('#admin_create_adminPasswordEMatchMsg').hide();
+        $('#admin_create_adminPasswordOMsg').hide();
+        return false;
+    }
+
+    if (adminUserName == adminPassword) {
+        $('#admin_create_adminPasswordMsg').hide();
+        $('#admin_create_adminPasswordEMsg').hide();
+        $('#admin_create_adminPasswordEMatchMsg').show();
         $('#admin_create_adminPasswordOMsg').hide();
         return false;
     }
@@ -349,12 +357,14 @@ function createAdminUserFormValidate() {
     if (adminRePassword == '') {
         $('#admin_create_adminRePasswordMsg').hide();
         $('#admin_create_adminRePasswordEMsg').show();
+        $('#admin_create_adminPasswordEMatchMsg').hide();
         $('#admin_create_adminRePasswordOMsg').hide();
         return false;
     }
     if ('' != adminRePassword && adminPassword != adminRePassword) {
         $('#admin_create_adminRePasswordMsg').hide();
         $('#admin_create_adminRePasswordEMsg').show();
+        $('#admin_create_adminPasswordEMatchMsg').hide();
         $('#admin_create_adminRePasswordOMsg').hide();
         return false;
     }
@@ -414,8 +424,8 @@ function createAdminUserFormValidate() {
 
 // add new organization admin user
 function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminCompany, adminTel) {
-    var accessToken = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
 
     if (!accessToken || accessToken == '') {
         EasemobCommon.disPatcher.sessionTimeOut();
@@ -437,7 +447,7 @@ function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminC
                     companyName: adminCompany,
                     telephone: adminTel,
                     category: 'admin_append',
-                    'webLocale': $.cookie('localeInfo')
+                    'webLocale': getLocaleInfo()
                 };
 
                 // 创建管理员用户
@@ -580,23 +590,36 @@ function onBlurAdminUserNameCheck() {
 //　check org admin user password on input field blurred
 function onBlurAdminPasswordCheck() {
     var adminCreateAdminPasswordObj = $('#admin_create_adminPassword');
+    var admin_create_adminUserNameObj = $('#admin_create_adminUserName');
     adminCreateAdminPasswordObj.val(adminCreateAdminPasswordObj.val().trim());
 
     var adminPassword = adminCreateAdminPasswordObj.val();
+    var adminUserName = admin_create_adminUserNameObj.val();
 
     var adminCreateAdminPasswordEMsgObj = $('#admin_create_adminPasswordEMsg');
     var adminCreateAdminPasswordMsgObj = $('#admin_create_adminPasswordMsg');
+    var admin_create_adminPasswordEMatchMsgObj = $('#admin_create_adminPasswordEMatchMsg');
     var adminCreateAdminPasswordOMsgObj = $('#admin_create_adminPasswordOMsg');
 
     if (adminPassword == '') {
         adminCreateAdminPasswordEMsgObj.hide();
         adminCreateAdminPasswordMsgObj.show();
+        admin_create_adminPasswordEMatchMsgObj.hide();
+        adminCreateAdminPasswordOMsgObj.hide();
+        return;
+    }
+
+    if (adminPassword == adminUserName) {
+        adminCreateAdminPasswordEMsgObj.hide();
+        adminCreateAdminPasswordMsgObj.hide();
+        admin_create_adminPasswordEMatchMsgObj.show();
         adminCreateAdminPasswordOMsgObj.hide();
         return;
     }
 
     adminCreateAdminPasswordEMsgObj.hide();
     adminCreateAdminPasswordMsgObj.hide();
+    admin_create_adminPasswordEMatchMsgObj.hide();
     adminCreateAdminPasswordOMsgObj.show();
 }
 

@@ -95,9 +95,6 @@ var Protocol = {
         var that = this;
 
         this.ele.on('click', function () {
-
-            console.log('1111')
-
             var d = dialog({
                 skin: 'bigdata_style',
                 title: '',

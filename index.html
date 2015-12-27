@@ -90,17 +90,32 @@
         #signup-box .span10 {
             margin-left: 15px;
         }
+        .code {
+            font-family: Arial;
+            font-style: italic;
+            border: 0;
+            letter-spacing: 10px;
+            font-weight: bolder;
+        }
     </style>
 
     <script charset="utf-8">
         $(function(){
             //读取cookie
             if($('#rememberme:checked').length > 0){
-                $('#username').val($.cookie('tvs-cookies-userName'));
-                $('#password').val($.cookie('tvs-cookies-password'));
+                var tvsCookiesUserName = $.cookie('tvs-cookies-userName'+getCookieNameSufix());
+                var tvsCookiesPassword = $.cookie('tvs-cookies-password'+getCookieNameSufix());
+
+                $('#username').val(tvsCookiesUserName);
+                $('#password').val(tvsCookiesPassword);
             }
             EasemobCommon.initLocale();
+
+            generateVerifyCode();
+
+            clearCookieIfExist();
         });
+
 
         var _hmt = _hmt || [];
         (function() {
@@ -109,6 +124,34 @@
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
         })();
+
+        var _vds = _vds || [];
+        var cookieNameSufix = getCookieNameSufix();
+
+        var orgName = $.cookie('orgName'+cookieNameSufix);
+        _vds.push(['setCS1', getPatform() + '-orgId', orgName]);
+
+        var admin = $.cookie('cuser'+cookieNameSufix);
+        _vds.push(['setCS2', getPatform() + '-userId', admin]);
+
+        _vds.push(['setCS3', 'clientID', '环信IM管理后台']);
+
+        var appkey = '';
+        _vds.push(['setCS4', getPatform() + '-appkey', appkey]);
+
+        (function(){
+            _vds.push(['setAccountId', '8bb5da75505521d9fa9a3dea82f4e2e2']);
+            (function() {
+                var vds = document.createElement('script');
+                vds.type='text/javascript';
+                vds.async = true;
+                vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(vds, s);
+            })();
+        })();
+
+
     </script>
 </head>
 
@@ -161,6 +204,22 @@
                                                 </span>
                                                 <span id="passwordEMsg" style="font-size:12px;color:red; padding-left:72px;"></span>
                                             </label>
+
+                                            <!-- 验证码 -->
+                                            <label>
+                                                <span class="block input-icon input-icon-right">
+                                                    <i class="azen-locations"><span></span></i>
+
+                                                    <input type="text" placeholder='' id="verifyCodeInput" value="" onblur="onBlurCheckLoginVerifyCode()" class="span2" style="width: 120px;"/>
+                                                    =
+                                                    <input type="text" name="verifyCodeGenerated" id="verifyCodeGenerated" onclick="generateVerifyCode()" class="span3" readonly='readonly' value="" style="color: red;"/>
+
+                                                    <a href="javascript:void(0);" onClick="generateVerifyCode()">&nbsp;<span id="verifyCodeFresh"></span></a>
+                                                </span>
+                                                <input type="hidden" id="verifyCodeCache" value="" />
+                                                <span id="verifyCodeEMsg" style="font-size:12px;color:red; padding-left:72px;"></span>
+                                            </label>
+
                                             <div class="row-fluid">
                                                 <div class="span8" style="padding-left:75px;">
                                                     <input type="checkbox" checked="true" name="rememberme" id="rememberme" />
@@ -172,6 +231,7 @@
                                                     </span>
                                                 </div>
                                             </div>
+
                                         </fieldset>
                                     </div>
                                     <div class="toolbar clearfix">
