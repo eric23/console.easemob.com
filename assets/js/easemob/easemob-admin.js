@@ -513,6 +513,7 @@ function initOrgAminCreateForm() {
     $('#admin_create_adminUserNameOMsg').hide();
     $('#admin_create_adminPasswordMsg').show();
     $('#admin_create_adminPasswordEMsg').hide();
+    $('#admin_create_adminPasswordEMatchMsg').hide();
     $('#admin_create_adminPasswordOMsg').hide();
     $('#admin_create_adminRePasswordMsg').show();
     $('#admin_create_adminRePasswordEMsg').hide();

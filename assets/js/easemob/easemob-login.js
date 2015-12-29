@@ -239,9 +239,17 @@ function onBlurCheckLoginPassword() {
 function onBlurCheckLoginVerifyCode() {
     var verifyCodeCache = $('#verifyCodeCache').val();
     var verifyCodeInput = $('#verifyCodeInput').val();
+    var verifyCodeEMsgTag = $('#verifyCodeEMsgTag').val();
+
+    if(verifyCodeInput == '') {
+        $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_empty'));
+        $('#verifyCodeEMsgTag').val('empty');
+        return false;
+    }
 
     if (verifyCodeCache != verifyCodeInput) {
         $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_notmatch'));
+        $('#verifyCodeEMsgTag').val('notmatch');
         return false;
     }
 
@@ -733,7 +741,7 @@ function loginFormValidate() {
     var verifyCodeCache = $('#verifyCodeCache').val();
 
     if (verifyCodeInput.length <= 0) {
-        $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_notmatch'));
+        $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_empty'));
         return false;
     } else if (verifyCodeInput != verifyCodeCache) {
         $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_notmatch'));

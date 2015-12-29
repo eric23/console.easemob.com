@@ -232,9 +232,12 @@ var I18NPropsLoader = function(){
                     if(passwordEMsgVal != ''){
                         $('#passwordEMsg').text($.i18n.prop('index_alert_register_password_empty'));
                     }
-                    var verifyCodeEMsgVal = $('#verifyCodeEMsg').text();
-                    if(verifyCodeEMsgVal != ''){
+
+                    var verifyCodeEMsgTag = $('#verifyCodeEMsgTag').val();
+                    if(verifyCodeEMsgTag == 'notmatch'){
                         $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_notmatch'));
+                    } else if(verifyCodeEMsgTag == 'empty'){
+                        $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_empty'));
                     }
                 }
             });
