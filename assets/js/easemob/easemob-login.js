@@ -742,8 +742,10 @@ function loginFormValidate() {
 
     if (verifyCodeInput.length <= 0) {
         $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_empty'));
+        $('#verifyCodeEMsgTag').val('empty');
         return false;
     } else if (verifyCodeInput != verifyCodeCache) {
+        $('#verifyCodeEMsgTag').val('notmatch');
         $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_notmatch'));
         return false;
     }
@@ -874,8 +876,8 @@ function generateVerifyCode() {
     $('#verifyCodeInput').val('');
 
     var verifyCode = $('#verifyCodeGenerated');
-    var num = RndNum(2);
-    var num2 = RndNum(2);
+    var num = RndNum(1);
+    var num2 = RndNum(1);
 
     var code = num + "+" + num2;
     var code2 = parseInt(num) + parseInt(num2);

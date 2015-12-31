@@ -234,6 +234,7 @@ var I18NPropsLoader = function(){
                     }
 
                     var verifyCodeEMsgTag = $('#verifyCodeEMsgTag').val();
+                    console.log('verifyCodeEMsgTag:'+verifyCodeEMsgTag)
                     if(verifyCodeEMsgTag == 'notmatch'){
                         $('#verifyCodeEMsg').text($.i18n.prop('index_login_verifyCodeEMsg_notmatch'));
                     } else if(verifyCodeEMsgTag == 'empty'){

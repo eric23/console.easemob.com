@@ -209,16 +209,16 @@
                                             <label>
                                                 <span class="block input-icon input-icon-right">
                                                     <i class="azen-locations"><span></span></i>
-
-                                                    <input type="text" placeholder='' id="verifyCodeInput" value="" onblur="onBlurCheckLoginVerifyCode()" class="span2" style="width: 120px;"/>
-                                                    =
-                                                    <input type="text" name="verifyCodeGenerated" id="verifyCodeGenerated" onclick="generateVerifyCode()" class="span3" readonly='readonly' value="" style="color: red;"/>
-
+                                                    <input type="text" name="verifyCodeGenerated" id="verifyCodeGenerated" onclick="generateVerifyCode()" class="span3" readonly='readonly' value="" style="width:80px; color: red;"/>
                                                     <a href="javascript:void(0);" onClick="generateVerifyCode()">&nbsp;<span id="verifyCodeFresh"></span></a>
+                                                    =
+                                                    <input type="text" placeholder='' id="verifyCodeInput" value="" onblur="onBlurCheckLoginVerifyCode()" class="span2" style="width: 120px;"/>
+                                                    <span id="verifyCodeEMsg" style="font-size:14px;color:red; padding-left:15px;"></span>
+                                                    <!--<span hidden id="verifyCodeCache"></span>-->
+                                                    <!--<span hidden id="verifyCodeEMsgTag"></span>-->
                                                 </span>
                                                 <input type="hidden" id="verifyCodeCache" value="" />
                                                 <input type="hidden" id="verifyCodeEMsgTag" value="" />
-                                                <span id="verifyCodeEMsg" style="font-size:12px;color:red; padding-left:72px;"></span>
                                             </label>
 
                                             <div class="row-fluid">
