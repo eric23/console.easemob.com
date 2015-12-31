@@ -251,6 +251,133 @@ function getAppCertificateAndroid(pageAction){
     });
 }
 
+
+// 查询小米推送证书
+function getAppCertificateXiaomi(pageAction){
+    $('#paginauXiaomi').html('');
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
+    if('next' == pageAction){
+        pageNo += 1;
+    } else if('forward' == pageAction){
+        pageNo -= 1;
+    }
+    var temp = '';
+    if(typeof(pageAction)!='undefined' && pageAction != ''){
+        temp = '&cursor='+cursors[pageNo];
+    }
+
+    var appCredentialBodyXiaomiObj = $('#appCredentialBodyXiaomi');
+
+    var loading = '<tr id="tr_loading"><td class="text-center" colspan="6"><img src ="/assets/img/loading.gif">&nbsp;&nbsp;&nbsp;' + $.i18n.prop('app_notifiers_tableAndroid_loading') + '</span></td></tr>';
+    appCredentialBodyXiaomiObj.empty();
+    appCredentialBodyXiaomiObj.append(loading);
+    $.ajax({
+        url:baseUrl+'/'+ orgName +'/' + appName + '/notifiers?limit=8'+temp,
+        type:'GET',
+        headers:{
+            'Authorization':'Bearer ' + accessToken,
+            'Content-Type':'application/json'
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+
+        },
+        success: function(respData, textStatus, jqXHR) {
+            if(pageAction != 'forward'){
+                cursors[pageNo + 1] =	respData.cursor;
+            } else {
+                cursors[pageNo + 1] = null;
+            }
+
+            var option = '';
+            var xiaomiCertificates = [];
+            $(respData.entities).each(function(){
+                var certificate = {};
+                if(this.provider == 'XIAOMIPUSH'){
+                    certificate.name = this.name;
+                    certificate.certificateId = this.uuid;
+                    certificate.provider = this.provider;
+                    certificate.created = this.created;
+                    certificate.environment = this.environment;
+                    certificate.certificate = this.certificate;
+                    certificate.packageName = this.packageName;
+                    certificate.modified = this.modified;
+                    xiaomiCertificates.push(certificate);
+                }
+            });
+
+            var xiaomiCertificatesOrder = 0;
+            $(xiaomiCertificates).each(function(){
+                xiaomiCertificatesOrder = xiaomiCertificatesOrder + 1;
+                var name = this.name;
+                var certificateId = this.certificateId;
+                var provider = this.provider;
+                if(provider == 'XIAOMIPUSH'){
+                    var environment = '';
+                    if(this.environment == 'PRODUCTION'){
+                        environment = $.i18n.prop('app_notifiers_tableXiaomi_notifier_production');
+                    }
+
+                    var created = format(this.created);
+                    var modified = format(this.modified);
+                    option += '<tr>'+
+                        '<td class="text-center">'+name+'</td>'+
+                        '<input id="app_notifiers_tableXiaomi_notifier_environment_type_'+xiaomiCertificatesOrder+'" value="'+this.environment+'" type="hidden" />' +
+                        '<td class="text-center" id="app_notifiers_tableXiaomi_notifier_environment_'+xiaomiCertificatesOrder+'">'+environment+'</td>'+
+                        '<td class="text-center">'+this.certificate+'</td>'+
+                        '<td class="text-center">'+created+'</td>'+
+                        '<td class="text-center">'+modified+'</td>'+
+                        '<td class="text-center">&nbsp;<a href="javascript:void(0);" onclick="deleteAppNotifiersXiaomi(\''+ certificateId + '\')"><span id="app_notifiers_tableXiaomi_notifier_delete_'+xiaomiCertificatesOrder+'">' + $.i18n.prop('app_notifiers_tableXiaomi_notifier_delete') + '</span></a></td>'+
+                        '</tr>';
+                }
+            });
+
+            appCredentialBodyXiaomiObj.html('');
+            appCredentialBodyXiaomiObj.append(option);
+
+            $('#xiaomiCertificatesOrder').val(xiaomiCertificatesOrder);
+
+            var tbody = document.getElementsByTagName("tbody")[0];
+            if(!tbody.hasChildNodes()){
+                option = '<tr><td class="text-center" colspan="6">'+$.i18n.prop('table_data_nodata')+'</td></tr>';
+                $('#tr_loading').remove();
+                $('#appUserAdminBody').append(option);
+                var pageLi = $('#paginauXiaomi').find('li');
+                for(var i=0;i<pageLi.length;i++){
+                    $(pageLi[i]).hide();
+                }
+            } else {
+                var ulB = '<ul>';
+                var ulE = '</ul>';
+                var textOp1 = '<li> <a href="javascript:void(0);" onclick="getPrevAppNotifiersXiaomi()"><span id="app_notifiers_tableXiaomi_notifier_nav_previous">' + $.i18n.prop('app_notifiers_tableXiaomi_notifier_nav_previous') + '</span></a> </li>';
+                var textOp2 = '<li> <a href="javascript:void(0);" onclick="getNextAppNotifiersXiaomi()"><span id="app_notifiers_tableXiaomi_notifier_nav_next">' + $.i18n.prop('app_notifiers_tableXiaomi_notifier_nav_next') + '</span></a> </li>';
+                $('#paginauXiaomi').html('');
+
+                // 首页
+                if(pageNo == 1){
+                    if(respData.cursor == null){
+                        $('#paginauXiaomi').append(ulB + ulE);
+                    } else {
+                        $('#paginauXiaomi').append(ulB + textOp2 + ulE);
+                    }
+                    // 尾页
+                } else if(cursors.length != 0 && respData.cursor == null){
+                    $('#paginauXiaomi').append(ulB + textOp1 + ulE);
+                } else {
+                    $('#paginauXiaomi').append(ulB + textOp1 + textOp2 + ulE);
+                }
+            }
+            if(xiaomiCertificates.length == 0){
+                option = '<tr><td class="text-center" colspan="6"><span id="app_notifiers_tableXiaomi_notifier_nodata">' + $.i18n.prop('app_notifiers_tableXiaomi_notifier_nodata') + '</span></td></tr>';
+                $('#appCredentialBodyXiaomi').append(option);
+            }
+        }
+    });
+}
+
+
+
 // 删除开发者推送证书
 function deleteAppNotifiersIOS(credentialId){
     var accessToken = getAccessToken();
@@ -281,6 +408,42 @@ function deleteAppNotifiersIOS(credentialId){
                 layer.close(layerNum);
                 layer.msg($.i18n.prop('app_notifiers_delete_succ'), 3, 1);
                 getAppCertificateIOS('no');
+            }
+        });
+    });
+}
+
+
+// 删除开发者推送证书
+function deleteAppNotifiersXiaomi(credentialId){
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
+
+    var confirmOk = $.i18n.prop('confirm_ok');
+    var confirmCancel = $.i18n.prop('confirm_cancel');
+    Modal.confirm({
+        msg: $.i18n.prop('app_notifiers_delete_confirm'),
+        title: "",
+        btnok: confirmOk,
+        btncl: confirmCancel
+    }).on( function () {
+        var layerNum = layer.load($.i18n.prop('app_notifiers_delete_layer_pending'));
+        $.ajax({
+            url:baseUrl+'/'+ orgName +'/' + appName + '/notifiers/' + credentialId,
+            type:'DELETE',
+            headers:{
+                'Authorization':'Bearer ' + accessToken,
+                'Content-Type':'application/json'
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                layer.close(layerNum);
+                layer.msg($.i18n.prop('app_notifiers_delete_failed'), 3, 5);
+            },
+            success: function(respData, textStatus, jqXHR) {
+                layer.close(layerNum);
+                layer.msg($.i18n.prop('app_notifiers_delete_succ'), 3, 1);
+                getAppCertificateXiaomi('no');
             }
         });
     });
@@ -331,12 +494,18 @@ function getPrevAppNotifiersIOS() {
 function getPrevAppNotifiersAndroid() {
     getAppCertificateAndroid('forward');
 }
+function getPrevAppNotifiersXiaomi() {
+    getAppCertificateXiaomi('forward');
+}
 // 下一页数据
 function getNextAppNotifiersIOS() {
     getAppCertificateIOS('next');
 }
 function getNextAppNotifiersAndroid() {
     getAppCertificateAndroid('next');
+}
+function getNextAppNotifiersXiaomi() {
+    getAppCertificateXiaomi('next');
 }
 
 
@@ -453,6 +622,69 @@ function submitAndroidCertificateForm() {
 }
 
 
+function submitXiaomiCertificateForm() {
+    if (isBtnEnable()) {
+        var accessToken = getAccessToken();
+        var orgName = getOrgname();
+        var appName = getAppName();
+
+        var notifierName = $('#nameXiaomi').val();
+        var certificate = $('#certificateXiaomi').val();
+        var packageName = $('#packageName').val();
+        var notifierNameRegex = /^[A-Za-z0-9_-]{1,30}$/;
+        var notifierPassPhraseRegex = /^[\S]{1,40}$/;
+        var packageNameRegex = /^[\S]{1,100}$/;
+        if (!notifierNameRegex.test(notifierName)) {
+            layer.msg($.i18n.prop('app_notifiers_formXiaomi_name_illegal'), 3, 5);
+            count = 0;
+            return;
+        }
+        if (!notifierPassPhraseRegex.test(certificate)) {
+            layer.msg($.i18n.prop('app_notifiers_formXiaomi_phrase_illegal'), 3, 5);
+            count = 0;
+            return;
+        }
+        if (!packageNameRegex.test(packageName)) {
+            layer.msg($.i18n.prop('app_notifiers_formXiaomi_packageName_illegal'), 3, 5);
+            count = 0;
+            return;
+        }
+
+        var ajax_option = {
+            url: baseUrl + '/' + orgName + '/' + appName + '/notifiers',
+            headers: {
+                'Accept': 'application/json',
+                'Accept-Encoding': 'gzip,deflate',
+                'Authorization': 'Bearer ' + accessToken
+            },
+            success: function (data) {
+                layer.close(layerNum);
+                layer.msg($.i18n.prop('app_notifiers_formXiaomi_save_succ'), 3, 1);
+                //clear form
+                $('#nameXiaomi').val('');
+                $('#certificateXiaomi').val('');
+
+                getAppCertificateXiaomi();
+                count = 0;
+            },
+            error: function (respData, textStatus, errorThrown) {
+                layer.close(layerNum);
+
+                var error_description = jQuery.parseJSON(respData.responseText).error_description;
+                if (error_description.indexOf("Entity notifier requires that property named name be unique") > -1) {
+                    layer.msg($.i18n.prop('app_notifiers_formXiaomi_save_duplicate'), 3, 5);
+                } else {
+                    layer.msg($.i18n.prop('app_notifiers_formXiaomi_save_failed'), 3, 5);
+                }
+
+                count = 0;
+            }
+        };
+        var layerNum = layer.load($.i18n.prop('app_notifiers_layer_pending'), 3);
+        $('#certificateFormXiaomi').ajaxSubmit(ajax_option);
+    }
+}
+
 // 显示/隐藏制作证书按钮
 function displayMakeCertificateTip(enable) {
     if (enable) {
@@ -464,26 +696,62 @@ function displayMakeCertificateTip(enable) {
 
 function showAndroidPushCertificateTab() {
     $('#androidPushCertificateTab').parent().attr('class', 'active');
+
     $('#iosPushCertificateTab').parent().removeAttr('class');
+    $('#xiaomiPushCertificateTab').parent().removeAttr('class');
 
     $('#iosCertificateDiv').hide();
     $('#tableCertificateIOS').hide();
+
+    $('#xiaomiCertificateDiv').hide();
+    $('#tableCertificateXiaomi').hide();
+
     $('#androidCertificateDiv').show();
     $('#tableCertificateAndroid').show();
+
     $('#app_notifiers_tableAndroid_title').text($.i18n.prop('app_notifiers_tableAndroid_title'));
 
     getAppCertificateAndroid();
 }
 
 
-function showIOSPushCertificateTab() {
-    $('#iosPushCertificateTab').parent().attr('class', 'active');
+function showXiaomiPushCertificateTab() {
+    $('#xiaomiPushCertificateTab').parent().attr('class', 'active');
+
+    $('#iosPushCertificateTab').parent().removeAttr('class');
     $('#androidPushCertificateTab').parent().removeAttr('class');
 
     $('#androidCertificateDiv').hide();
     $('#tableCertificateAndroid').hide();
+
+    $('#iosCertificateDiv').hide();
+    $('#tableCertificateIOS').hide();
+
+    $('#xiaomiCertificateDiv').show();
+    $('#tableCertificateXiaomi').show();
+
+    $('#app_notifiers_tableXiaomi_title').text($.i18n.prop('app_notifiers_tableXiaomi_title'));
+
+    getAppCertificateXiaomi();
+}
+
+
+function showIOSPushCertificateTab() {
+    $('#iosPushCertificateTab').parent().attr('class', 'active');
+
+    $('#androidPushCertificateTab').parent().removeAttr('class');
+    $('#xiaomiPushCertificateTab').parent().removeAttr('class');
+
+    $('#androidCertificateDiv').hide();
+    $('#tableCertificateAndroid').hide();
+
+    $('#xiaomiCertificateDiv').hide();
+    $('#tableCertificateXiaomi').hide();
+
     $('#iosCertificateDiv').show();
     $('#tableCertificateIOS').show();
+
     $('#app_notifiers_tableIOS_title').text($.i18n.prop('app_notifiers_tableIOS_title'));
+
     getAppCertificateIOS(getAppName());
 }

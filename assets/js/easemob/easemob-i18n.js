@@ -884,9 +884,12 @@ var I18NPropsLoader = function(){
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
+
+
                     $('#nameIOS').attr('placeholder' ,$.i18n.prop('app_notifiers_formIOS_name_placeholder'));
                     $('#passphraseIOS').attr('placeholder' ,$.i18n.prop('app_notifiers_formIOS_passphrase_placeholder'));
                     $('#app_notifiers_tableAndroid_title').text($.i18n.prop('app_notifiers_tableAndroid_title'));
+
                     $('#app_notifiers_tableIOS_title').text($.i18n.prop('app_notifiers_tableIOS_title'));
                     $('#app_notifiers_tableIOS_th_notifierName').text($.i18n.prop('app_notifiers_tableIOS_th_notifierName'));
                     $('#app_notifiers_tableIOS_th_notifierType').text($.i18n.prop('app_notifiers_tableIOS_th_notifierType'));
@@ -919,7 +922,6 @@ var I18NPropsLoader = function(){
                         }
                     }
 
-
                     $('#app_notifiers_tableIOS_notifier_nav_previous').text($.i18n.prop('app_notifiers_tableIOS_notifier_nav_previous'));
                     $('#app_notifiers_tableIOS_notifier_nav_next').text($.i18n.prop('app_notifiers_tableIOS_notifier_nav_next'));
                     $('#table_data_nodata_ios').text($.i18n.prop('table_data_nodata'));
@@ -935,6 +937,23 @@ var I18NPropsLoader = function(){
                         }
                     }
 
+
+                    $('#app_notifiers_tableXiaomi_notifier_nav_previous').text($.i18n.prop('app_notifiers_tableXiaomi_notifier_nav_previous'));
+                    $('#app_notifiers_tableXiaomi_notifier_nav_next').text($.i18n.prop('app_notifiers_tableXiaomi_notifier_nav_next'));
+                    $('#table_data_nodata_xiaomi').text($.i18n.prop('table_data_nodata'));
+                    var xiaomiCertificatesOrder = parseInt($('#xiaomiCertificatesOrder').val());
+                    for(var i=1; i<=xiaomiCertificatesOrder; i++) {
+                        $('#app_notifiers_tableXiaomi_notifier_delete_' + i).text($.i18n.prop('app_notifiers_tableXiaomi_notifier_delete'));
+
+                        var app_notifiers_tableXiaomi_notifier_environment_type = $('#app_notifiers_tableXiaomi_notifier_environment_type_' + i).val();
+                        if(app_notifiers_tableXiaomi_notifier_environment_type == 'DEVELOPMENT') {
+                            $('#app_notifiers_tableXiaomi_notifier_environment_' + i).text($.i18n.prop('app_notifiers_tableXiaomi_notifier_dev'));
+                        } else if(app_notifiers_tableXiaomi_notifier_environment_type == 'PRODUCTION'){
+                            $('#app_notifiers_tableXiaomi_notifier_environment_' + i).text($.i18n.prop('app_notifiers_tableXiaomi_notifier_production'));
+                        }
+                    }
+
+                    $('#app_notifiers_tableXiaomi_notifier_nodata').text($.i18n.prop('app_notifiers_tableAndroid_notifier_nodata'));
                     $('#app_notifiers_tableAndroid_th_notifierName').text($.i18n.prop('app_notifiers_tableAndroid_th_notifierName'));
                     $('#app_notifiers_tableAndroid_th_notifierType').text($.i18n.prop('app_notifiers_tableAndroid_th_notifierType'));
                     $('#app_notifiers_tableAndroid_th_notifierPassword').text($.i18n.prop('app_notifiers_tableAndroid_th_notifierPassword'));
@@ -952,6 +971,27 @@ var I18NPropsLoader = function(){
                     $('#app_notifiers_formAndroid_notifierType').text($.i18n.prop('app_notifiers_formAndroid_notifierType'));
                     $('#app_notifiers_formAndroid_notifierType_dev').text($.i18n.prop('app_notifiers_formAndroid_notifierType_dev'));
                     $('#app_notifiers_formAndroid_notifierType_product').text($.i18n.prop('app_notifiers_formAndroid_notifierType_product'));
+
+                    $('#app_notifiers_tableXiaomi_title').text($.i18n.prop('app_notifiers_tableXiaomi_title'));
+                    $('#app_notifiers_tableXiaomi_th_notifierName').text($.i18n.prop('app_notifiers_tableAndroid_th_notifierName'));
+                    $('#app_notifiers_tableXiaomi_th_notifierType').text($.i18n.prop('app_notifiers_tableAndroid_th_notifierType'));
+                    $('#app_notifiers_tableXiaomi_th_notifierPassword').text($.i18n.prop('app_notifiers_tableAndroid_th_notifierPassword'));
+                    $('#app_notifiers_tableXiaomi_th_created').text($.i18n.prop('app_notifiers_tableAndroid_th_created'));
+                    $('#app_notifiers_tableXiaomi_th_modified').text($.i18n.prop('app_notifiers_tableAndroid_th_modified'));
+                    $('#app_notifiers_tableXiaomi_th_operation').text($.i18n.prop('app_notifiers_tableAndroid_th_operation'));
+                    $('#nameXiaomi').attr('placeholder' ,$.i18n.prop('app_notifiers_formXiaomi_name_placeholder'));
+                    $('#certificateXiaomi').attr('placeholder' ,$.i18n.prop('app_notifiers_formXiaomi_passphrase_placeholder'));
+                    $('#app_notifiers_formXiaomi_addNewNotifier').text($.i18n.prop('app_notifiers_formXiaomi_addNewNotifier'));
+                    $('#app_notifiers_formXiaomi_notifierName').text($.i18n.prop('app_notifiers_formXiaomi_notifierName'));
+                    $('#app_notifiers_formXiaomi_notifier').text($.i18n.prop('app_notifiers_formXiaomi_notifier'));
+                    $('#app_notifiers_formXiaomi_button').attr('value' ,$.i18n.prop('app_notifiers_formXiaomi_button_value'));
+                    $('#app_notifiers_formXiaomi_button_upload').attr('value' ,$.i18n.prop('app_notifiers_formXiaomi_button_upload_value'));
+                    $('#app_notifiers_formXiaomi_notifierPassword').text($.i18n.prop('app_notifiers_formXiaomi_notifierPassword'));
+                    $('#app_notifiers_formXiaomi_notifierType').text($.i18n.prop('app_notifiers_formXiaomi_notifierType'));
+                    $('#app_notifiers_formXiaomi_notifierType_dev').text($.i18n.prop('app_notifiers_formXiaomi_notifierType_dev'));
+                    $('#app_notifiers_formXiaomi_notifierType_product').text($.i18n.prop('app_notifiers_formXiaomi_notifierType_product'));
+                    $('#packageName').attr('placeholder' ,$.i18n.prop('app_notifiers_formXiaomi_packageName_placeholder'));
+                    $('#app_notifiers_formXiaomi_notifierPackageName').text($.i18n.prop('app_notifiers_formXiaomi_notifierPackageName'));
                 }
             });
         },

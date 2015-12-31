@@ -158,6 +158,7 @@
             <ul id="countersTab" class="nav nav-tabs">
                 <li class="active"><a href="javascript:void(0)" onclick="showAndroidPushCertificateTab()" data-toggle="tab" id="androidPushCertificateTab">Android</a></li>
                 <li><a href="javascript:void(0)" onclick="showIOSPushCertificateTab()" data-toggle="tab" id="iosPushCertificateTab">IOS</a></li>
+                <li><a href="javascript:void(0)" onclick="showXiaomiPushCertificateTab()" data-toggle="tab" id="xiaomiPushCertificateTab">Xiaomi</a></li>
             </ul>
 
             <div class="row-fluid">
@@ -208,6 +209,29 @@
                             <span id="pageInfoIOS"></span>
                         </div>
                         <input type="hidden" value="" id="iosCertificatesOrder">
+                    </div>
+
+                    <div id="tableCertificateXiaomi" class="left" style="width:800px;height:320px;">
+                        <div class="apply">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <thead>
+                                <p style="background-color:white;height:30px;width:100%;font-size:16px;line-height:30px;overflow:hidden;" align="center"><span id="app_notifiers_tableXiaomi_title"></span></p>
+                                <tr>
+                                    <th id="app_notifiers_tableXiaomi_th_notifierName"></th>
+                                    <th id="app_notifiers_tableXiaomi_th_notifierType"></th>
+                                    <th id="app_notifiers_tableXiaomi_th_created"></th>
+                                    <th id="app_notifiers_tableXiaomi_th_modified"></th>
+                                    <th id="app_notifiers_tableXiaomi_th_operation"></th>
+                                </tr>
+                                </thead>
+                                <tbody bgcolor="#FFFFFF" id="appCredentialBodyXiaomi">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="paginauXiaomi" class="pagination pagination-right">
+                            <span id="pageInfoXiaomi"></span>
+                        </div>
+                        <input type="hidden" value="" id="xiaomiCertificatesOrder">
                     </div>
                 </div>
             </div>
@@ -316,7 +340,7 @@
                                             <td align="right" width="150px;"><strong id="app_notifiers_formAndroid_notifierPassword"></strong>
                                                 :</td>
                                             <td bgcolor="#FFFFFF">
-                                                <input type="text" name="certificate" id="certificateAndroid" value="" placeholder=""/>
+                                                <input type="password" name="certificate" id="certificateAndroid" value="" placeholder=""/>
                                                 <input type="hidden" value="PRODUCTION" name="environment" /><font color='red'>&nbsp;*&nbsp;</font>
                                             </td>
                                         </tr>
@@ -328,6 +352,62 @@
                                         <td align="right" width="150px;"><strong></strong></td>
                                         <td bgcolor="#FFFFFF"><input type="button" id="app_notifiers_formAndroid_button_upload" class="btn btn-mini btn-primary"
                                                                      value="添加" onClick="submitAndroidCertificateForm()"/></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- xiaomi Push Certificate-->
+                    <div id="xiaomiCertificateDiv" class="left" style="width:500px;">
+                        <div style="margin: 0 auto;width: 500px;" class="pagination pagination-left" id="whatIsCertificate">
+                            <ul>
+                                <li><a href="javascript:void(0);"><span id="app_notifiers_formXiaomi_addNewNotifier"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="apply">
+                            <form id="certificateFormXiaomi" method="POST" enctype="multipart/form-data" action="">
+                                <div class="apply">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td align="right" width="150px"><strong id="app_notifiers_formXiaomi_notifierName"></strong>:</td>
+                                            <td bgcolor="#FFFFFF">
+                                                <input type="text" name="name" id="nameXiaomi" value="" placeholder=""/>
+                                                <font color='red'>&nbsp;*&nbsp;</font>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="apply">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td align="right" width="150px;"><strong id="app_notifiers_formXiaomi_notifierPassword"></strong>
+                                                :</td>
+                                            <td bgcolor="#FFFFFF">
+                                                <input type="password" name="certificate" id="certificateXiaomi" value="" placeholder=""/>
+                                                <input type="hidden" value="PRODUCTION" name="environment" /><font color='red'>&nbsp;*&nbsp;</font>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="apply">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td align="right" width="150px;"><strong id="app_notifiers_formXiaomi_notifierPackageName"></strong>
+                                                :</td>
+                                            <td bgcolor="#FFFFFF">
+                                                <input type="text" name="packageName" id="packageName" value="" placeholder=""/>
+                                                <input type="hidden" value="PRODUCTION" name="environment" /><font color='red'>&nbsp;*&nbsp;</font>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <input type="hidden" name="provider" id="providerXiaomi" value="XIAOMIPUSH"/>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td align="right" width="150px;"><strong></strong></td>
+                                        <td bgcolor="#FFFFFF"><input type="button" id="app_notifiers_formXiaomi_button_upload" class="btn btn-mini btn-primary"
+                                                                     value="添加" onClick="submitXiaomiCertificateForm()"/></td>
                                     </tr>
                                 </table>
                             </form>
