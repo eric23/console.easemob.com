@@ -206,16 +206,13 @@
                                             </label>
 
                                             <!-- 验证码 -->
-                                            <label>
+                                            <label for="verifyCodeInput">
                                                 <span class="block input-icon input-icon-right">
                                                     <i class="azen-locations"><span></span></i>
-                                                    <input type="text" name="verifyCodeGenerated" id="verifyCodeGenerated" onclick="generateVerifyCode()" class="span3" readonly='readonly' value="" style="width:80px; color: red;"/>
-                                                    <a href="javascript:void(0);" onClick="generateVerifyCode()">&nbsp;<span id="verifyCodeFresh"></span></a>
+                                                    <input type="text" name="verifyCodeGenerated" id="verifyCodeGenerated" onclick="generateVerifyCode()" class="span3" readonly='readonly' value="" style="width:80px; color:red;"/>
                                                     =
                                                     <input type="text" placeholder='' id="verifyCodeInput" value="" onblur="onBlurCheckLoginVerifyCode()" class="span2" style="width: 120px;"/>
                                                     <span id="verifyCodeEMsg" style="font-size:14px;color:red; padding-left:15px;"></span>
-                                                    <!--<span hidden id="verifyCodeCache"></span>-->
-                                                    <!--<span hidden id="verifyCodeEMsgTag"></span>-->
                                                 </span>
                                                 <input type="hidden" id="verifyCodeCache" value="" />
                                                 <input type="hidden" id="verifyCodeEMsgTag" value="" />
