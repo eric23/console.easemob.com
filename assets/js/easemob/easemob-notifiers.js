@@ -325,7 +325,6 @@ function getAppCertificateXiaomi(pageAction){
                         '<td class="text-center">'+name+'</td>'+
                         '<input id="app_notifiers_tableXiaomi_notifier_environment_type_'+xiaomiCertificatesOrder+'" value="'+this.environment+'" type="hidden" />' +
                         '<td class="text-center" id="app_notifiers_tableXiaomi_notifier_environment_'+xiaomiCertificatesOrder+'">'+environment+'</td>'+
-                        '<td class="text-center">'+this.certificate+'</td>'+
                         '<td class="text-center">'+created+'</td>'+
                         '<td class="text-center">'+modified+'</td>'+
                         '<td class="text-center">&nbsp;<a href="javascript:void(0);" onclick="deleteAppNotifiersXiaomi(\''+ certificateId + '\')"><span id="app_notifiers_tableXiaomi_notifier_delete_'+xiaomiCertificatesOrder+'">' + $.i18n.prop('app_notifiers_tableXiaomi_notifier_delete') + '</span></a></td>'+
@@ -660,9 +659,11 @@ function submitXiaomiCertificateForm() {
             success: function (data) {
                 layer.close(layerNum);
                 layer.msg($.i18n.prop('app_notifiers_formXiaomi_save_succ'), 3, 1);
+
                 //clear form
                 $('#nameXiaomi').val('');
                 $('#certificateXiaomi').val('');
+                $('#packageName').val('');
 
                 getAppCertificateXiaomi();
                 count = 0;
