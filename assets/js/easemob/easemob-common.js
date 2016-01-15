@@ -282,6 +282,9 @@ var EasemobCommon = function () {
             toPageAppUserContacts: function (owner_username) {
                 window.location.href = 'app_user_contacts.html?owner_username=' + owner_username;
             },
+            toPageAppUserBlackList: function (owner_username) {
+                window.location.href = 'app_user_blacklist.html?owner_username=' + owner_username;
+            },
             toPageAppUserCreate: function (username) {
                 window.location.href = 'app_user_create.html?username=' + username;
             },
@@ -290,6 +293,9 @@ var EasemobCommon = function () {
             },
             toPageAppChatGroupUsers: function (groupid) {
                 window.location.href = 'app_chatgroup_users.html?groupid=' + groupid;
+            },
+            toPageAppChatGroupBlackList: function (groupid) {
+                window.location.href = 'app_chatgroup_blacklist.html?groupid=' + groupid;
             },
             toPageAppNotifiers: function () {
                 window.location.href = 'app_notifiers.html';

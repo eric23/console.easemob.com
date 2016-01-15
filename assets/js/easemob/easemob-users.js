@@ -214,6 +214,7 @@ function getAppUserList(pageAction) {
 
                         var username = this.username;
                         var created = format(this.created);
+                        var activated = this.activated;
                         var notification_display_style = '';
                         if (this.notification_display_style == 0) {
                             notification_display_style = $.i18n.prop('app_users_text_notification_display_style_summary');
@@ -240,9 +241,10 @@ function getAppUserList(pageAction) {
                         if (notifier_name == undefined) {
                             notifier_name = '--';
                         }
+                        var switcher = (activated === true) ? 'deactivate' : 'activate';
                         selectOptions += '<tr>' +
                             '<td class="text-center"><label><input style="opacity:1;" name="checkbox" type="checkbox" value="' + username + '" />&nbsp;&nbsp;&nbsp;</label></td>' +
-                            '<td class="text-center">' + username + '</td>' +
+                            '<td class="text-center" id="td_user_'+ username +'">' + username + '</td>' +
                             '<input type="hidden" id="hidden_notification_display_style_' + appUsersListOrder + '" value="' + this.notification_display_style + '">' +
                             '<td class="text-center" id="notification_display_style_' + appUsersListOrder + '">' + notification_display_style + '</td>' +
                             '<td class="text-center">' + nickname + '</td>' +
@@ -256,10 +258,13 @@ function getAppUserList(pageAction) {
                             '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="app_users_selections_operation_' + appUsersListOrder + '">' + $.i18n.prop('app_users_selections_operation') + '</span><b class="caret"></b></a>' +
                             '<ul class="dropdown-menu">' +
                             '<li data-filter-camera-type="all"><a href="javascript:void(0);" onclick="EasemobCommon.disPatcher.toPageAppUserContacts(\'' + username + '\')"><span id="app_users_selections_contacts_' + appUsersListOrder + '">' + $.i18n.prop('app_users_selections_contacts') + '</span></a></li>' +
+                            '<li data-filter-camera-type="all"><a href="javascript:void(0);" onclick="EasemobCommon.disPatcher.toPageAppUserBlackList(\'' + username + '\')"><span id="app_users_selections_blacklist_' + appUsersListOrder + '">' + $.i18n.prop('app_users_selections_blacklist') + '</span></a></li>' +
                             '<li data-filter-camera-type="Zed"><a  href="javascript:void(0);" onclick="showUpdateIMUserInfoWindow(\'' + username + '\')"><span id="app_users_selections_modify_' + appUsersListOrder + '">' + $.i18n.prop('app_users_selections_modify') + '</span></a></li>' +
                             '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="deleteAppUser(\'' + username + '\')"><span id="app_users_selections_delete_' + appUsersListOrder + '">' + $.i18n.prop("app_users_selections_delete") + '</span></a></li>' +
                             '<li data-filter-camera-type="Alpha"><a href="#passwordMondify" id="passwdMod${status.index }" onclick="setUsername(\'' + username + '\');" data-toggle="modal" role="button"><span id="app_users_selections_resetpassword_' + appUsersListOrder + '">' + $.i18n.prop('app_users_selections_resetpassword') + '</span></a></li>' +
                             '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="sendMessageOneUser(\'' + username + '\')"><span id="app_users_selections_sendMessages_' + appUsersListOrder + '">' + $.i18n.prop('app_users_selections_sendMessages') + '</span></a></li>' +
+                            '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="changeAppUserActivation(\'' + username + '\',' + activated + ')"><span id="app_users_selections_'+switcher+'_' + appUsersListOrder + '">' + $.i18n.prop("app_users_selections_"+switcher) + '</span></a></li>' +
+                            '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="kickoffAppUser(\'' + username + '\')"><span id="app_users_selections_kickoff_' + appUsersListOrder + '">' + $.i18n.prop("app_users_selections_kickoff") + '</span></a></li>' +
                             '</ul>' +
                             '</li>' +
                             '</ul>' +
@@ -272,6 +277,32 @@ function getAppUserList(pageAction) {
                     $('#tr_loading').remove();
                     $('#appUserBody').append(selectOptions);
                 }
+
+                $(respData.entities).each(function() {
+                    var userName = this.username;
+
+                    if( this.activated === false ) {
+                        $('#td_user_' + userName).addClass('deactivated');
+                    }
+
+                    $.ajax({
+                        url: baseUrl + '/' + orgName + '/' + appName + '/users/' + userName + '/status',
+                        type: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + accessToken,
+                            'Content-Type': 'application/json'
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        },
+                        success: function (respData, textStatus, jqXHR) {
+                            if( respData.data[userName] === 'online' ) {
+                                $('#td_user_' + userName).addClass('online');
+                            } else {
+                                $('#td_user_' + userName).addClass('offline');
+                            }
+                        }
+                    });
+                });
                 var tbody = document.getElementsByTagName("tbody")[0];
                 if (!tbody.hasChildNodes()) {
                     var option = '<tr><td class="text-center" colspan="9"><span id="app_users_table_nodata">' + $.i18n.prop('table_data_nodata') + '</span></td></tr>';
@@ -345,6 +376,7 @@ function searchAppIMUser() {
                 $(respData.entities).each(function () {
                     var username = this.username;
                     var created = format(this.created);
+                    var activated = this.activated;
                     var notification_display_style = '';
                     if (this.notification_display_style == 0) {
                         notification_display_style = $.i18n.prop('app_users_search_label_messageType_summary');
@@ -368,9 +400,10 @@ function searchAppIMUser() {
                     if (notifier_name == undefined) {
                         notifier_name = '--';
                     }
+                    var switcher = (activated === true) ? 'deactivate' : 'activate';
                     var selectOptions = '<tr>' +
                         '<td class="text-center"><label><input style="opacity:1;" name="checkbox" type="checkbox" value="' + username + '" />&nbsp;&nbsp;&nbsp;</label></td>' +
-                        '<td class="text-center">' + username + '</td>' +
+                        '<td class="text-center" id="td_user_' + username + '">' + username + '</td>' +
                         '<input type="hidden" id="hidden_search_notification_display_style" value="' + this.notification_display_style + '">' +
                         '<input type="hidden" id="hidden_search_notification_no_disturbing" value="' + this.notification_no_disturbing + '">' +
                         '<td class="text-center" id="search_notification_display_style">' + notification_display_style + '</td>' +
@@ -384,10 +417,13 @@ function searchAppIMUser() {
                         '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="app_users_search_selections_operation">' + $.i18n.prop('app_users_search_selections_operation') + '</span><b class="caret"></b></a>' +
                         '<ul class="dropdown-menu">' +
                         '<li data-filter-camera-type="all"><a href="javascript:void(0);" onclick="EasemobCommon.disPatcher.toPageAppUserContacts(\'' + username + '\')"><span id="app_users_search_selections_contacts">' + $.i18n.prop('app_users_search_selections_contacts') + '</span></a></li>' +
+                        '<li data-filter-camera-type="all"><a href="javascript:void(0);" onclick="EasemobCommon.disPatcher.toPageAppUserBlackList(\'' + username + '\')"><span id="app_users_search_selections_blacklist">' + $.i18n.prop('app_users_search_selections_blacklist') + '</span></a></li>' +
                         '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="showUpdateIMUserInfoWindow(\'' + username + '\')"><span id="app_users_search_selections_modify">' + $.i18n.prop('app_users_search_selections_modify') + '</span></a></li>' +
                         '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="deleteAppUser(\'' + username + '\')"><span id="app_users_search_selections_delete">' + $.i18n.prop('app_users_search_selections_delete') + '</span></a></li>' +
                         '<li data-filter-camera-type="Alpha"><a href="#passwordMondify" id="passwdMod${status.index }" onclick="setUsername(\'' + username + '\');" data-toggle="modal" role="button"><span id="app_users_search_selections_resetpassword">' + $.i18n.prop('app_users_search_selections_resetpassword') + '</span></a></li>' +
                         '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="sendMessageOneUser(\'' + username + '\')"><span id="app_users_search_selections_sendMessages">' + $.i18n.prop('app_users_search_selections_sendMessages') + '</span></a></li>' +
+                        '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="changeAppUserActivation(\'' + username + '\',' + activated + ')"><span id="app_users_search_selections_'+ switcher +'">' + $.i18n.prop("app_users_search_selections_" + switcher) + '</span></a></li>' +
+                        '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="kickoffAppUser(\'' + username + '\')"><span id="app_users_search_selections_kickoff">' + $.i18n.prop('app_users_search_selections_kickoff') + '</span></a></li>' +
                         '</ul>' +
                         '</li>' +
                         '</ul>' +
@@ -395,7 +431,30 @@ function searchAppIMUser() {
                         '</tr>';
                     $('#appUserBody').append(selectOptions);
                     $('#paginau').hide();
+
+                    if( activated === false ) {
+                        $('#td_user_' + username).addClass('deactivated');
+                    }
+
+                    $.ajax({
+                        url: baseUrl + '/' + orgName + '/' + appName + '/users/' + username + '/status',
+                        type: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + accessToken,
+                            'Content-Type': 'application/json'
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        },
+                        success: function (respData, textStatus, jqXHR) {
+                            if( respData.data[username] === 'online' ) {
+                                $('#td_user_' + username).addClass('online');
+                            } else {
+                                $('#td_user_' + username).addClass('offline');
+                            }
+                        }
+                    });
                 });
+                
             }
         });
     }
@@ -538,6 +597,81 @@ function deleteAppUsersBatch() {
     } else {
         layer.msg($.i18n.prop('app_users_alert_deleteNoteItem'), 3, 5);
     }
+}
+
+
+// 封解禁用户
+function changeAppUserActivation(username, isactivated) {
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
+
+    var confirmOk = $.i18n.prop('confirm_ok');
+    var confirmCancel = $.i18n.prop('confirm_cancel');
+    var switcher = (isactivated === true) ? 'deactivate' : 'activate';
+
+    Modal.confirm({
+            msg: $.i18n.prop('app_users_confirm_'+switcher+'_user'),
+            title: "",
+            btnok: confirmOk,
+            btncl: confirmCancel
+    }).on( function () {
+        var layerNum = layer.load($.i18n.prop('app_users_'+switcher+'_layer_user'));
+        $.ajax({
+            url: baseUrl + '/' + orgName + '/' + appName + '/users/' + username + '/' + switcher,
+            type: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            error: function () {
+                layer.close(layerNum);
+                layer.msg($.i18n.prop('app_users_'+switcher+'_alert_error'), 3, 5);
+            },
+            success: function (respData) {
+                layer.close(layerNum);
+                layer.msg($.i18n.prop('app_users_'+switcher+'_alert_done'), 3, 1);
+                getAppUserList('no');
+            }
+        });
+    });
+}
+
+
+// 强制用户下线
+function kickoffAppUser(username) {
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
+
+    var confirmOk = $.i18n.prop('confirm_ok');
+    var confirmCancel = $.i18n.prop('confirm_cancel');
+
+    Modal.confirm({
+            msg: $.i18n.prop('app_users_confirm_kickoff_user'),
+            title: "",
+            btnok: confirmOk,
+            btncl: confirmCancel
+    }).on( function () {
+        var layerNum = layer.load($.i18n.prop('app_users_kickoff_layer_user'));
+        $.ajax({
+            url: baseUrl + '/' + orgName + '/' + appName + '/users/' + username + '/disconnect',
+            type: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            error: function () {
+                layer.close(layerNum);
+                layer.msg($.i18n.prop('app_users_kickoff_alert_error'), 3, 5);
+            },
+            success: function (respData) {
+                layer.close(layerNum);
+                layer.msg($.i18n.prop('app_users_kickoff_alert_done'), 3, 1);
+                getAppUserList('no');
+            }
+        });
+    });
 }
 
 
@@ -781,6 +915,67 @@ function getAppIMUserContactsList(owner_username) {
     }
 }
 
+//获取用户黑名单列表
+function getAppIMUserBlackList(owner_username) {
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
+
+    if (!accessToken || accessToken == '') {
+        EasemobCommon.disPatcher.sessionTimeOut();
+    } else {
+        var loading = '<tr id="tr_loading"><td class="text-center" colspan="3"><img src ="/assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span id="app_users_blacklist_table_loading">正在读取数据...</span></td></tr>';
+        $('#appIMBody').empty();
+        $('#appIMBody').append(loading);
+        $.ajax({
+            url: baseUrl + '/' + orgName + '/' + appName + '/users/' + owner_username + '/blocks/users',
+            type: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            },
+            success: function (respData, textStatus, jqXHR) {
+                $('tbody').html('');
+                var i = 0;
+                var selectOptions = '';
+                var appIMUserBlackListOrder = 0;
+                $(respData.data).each(function () {
+                    appIMUserBlackListOrder += 1;
+                    selectOptions += '<tr>' +
+                        '<td style="visibility:visible;"><input type="checkbox" value="fff"  style="width:100px; height:20px;border:1px solid #F00;"/>' + (i + 1) + '</td>' +
+                        '<td class="text-center">' + respData.data[i] + '</td>' +
+                        '<td class="text-center">' +
+                        '<ul class="text-center" class="nav-pills" style="list-style-type:none">' +
+                        '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="app_users_blacklist_table_operation_' + appIMUserBlackListOrder + '">' + $.i18n.prop('app_users_blacklist_table_operation') + '</span><b class="caret"></b></a>' +
+                        '<ul class="dropdown-menu" style="left:150px;">' +
+                        '<li><a href="javascript:void(0);" onclick="deleteAppIMBlackList(\'' + owner_username + '\',\'' + respData.data[i] + '\')"><span id="app_users_blacklist_table_disconn_' + appIMUserBlackListOrder + '">' + $.i18n.prop('app_users_blacklist_table_disconn') + '</span></a></li>' +
+                        '</ul>' +
+                        '</li>' +
+                        '</ul>' +
+                        '</td>' +
+                        '</tr>';
+                    i++;
+                });
+
+                $('#appIMUserBlackListOrder').val(appIMUserBlackListOrder + '');
+
+                $('#tr_loading').remove();
+                $('#appIMBody').append(selectOptions);
+                var tbody = document.getElementsByTagName("tbody")[0];
+                if (!tbody.hasChildNodes()) {
+                    var option = '<tr><td class="text-center" colspan="3"><span id="app_users_blacklist_table_nodata">' + $.i18n.prop('table_data_nodata') + '</span></td></tr>';
+                    $('#appIMBody').append(option);
+                    var pageLi = $('#paginau').find('li');
+                    for (var i = 0; i < pageLi.length; i++) {
+                        $(pageLi[i]).hide();
+                    }
+                }
+            }
+        });
+    }
+}
 
 //删除某个好友
 function deleteAppIMFriend(owner_username, friend_username) {
@@ -814,6 +1009,45 @@ function deleteAppIMFriend(owner_username, friend_username) {
                 success: function (respData, textStatus, jqXHR) {
                     layer.msg($.i18n.prop('app_users_contacts_delete_succ'), 2, 5);
                     getAppIMUserContactsList(owner_username);
+                }
+            });
+        });
+    }
+
+}
+
+//删除某个黑名单用户
+function deleteAppIMBlackList(owner_username, blacklist_username) {
+    //获取token
+    var orgName = getOrgname();
+    var appName = getAppName();
+    var accessToken = getAccessToken();
+
+    if (!accessToken || accessToken == '') {
+        EasemobCommon.disPatcher.sessionTimeOut();
+    } else {
+
+        var confirmOk = $.i18n.prop('confirm_ok');
+        var confirmCancel = $.i18n.prop('confirm_cancel');
+        Modal.confirm({
+            msg: $.i18n.prop('app_users_blacklist_delete_confirm'),
+            title: "",
+            btnok: confirmOk,
+            btncl: confirmCancel
+        }).on( function () {
+            $.ajax({
+                url: baseUrl + '/' + orgName + '/' + appName + '/users/' + owner_username + '/blocks/users/' + blacklist_username,
+                type: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Content-Type': 'application/json'
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    layer.msg($.i18n.prop('app_users_blacklist_delete_fail'), 2, 5);
+                },
+                success: function (respData, textStatus, jqXHR) {
+                    layer.msg($.i18n.prop('app_users_blacklist_delete_succ'), 2, 5);
+                    getAppIMUserBlackList(owner_username);
                 }
             });
         });
@@ -869,6 +1103,67 @@ function doAddIMUserContact() {
 
                         $('#closeButn').click();
                         getAppIMUserContactsList(owner_username);
+                    }
+                });
+            }
+        });
+
+
+    }
+
+}
+
+//弹出添加黑名单页面
+function showAddIMUserBlackListWindow() {
+    $('#usernameBlackList').val(owner_username);
+    $('#appNameBlackList').val(getAppName());
+    $('#blacklistUsername').val('');
+    $('#showAddBlackList').click();
+}
+
+//添加黑名单
+function doAddIMUserBlackList() {
+    var orgName = getOrgname();
+    var accessToken = getAccessToken();
+    var owner_username = $('#usernameBlackList').val();
+    var appName = $('#appNameBlackList').val();
+    var blacklist_username = $('#blacklistUsername').val();
+    if (blacklist_username == '') {
+        layer.msg($.i18n.prop('app_users_blacklist_add_alert_needusername'), 2, 5);
+    } else {
+        var layerNum = layer.load($.i18n.prop('app_users_blacklist_add_layer_pending'));
+        $.ajax({
+            url: baseUrl + '/' + orgName + '/' + appName + '/users/' + blacklist_username,
+            type: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                layer.close(layerNum);
+                layer.msg($.i18n.prop('app_users_blacklist_add_note_nouser'), 3, 5);
+            },
+            success: function (respData, textStatus, jqXHR) {
+                var layerNum = layer.load($.i18n.prop('app_users_blacklist_add_layer_pending'));
+                var data = {'usernames': [blacklist_username]};
+
+                $.ajax({
+                    url: baseUrl + '/' + orgName + '/' + appName + '/users/' + owner_username + '/blocks/users/',
+                    type: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken,
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify(data),
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                    },
+                    success: function (respData, textStatus, jqXHR) {
+                        layer.close(layerNum);
+                        layer.msg($.i18n.prop('app_users_blacklist_add_note_addBlackListDone'), 3, 1);
+
+                        $('#closeButn').click();
+                        getAppIMUserBlackList(owner_username);
                     }
                 });
             }
