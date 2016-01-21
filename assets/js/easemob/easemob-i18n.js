@@ -49,6 +49,10 @@ var I18NPropsLoader = function(){
                     this.loadPropertiesCommon();
                     this.loadPropertiesForPageAppChatgroupsUsers();
                     break;
+                case 'app_chatgroup_blacklist':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppChatgroupsBlackList();
+                    break;
                 case 'org_admin_passwd':
                     this.loadPropertiesCommon();
                     this.loadPropertiesForPageAdminHomePassword();
@@ -116,6 +120,10 @@ var I18NPropsLoader = function(){
                 case 'app_user_contacts':
                     this.loadPropertiesCommon();
                     this.loadPropertiesForPageAppUsersContacts();
+                    break;
+                case 'app_user_blacklist':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppUsersBlackList();
                     break;
                 case 'app_counters':
                     this.loadPropertiesCommon();
@@ -645,6 +653,52 @@ var I18NPropsLoader = function(){
             });
         },
 
+        // load resources used in app_chatgroups_blacklist.html page
+        loadPropertiesForPageAppChatgroupsBlackList: function(){
+            $.i18n.properties({
+                name: resourceFilePrefix,
+                path: resourceFilePath,
+                mode: resourcePropertiesMode,
+                language : this.getNavigatorLanguage(),
+                callback : function() {
+                    $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#second_nav_chatgroups').text($.i18n.prop('second_nav_chatgroups'));
+                    $('#second_nav_chatgroupblacklist').text($.i18n.prop('second_nav_chatgroupblacklist'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
+                    $('#app_chatgroups_btn_addblacklist').text($.i18n.prop('app_chatgroups_btn_addblacklist'));
+                    $('#app_chatgroup_blacklist_table_blacklist').text($.i18n.prop('app_chatgroup_blacklist_table_blacklist'));
+                    $('#app_chatgroup_blacklist_table_operation').text($.i18n.prop('app_chatgroup_blacklist_table_operation'));
+                    $('#app_chatgroup_blacklist_table_selection_operation').text($.i18n.prop('app_chatgroup_blacklist_table_selection_operation'));
+                    $('#app_chatgroup_blacklist_table_operation_blacklist').text($.i18n.prop('app_chatgroup_blacklist_Table_operation_blacklist'));
+                    $('#app_chatgroup_blacklist_table_operation_delete').text($.i18n.prop('app_chatgroup_blacklist_table_operation_delete'));
+                    $('#app_chatgroup_blacklist_table_operation_sendmessage').text($.i18n.prop('app_chatgroup_blacklist_table_operation_sendmessage'));
+                    $('#app_chatgroup_blacklist_table_disable').text($.i18n.prop('app_chatgroup_blacklist_table_disable'));
+                    $('#app_chatgroup_blacklist_table_nodata').text($.i18n.prop('table_data_nodata'));
+
+                    var newBlackListEMsgTag = $('#newBlackListEMsgTag').val();
+                    if(newBlackListEMsgTag == 'user_invalid') {
+                        $('#newblacklistEMsg').text($.i18n.prop('app_chatgroups_add_alert_blacklist_invalid'));
+                    } else if(newBlackListEMsgTag == 'user_notfoud') {
+                        $('#newblacklistEMsg').text($.i18n.prop('app_chatgroups_add_alert_blacklist_notfoud'));
+                    } else if(newBlackListEMsgTag == 'owner_duplicate') {
+                        $('#newblacklistEMsg').text($.i18n.prop('app_chatgroups_add_alert_owner_duplicate'));
+                    }
+
+                    var groupBlackListOrder = parseInt($('#groupBlackListOrder').val());
+                    for(var i=1; i<=groupBlackListOrder; i++) {
+                        $('#app_chatgroups_blacklist_table_selection_operation_' + i).text($.i18n.prop('app_chatgroups_blacklist_table_selection_operation'));
+                        $('#app_chatgroups_blacklist_table_selection_remove_' + i).text($.i18n.prop('app_chatgroups_blacklist_table_selection_remove'));
+                    }
+
+                    $('#newblacklist').attr('placeholder', $.i18n.prop('app_chatgroups_btn_newblacklist_placeholder'));
+                }
+            });
+        },
+
         // load resources used in app_chatgroups.html page
         loadPropertiesForPageAppChatgroups: function(){
             $.i18n.properties({
@@ -661,6 +715,7 @@ var I18NPropsLoader = function(){
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#second_nav_chatgroups').text($.i18n.prop('second_nav_chatgroups'));
                     $('#second_nav_chatgroupmembers').text($.i18n.prop('second_nav_chatgroupmembers'));
+                    $('#second_nav_chatgroupblacklist').text($.i18n.prop('second_nav_chatgroupblacklist'));
                     $('#app_chatgroups_btn_addchatgroup').text($.i18n.prop('app_chatgroups_btn_addchatgroup'));
                     $('#app_chatgroups_btn_deleteBatch').text($.i18n.prop('app_chatgroups_btn_deleteBatch'));
                     $('#app_chatgroups_btn_sendMsg').text($.i18n.prop('app_chatgroups_btn_sendMsg'));
@@ -680,6 +735,7 @@ var I18NPropsLoader = function(){
                     for(var i=1; i<=statusOrder; i++) {
                         $('#app_chatgroups_table_selection_operation_' + i).text($.i18n.prop('app_chatgroups_table_selection_operation'));
                         $('#app_chatgroups_table_operation_members_' + i).text($.i18n.prop('app_chatgroups_table_operation_members'));
+                        $('#app_chatgroups_table_operation_blacklist_' + i).text($.i18n.prop('app_chatgroups_table_operation_blacklist'));
                         $('#app_chatgroups_table_operation_delete_' + i).text($.i18n.prop('app_chatgroups_table_operation_delete'));
                         $('#app_chatgroups_table_operation_sendmessage_' + i).text($.i18n.prop('app_chatgroups_table_operation_sendmessage'));
                     }
@@ -1073,9 +1129,18 @@ var I18NPropsLoader = function(){
                     for(var i=1; i<=appUsersListOrder; i++) {
                         $('#app_users_selections_operation_' + i).text($.i18n.prop('app_users_selections_operation'));
                         $('#app_users_selections_contacts_' + i).text($.i18n.prop('app_users_selections_contacts'));
+                        $('#app_users_selections_blacklist_' + i).text($.i18n.prop('app_users_selections_blacklist'));
                         $('#app_users_selections_resetpassword_' + i).text($.i18n.prop('app_users_selections_resetpassword'));
                         $('#app_users_selections_modify_' + i).text($.i18n.prop('app_users_selections_modify'));
                         $('#app_users_selections_delete_' + i).text($.i18n.prop('app_users_selections_delete'));
+                        try{
+                            $('#app_users_selections_activate_' + i).text($.i18n.prop('app_users_selections_activate'));
+                        } catch(e){}
+                        try{
+                            $('#app_users_selections_deactivate_' + i).text($.i18n.prop('app_users_selections_deactivate'));
+                        } catch(e){}
+                        $('#app_users_selections_kickoff_' + i).text($.i18n.prop('app_users_selections_kickoff'));
+                        
                         $('#app_users_selections_sendMessages_' + i).text($.i18n.prop('app_users_selections_sendMessages'));
                         var hidden_notification_display_style = $('#hidden_notification_display_style_' + i).val();
                         if(hidden_notification_display_style == 0){
@@ -1117,9 +1182,17 @@ var I18NPropsLoader = function(){
 
                     $('#app_users_search_selections_operation').text($.i18n.prop('app_users_search_selections_operation'));
                     $('#app_users_search_selections_contacts').text($.i18n.prop('app_users_search_selections_contacts'));
+                    $('#app_users_search_selections_blacklist').text($.i18n.prop('app_users_search_selections_blacklist'));
                     $('#app_users_search_selections_resetpassword').text($.i18n.prop('app_users_search_selections_resetpassword'));
                     $('#app_users_search_selections_modify').text($.i18n.prop('app_users_search_selections_modify'));
                     $('#app_users_search_selections_delete').text($.i18n.prop('app_users_search_selections_delete'));
+                    try{
+                        $('#app_users_search_selections_activate').text($.i18n.prop('app_users_search_selections_activate'));
+                    } catch(e){}
+                    try{
+                        $('#app_users_search_selections_deactivate').text($.i18n.prop('app_users_search_selections_deactivate'));
+                    } catch(e){}
+                    $('#app_users_search_selections_kickoff').text($.i18n.prop('app_users_search_selections_kickoff'));
                     $('#app_users_search_selections_sendMessages').text($.i18n.prop('app_users_search_selections_sendMessages'));
 
                     $('#userInbox').attr('placeholder', $.i18n.prop('app_users_text_search_box_placeholder'));
@@ -1147,9 +1220,21 @@ var I18NPropsLoader = function(){
                     $('#app_users_table_nav_next').text($.i18n.prop('app_users_table_nav_next'));
                     $('#app_users_table_nodata').text($.i18n.prop('table_data_nodata'));
                     $('#app_users_confirm_delete_user').text($.i18n.prop('app_users_confirm_delete_user'));
+                    $('#app_users_confirm_activate_user').text($.i18n.prop('app_users_confirm_activate_user'));
+                    $('#app_users_confirm_deactivate_user').text($.i18n.prop('app_users_confirm_deactivate_user'));
+                    $('#app_users_confirm_kickoff_user').text($.i18n.prop('app_users_confirm_kickoff_user'));
                     $('#app_users_delete_layer_user').text($.i18n.prop('app_users_delete_layer_user'));
                     $('#app_users_delete_alert_deleted').text($.i18n.prop('app_users_delete_alert_deleted'));
                     $('#app_users_delete_alert_deleteError').text($.i18n.prop('app_users_delete_alert_deleteError'));
+                    $('#app_users_activate_layer_user').text($.i18n.prop('app_users_activate_layer_user'));
+                    $('#app_users_activate_alert_done').text($.i18n.prop('app_users_activate_alert_done'));
+                    $('#app_users_activate_alert_error').text($.i18n.prop('app_users_activate_alert_error'));
+                    $('#app_users_deactivate_layer_user').text($.i18n.prop('app_users_deactivate_layer_user'));
+                    $('#app_users_deactivate_alert_done').text($.i18n.prop('app_users_deactivate_alert_done'));
+                    $('#app_users_deactivate_alert_error').text($.i18n.prop('app_users_deactivate_alert_error'));
+                    $('#app_users_kickoff_layer_user').text($.i18n.prop('app_users_kickoff_layer_user'));
+                    $('#app_users_kickoff_alert_done').text($.i18n.prop('app_users_kickoff_alert_done'));
+                    $('#app_users_kickoff_alert_error').text($.i18n.prop('app_users_kickoff_alert_error'));
                     $('#app_users_alert_deleteNoteItem').text($.i18n.prop('app_users_alert_deleteNoteItem'));
                     $('#app_users_delete_alert_deleteNoteDone').text($.i18n.prop('app_users_delete_alert_deleteNoteDone'));
                     $('#app_users_passwordModify_label_newpassword').text($.i18n.prop('app_users_passwordModify_label_newpassword'));
@@ -1206,6 +1291,41 @@ var I18NPropsLoader = function(){
                         $('#app_users_contacts_table_disconn_' + i).text($.i18n.prop('app_users_contacts_table_disconn'));
                     }
                     $('#app_users_contacts_table_nodata').text($.i18n.prop('table_data_nodata'));
+                }
+            });
+        },
+
+        // load resources used in app_user_blacklist.html page
+        loadPropertiesForPageAppUsersBlackList: function(){
+            $.i18n.properties({
+                name: resourceFilePrefix,
+                path: resourceFilePath,
+                mode: resourcePropertiesMode,
+                language : this.getNavigatorLanguage(),
+                callback : function() {
+                    $('#page_title').text($.i18n.prop('page_title'));
+                    $('#bigdataEntry').text($.i18n.prop('bigdataEntry'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
+                    $('#second_nav_imusers').text($.i18n.prop('second_nav_imusers'));
+                    $('#second_nav_blacklist').text($.i18n.prop('second_nav_blacklist'));
+                    $('#app_users_blacklist_bnt_addNewBlackList').text($.i18n.prop('app_users_blacklist_bnt_addNewBlackList'));
+                    $('#app_users_blacklist_table_username').text($.i18n.prop('app_users_blacklist_table_username'));
+                    $('#app_users_blacklist_text_addNewBlackList').text($.i18n.prop('app_users_blacklist_text_addNewBlackList'));
+                    $('#app_users_blacklist_text_blacklistName').text($.i18n.prop('app_users_blacklist_text_blacklistName'));
+                    $('#app_users_blacklist_bnt_add').text($.i18n.prop('app_users_blacklist_bnt_add'));
+                    $('#app_users_blacklist_bnt_cancel').text($.i18n.prop('app_users_blacklist_bnt_cancel'));
+                    $('#app_users_blacklist_table_loading').text($.i18n.prop('app_users_blacklist_table_loading'));
+                    $('#app_users_blacklist_table_operation').text($.i18n.prop('app_users_blacklist_table_operation'));
+
+                    var appIMUserBlackListOrder = parseInt($('#appIMUserBlackListOrder').val());
+                    for(var i=1; i<=appIMUserBlackListOrder; i++) {
+                        $('#app_users_blacklist_table_operation_' + i).text($.i18n.prop('app_users_blacklist_table_operation'));
+                        $('#app_users_blacklist_table_disconn_' + i).text($.i18n.prop('app_users_blacklist_table_disconn'));
+                    }
+                    $('#app_users_blacklist_table_nodata').text($.i18n.prop('table_data_nodata'));
                 }
             });
         },

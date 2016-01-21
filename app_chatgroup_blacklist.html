@@ -1,0 +1,235 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title id="page_title"></title>
+
+    <script src="/assets/js/easemob/easemob-header.js"></script>
+    <style type="text/css">
+        .row-fluid td {
+            text-align: center;
+        }
+
+        .row-fluid a {
+            margin: auto;
+        }
+
+        .row-fluid dt {
+            float: left;
+        }
+
+        .row-fluid dd {
+            float: left;
+        }
+
+        .a_button:link {
+            text-decoration: none;
+        }
+
+        .a_button:hover {
+            background-color: #2283c5;
+        }
+    </style>
+
+    <script src="/assets/js/easemob/easemob-chatgroups.js"></script>
+    <script charset="utf-8">
+        var groupid = getQueryString('groupid');
+        var cookieNameSufix = getCookieNameSufix();
+        $(function () {
+            EasemobCommon.init();
+            showLinkForBigdata();
+
+            I18NPropsLoader.loadPropertiesCommon();
+
+            $('#showName').text(getAppName());
+
+            getAppChatgroupBlackList(groupid);
+
+            $("#groupName").text(groupid);
+            $('#addBlackListForm').submit(function () {
+                addChatgroupBlackList();
+                return false;
+            });
+
+
+            I18NPropsLoader.loadPropertiesForPageAppChatgroupsBlackList();
+        });
+
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?3e5b3453fdcff1e4dec124ea22f1e189";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+
+
+        var _vds = _vds || [];
+
+        var orgName = $.cookie('orgName'+cookieNameSufix);
+        _vds.push(['setCS1', getPatform() + '-orgId', orgName]);
+
+        var admin = $.cookie('cuser'+cookieNameSufix);
+        _vds.push(['setCS2', getPatform() + '-userId', admin]);
+
+        _vds.push(['setCS3', 'clientID', '环信IM管理后台']);
+
+        var appkey = getOrgname()+"#"+getAppName();
+        _vds.push(['setCS4', getPatform() + '-appkey', appkey]);
+
+        (function(){
+            _vds.push(['setAccountId', '8bb5da75505521d9fa9a3dea82f4e2e2']);
+            (function() {
+                var vds = document.createElement('script');
+                vds.type='text/javascript';
+                vds.async = true;
+                vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(vds, s);
+            })();
+        })();
+    </script>
+</head>
+
+<body>
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="/assets/img/logo_home_zh.png" /></a>
+
+            <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
+                <ol>
+                    <li style="width:20%;"><a href="javascript:EasemobCommon.disPatcher.openPageWWWHome()"><h5 id="nav_index"></h5></a></li>
+                    <li style="width:20%;"><a href="javascript:EasemobCommon.disPatcher.openPageWWWDocs()" target="_blank"><h5 id="nav_doc"></h5></a></li>
+                    <li style="width:20%;"><a href="javascript:EasemobCommon.disPatcher.openPageWWWSupport()" target="_blank"><h5 id="nav_help"></h5></a></li>
+                    <li style="width:20%;"><a href="javascript:EasemobCommon.disPatcher.openPageIMGeek()" target="_blank"><h5 id="nav_community"></h5></a></li>
+                    <li style="width:20%;"><a href="javascript:EasemobCommon.disPatcher.openPageWWWSDK()" target="_blank"><h5 id="nav_download"></h5></a></li>
+                </ol>
+            </div>
+
+            <div style="float:right;">
+                <button type="button" class="btn btn-primary" id="i18nBtnEnglish" onclick="EasemobCommon.setLocale('en')">English</button>
+                <button type="button" class="btn btn-primary" id="i18nBtnChinese" onclick="EasemobCommon.setLocale('zh')">中文</button>
+            </div>
+
+            <ul class="nav ace-nav pull-right" style="top:5px; margin-right:0">
+                <li class="light-blue user-profile"><a class="user-menu dropdown-toggle" href="javascript:void(0);"
+                                                       data-toggle="dropdown"> <span id="user_info"></span> <i
+                        class="icon-caret-down"></i> </a>
+                    <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
+                        <li class="divider"></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminHome()" target="_self"> <i class="icon-user"></i><span id="nav_account"></span></a></li>
+                        <li><a href="javascript:EasemobCommon.logOut()" > <i class="icon-off"></i><span id="nav_signout"></span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="main-container" class="container-fluid"><a href="javascript:void(0);" id="menu-toggler"> <span></span> </a>
+
+    <div id="sidebar">
+        <div id="sidebar-shortcuts">
+            <div style="min-height: 40px;" id="sidebar-shortcuts-large"></div>
+            <div style="min-height: 40px;" id="sidebar-shortcuts-mini"></div>
+        </div>
+        <ul class="nav nav-list">
+            <li class="active"><a href="javascript:EasemobCommon.disPatcher.toPageAppList()" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp"></span> </a></li>
+            <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminList()" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo"></span></a></li>
+            <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminHome()" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo"></span></a></li>
+        </ul>
+        <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
+    </div>
+    <div class="clearfix" id="main-content">
+        <div id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li><i class="icon-home"></i>&nbsp;&nbsp;<span id="second_nav_myapp"></span>&nbsp; </li>
+                <li><span class="divider"> <i class="icon-angle-right"></i> </span>&nbsp;<a
+                        href="javascript:EasemobCommon.disPatcher.toPageAppInfo()"><span id="showName"></span></a>&nbsp;</li>
+                <li><span class="divider"> <i class="icon-angle-right"></i> </span>&nbsp;<span id="second_nav_chatgroups"></span>&nbsp;</li>
+                <li><span class="divider"> <i class="icon-angle-right"></i> </span><span id="groupName"></span>&nbsp;&nbsp;
+                </li>
+                <li><span class="divider"> <i class="icon-angle-right"></i> </span>&nbsp;<span id="second_nav_chatgroupblacklist"></span>&nbsp;</li>
+            </ul>
+        </div>
+        <div class="clearfix" id="page-content">
+            <div class="row-fluid">
+                <div class="pagination pagination-left">
+                    <ul>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppInfo()"><span id="third_nav_appprofile"></span></a></li>
+                    </ul>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <ul>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppUsers()"><span id="third_nav_imusers"></span></a></li>
+                    </ul>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <ul>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppChatGroups()"><font color="green"><span id="third_nav_chatgroups"></span></font></a></li>
+                    </ul>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <ul>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppNotifiers()"><span id="third_nav_notifier"></span></a></li>
+                    </ul>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <ul>
+                        <li id="countNameButton" style="position: absolute" class="hidden"><img src="/assets/img/tag_new.png" style="width: 25px; height: 30px"></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><span id="third_nav_counter"></span></a></li>
+                    </ul>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="showLinkBigdata" class="hidden"><a id="showLinkBigdataBtn" target_href="" href="javascript:void(0)" target="_blank">进入我的IM数据平台>>></a></span>
+                    <hr/>
+                </div>
+                <div class="pagination pagination-left">
+                    <div class="inbox-header">
+                        <form id="addBlackListForm" action="#" class="form-search pull-left">
+                            <div class="input-append">
+                                <input class="m-wrap" value="" id="newblacklist" name="newblacklist" type="text" placeholder=""/>
+                                <button class="btn green" id="searchBtn" onClick="addChatgroupBlackList()"
+                                        type="button"><span id="app_chatgroups_btn_addblacklist"></span>
+                                </button>
+                            </div>
+                            &nbsp;
+                            <span id="newblacklistEMsg" style="color:red"></span>
+                            <input type="hidden" id="newBlackListEMsgTag" value="" />
+                        </form>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <input type="hidden" value="" id="groupBlackListOrder" />
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="hidden-480 text-center"><i></i><span id="app_chatgroups_blacklist_table_blacklist"></span></th>
+                            <th class="hidden-240 text-center"><i></i><span id="app_chatgroups_blacklist_table_operation"></span></th>
+                        </tr>
+                        </thead>
+                        <tbody id="appIMBody" style="text-align:center;"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- confirm modal window start -->
+<div id="ycf-alert" class="modal" style="display: none;width: 222px;position: absolute;top:35%;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-exclamation-circle"></i></h5>
+            </div>
+            <div class="modal-body small">
+                <p>[Message]</p>
+            </div>
+            <div class="modal-footer" >
+                <button type="button" class="btn ok" data-dismiss="modal">[BtnOk]</button>
+                <button type="button" class="btn cancel" data-dismiss="modal">[BtnCancel]</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- confirm modal window end -->
+</body>
+
+</html>

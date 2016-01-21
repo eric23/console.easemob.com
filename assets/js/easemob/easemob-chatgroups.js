@@ -151,6 +151,7 @@ function getAppChatgroups(pageAction) {
                         '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="app_chatgroups_table_selection_operation_' + statusOrder + '">' + $.i18n.prop('app_chatgroups_table_selection_operation') + '</span><b class="caret"></b></a>' +
                         '<ul class="dropdown-menu">' +
                         '<li data-filter-camera-type="all"><a href="javascript:void(0);" onclick="EasemobCommon.disPatcher.toPageAppChatGroupUsers(\'' + groupid + '\')"><span id="app_chatgroups_table_operation_members_' + statusOrder + '">' + $.i18n.prop('app_chatgroups_table_operation_members') + '</span></a></li>' +
+                        '<li data-filter-camera-type="all"><a href="javascript:void(0);" onclick="EasemobCommon.disPatcher.toPageAppChatGroupBlackList(\'' + groupid + '\')"><span id="app_chatgroups_table_operation_blacklist_' + statusOrder + '">' + $.i18n.prop('app_chatgroups_table_operation_blacklist') + '</span></a></li>' +
                         '<li data-filter-camera-type="Alpha"><a href="javascript:void(0);" onclick="deleteAppChatroom(\'' + groupid + '\')"><span id="app_chatgroups_table_operation_delete_' + statusOrder + '">' + $.i18n.prop('app_chatgroups_table_operation_delete') + '</span></a></li>' +
                         '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="sendMessgeOne(\'' + groupid + '\')"><span id="app_chatgroups_table_operation_sendmessage_' + statusOrder + '">' + $.i18n.prop('app_chatgroups_table_operation_sendmessage') + '</span></a></li>' +
                         '</ul>' +
@@ -274,6 +275,7 @@ function searchAppChatgroupById(groupid, pageAction) {
                     '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="app_chatgroups_table_operation">' + $.i18n.prop('app_chatgroups_table_operation') + '</span><b class="caret"></b></a>' +
                     '<ul class="dropdown-menu">' +
                     '<li data-filter-camera-type="all"><a href="javascript:void(0);" onclick="EasemobCommon.disPatcher.toPageAppChatGroupUsers(\'' + groupid + '\')"><span id="app_chatgroups_table_operation_members">' + $.i18n.prop('app_chatgroups_table_operation_members') + '</span></a></li>' +
+                    '<li data-filter-camera-type="all"><a href="javascript:void(0);" onclick="EasemobCommon.disPatcher.toPageAppChatGroupBlackList(\'' + groupid + '\')"><span id="app_chatgroups_table_operation_blacklist">' + $.i18n.prop('app_chatgroups_table_operation_blacklist') + '</span></a></li>' +
                     '<li data-filter-camera-type="Alpha"><a href="javascript:void(0);" onclick="deleteAppChatroom(\'' + groupid + '\')"><span id="app_chatgroups_table_operation_delete">' + $.i18n.prop('app_chatgroups_table_operation_delete') + '</span></a></li>' +
                     '<li data-filter-camera-type="Zed"><a href="javascript:void(0);" onclick="sendMessgeOne(\'' + groupid + '\')"><span id="app_chatgroups_table_operation_sendmessage">' + $.i18n.prop('app_chatgroups_table_operation_sendmessage') + '</span></a></li>' +
                     '</ul>' +
@@ -382,6 +384,87 @@ function getAppChatgroupUser(groupid, pageAction) {
     }
 
 }
+
+// 获取群组黑名单
+function getAppChatgroupBlackList(groupid, pageAction) {
+    $('#paginau').html('');
+    var accessToken = getAccessToken();
+    var cuser = getCuser();
+    var orgName = getOrgname();
+    var appName = getAppName();
+    if (!accessToken || accessToken == '') {
+        EasemobCommon.disPatcher.sessionTimeOut();
+    } else {
+        if ('forward' == pageAction) {
+            pageNo += 1;
+        } else if ('next' == pageAction) {
+            pageNo -= 1;
+        }
+
+        var tmp = '';
+        if (typeof(pageAction) != 'undefined' && pageAction != '') {
+            tmp = '&cursor=' + cursors[pageNo];
+        }
+        $.ajax({
+            url: baseUrl + '/' + orgName + '/' + appName + '/chatgroups/' + groupid + '/blocks/users',
+            type: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            error: function (respData) {
+            },
+            success: function (respData) {
+                if (pageAction != 'forward') {
+                    cursors[pageNo + 1] = respData.cursor;
+                } else {
+                    cursors[pageNo + 1] = null;
+                }
+                if (respData.entities.length == 0 && pageAction == 'no') {
+                    getAppChatgroupBlackList(groupid, 'forward');
+                } else {
+                    $('#showUsername').text(cuser)
+                    $('tbody').html('');
+                    groupBlackListOrder = 0;
+                    $(respData.data).each(function () {
+                        groupBlackListOrder = groupBlackListOrder + 1;
+
+                        if (this) {
+                            var selectOptions = '<tr>' +
+                                '<td class="text-center">' + this + '</td>' +
+                                '<td class="text-center">' +
+                                '<ul class="text-center" class="nav-pills" style="list-style-type:none">' +
+                                '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="app_chatgroups_blacklist_table_selection_operation_' + groupBlackListOrder + '">' + $.i18n.prop('app_chatgroups_blacklist_table_selection_operation') + '</span><b class="caret"></b></a>' +
+                                '<ul class="dropdown-menu" style="left:200px">' +
+                                '<li><a href="javascript:void(0);" onclick="deleteAppChatgroupBlackList(\'' + groupid + '\',\'' + this + '\')"><span id="app_chatgroups_blacklist_table_selection_remove_' + groupBlackListOrder + '">' + $.i18n.prop('app_chatgroups_blacklist_table_selection_remove') + '</span></a></li>' +
+                                '</ul>' +
+                                '</li>' +
+                                '</ul>' +
+                                '</td>' +
+                                '</tr>';
+                            $('#appIMBody').append(selectOptions);
+                        }
+                    });
+
+                    $('#groupBlackListOrder').val(groupBlackListOrder);
+                }
+                var tbody = document.getElementsByTagName("tbody")[0];
+                if (!tbody.hasChildNodes()) {
+                    var option = '<tr><td class="text-center" colspan="3"><span id="app_chatgroup_blacklist_table_nodata">' + $.i18n.prop('table_data_nodata') + '</span></td></tr>';
+                    $('#appIMBody').append(option);
+                    var pageLi = $('#pagina').find('li');
+                    for (var i = 0; i < pageLi.length; i++) {
+                        $(pageLi[i]).hide();
+                    }
+                }
+
+            }
+        });
+    }
+
+}
+
+
 // 删除app下的群组
 function deleteAppChatroom(groupuuid) {
     var accessToken = getAccessToken();
@@ -448,6 +531,39 @@ function deleteAppChatgroupUsers(groupuuid, usersname) {
     });
 }
 
+// 移除黑名单下的成员
+function deleteAppChatgroupBlackList(groupuuid, usersname) {
+    var accessToken = getAccessToken();
+    var orgName = getOrgname();
+    var appName = getAppName();
+
+    var confirmOk = $.i18n.prop('confirm_ok');
+    var confirmCancel = $.i18n.prop('confirm_cancel');
+    Modal.confirm({
+        msg: $.i18n.prop('app_chatgroups_blacklist_delete_confirm'),
+        title: "",
+        btnok: confirmOk,
+        btncl: confirmCancel
+    }).on(function () {
+        $.ajax({
+            url: baseUrl + '/' + orgName + '/' + appName + '/chatgroups/' + groupuuid + '/blocks/users/' + usersname,
+            type: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            error: function () {
+                layer.msg($.i18n.prop('app_chatgroups_blacklist_delete_failed'), 3, 5);
+            },
+            success: function (respData) {
+                layer.msg($.i18n.prop('app_chatgroups_blacklist_delete_succ'), 3, 1);
+
+                getAppChatgroupBlackList(groupuuid);
+            }
+        });
+    });
+}
+
 // 添加群内成员
 function addChatgroupMember(groupid, newmember) {
     var orgName = getOrgname();
@@ -494,6 +610,54 @@ function addChatgroupMember(groupid, newmember) {
     }
 }
 
+
+// 添加群内黑名单
+function addChatgroupBlackList() {
+    var orgName = getOrgname();
+    var appName = getAppName();
+    var accessToken = getAccessToken();
+    var newmember = $('#newblacklist').val().trim();
+
+    if (newmember == '') {
+        $('#newblacklistEMsg').text($.i18n.prop('app_chatgroups_add_alert_blacklist_invalid'));
+        $('#newBlackListEMsgTag').val('user_invalid');
+    } else {
+        $.ajax({
+            url: baseUrl + '/' + orgName + '/' + appName + '/users/' + newmember,
+            type: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#newblacklistEMsg').text($.i18n.prop('app_chatgroups_add_alert_blacklist_notfoud'));
+                $('#newBlackListEMsgTag').val('user_notfoud');
+            },
+            success: function (respData, textStatus, jqXHR) {
+                var owner = $.cookie('owner');
+                if (newmember != owner) {
+                    $.ajax({
+                        url: baseUrl + '/' + orgName + '/' + appName + '/chatgroups/' + groupid + '/blocks/users/' + newmember,
+                        type: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + accessToken,
+                            'Content-Type': 'application/json'
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        },
+                        success: function (respData, textStatus, jqXHR) {
+                            layer.msg($.i18n.prop('app_chatgroups_add_blacklist_succ'), 3, 1);
+                            getAppChatgroupBlackList(groupid);
+                        }
+                    });
+                } else {
+                    $('#newblacklistEMsg').text($.i18n.prop('app_chatgroups_add_alert_owner_duplicate'));
+                    $('#newBlackListEMsgTag').val('owner_duplicate');
+                }
+            }
+        });
+    }
+}
 
 // 添加群组
 function createNewChatgroups(chatgroupName, chatgroupDesc, approval, publics, chatgroupOwner) {
@@ -728,6 +892,7 @@ function checkMaxusers() {
     }
 }
 
+
 function addChatgroupMemberPre() {
     var newmember = $('#newmember').val().trim();
     if (checkMaxusers()) {
@@ -738,6 +903,7 @@ function addChatgroupMemberPre() {
         $('#newMemberEMsgTag').val('overLoad');
     }
 }
+
 
 //发送消息
 function showSendMessagesWindowForChatgroups() {

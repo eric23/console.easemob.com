@@ -1,0 +1,11 @@
+td.online {
+	color : #00CC66;
+}
+
+td.offline {
+	color : #BBBBBB;
+}
+
+td.deactivated {
+	text-decoration: line-through;
+}
