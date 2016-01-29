@@ -160,7 +160,11 @@ function getCounterNameFromHtml() {
 
     switch (counterType) {
         case 'register_users':
-            counterName = 'application.collection.users';
+            if(newMetricsRegisterUsers) {
+                counterName = 'im_users';
+            } else {
+                counterName = 'application.collection.users';
+            }
             break;
         case 'daily_active_users':
             counterName = 'daily_active_user';
@@ -172,19 +176,42 @@ function getCounterNameFromHtml() {
             counterName = 'daily_new_user';
             break;
         case 'msg_outgoing_chat':
-            counterName = 'application.collection.chatmessages';
+            if(newMetricsChatmessages) {
+                counterName = 'im_chatmessages';
+            } else {
+                counterName = 'application.collection.chatmessages';
+            }
+            counterName = 'im_chatmessages';
+            //counterName = 'application.collection.chatmessages';
             restStr = '&direction=outgoing&chat_type=chat';
             break;
         case 'msg_outgoing_groupchat':
-            counterName = 'application.collection.chatmessages';
+            if(newMetricsChatmessages) {
+                counterName = 'im_chatmessages';
+            } else {
+                counterName = 'application.collection.chatmessages';
+            }
+            counterName = 'im_chatmessages';
+            //counterName = 'application.collection.chatmessages';
             restStr = '&direction=outgoing&chat_type=groupchat';
             break;
         case 'msg_offline_chat':
-            counterName = 'application.collection.chatmessages';
+            if(newMetricsChatmessages) {
+                counterName = 'im_chatmessages';
+            } else {
+                counterName = 'application.collection.chatmessages';
+            }
+            counterName = 'im_chatmessages';
+            //counterName = 'application.collection.chatmessages';
             //restStr = '&direction=offline&chat_type=chat';
             break;
         case 'msg_offline_groupchat':
-            counterName = 'application.collection.chatmessages';
+            if(newMetricsChatmessages) {
+                counterName = 'im_chatmessages';
+            } else {
+                counterName = 'application.collection.chatmessages';
+            }
+            //counterName = 'application.collection.chatmessages';
             //restStr = '&direction=offline&chat_type=groupchat';
             break;
         default:

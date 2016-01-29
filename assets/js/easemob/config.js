@@ -3,3 +3,5 @@
  */
 var baseUrl = 'https://a1.easemob.com';
 var baseDomain = '.easemob.com';
+var newMetricsRegisterUsers = false;
+var newMetricsChatmessages = false;
