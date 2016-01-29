@@ -265,9 +265,14 @@ function getAppOverView() {
 // fetch the im users count of the app
 function fetchAppUserCount(accessToken, orgName, appName) {
 
+    var counterName = 'application.collection.users';
+    if(newMetricsRegisterUsers) {
+        counterName = 'im_users';
+    }
+
     var userCount = 0;
     $.ajax({
-        url: baseUrl + '/' + orgName + '/' + appName + '/counters?counter=application.collection.users&pad=true',
+        url: baseUrl + '/' + orgName + '/' + appName + '/counters?counter='+counterName+'&pad=true',
         type: 'GET',
         async: false,
         headers: {

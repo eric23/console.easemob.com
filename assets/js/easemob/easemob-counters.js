@@ -181,7 +181,7 @@ function getCounterNameFromHtml() {
             } else {
                 counterName = 'application.collection.chatmessages';
             }
-            counterName = 'im_chatmessages';
+            //counterName = 'im_chatmessages';
             //counterName = 'application.collection.chatmessages';
             restStr = '&direction=outgoing&chat_type=chat';
             break;
@@ -191,7 +191,7 @@ function getCounterNameFromHtml() {
             } else {
                 counterName = 'application.collection.chatmessages';
             }
-            counterName = 'im_chatmessages';
+            //counterName = 'im_chatmessages';
             //counterName = 'application.collection.chatmessages';
             restStr = '&direction=outgoing&chat_type=groupchat';
             break;
@@ -201,7 +201,7 @@ function getCounterNameFromHtml() {
             } else {
                 counterName = 'application.collection.chatmessages';
             }
-            counterName = 'im_chatmessages';
+            //counterName = 'im_chatmessages';
             //counterName = 'application.collection.chatmessages';
             //restStr = '&direction=offline&chat_type=chat';
             break;

@@ -16,13 +16,9 @@
     <script src="/assets/js/My97DatePicker/WdatePicker.js" id="datePikerScript"></script>
 
 
-    <!--<script src="/assets/js/easemob/easemob-artdialog-plus.js"></script>-->
-    <!--<script src="/assets/js/easemob/easemob-protocol_dialog.js"></script>-->
-
-
     <script charset="utf-8">
-        var counterNameUsers = 'application.collection.users';
-        var counterNameChatmessages = 'application.collection.chatmessages';
+//        var counterNameUsers = 'application.collection.users';
+//        var counterNameChatmessages = 'application.collection.chatmessages';
         var chartTileUsers = '';
         var chartTileChatmessages = '';
         var chartTileDailyActiveUser = '';
@@ -41,7 +37,6 @@
             I18NPropsLoader.loadPropertiesForPageAppCounters();
 
             chartTileUsers = $.i18n.prop('app_collection_counters_chartTileUsers');
-//            chartTileChatmessages = $.i18n.prop('app_collection_counters_chartTileChatmessages');
             chartTileChatmessages = $.i18n.prop('app_collection_counters_chartTileChatmessages_chat_incoming');
             chartTileDailyActiveUser = $.i18n.prop('app_collection_counters_chartTileDailyActiveUser');
             chartTileDailyNewActiveUser = $.i18n.prop('app_collection_counters_chartTileDailyNewActiveUser');
@@ -79,15 +74,21 @@
         var _vds = _vds || [];
 
         var orgName = $.cookie('orgName'+cookieNameSufix);
-        _vds.push(['setCS1', getPatform() + '-orgId', orgName]);
+        if(orgName) {
+            _vds.push(['setCS11', getPatform() + '-orgId', orgName]);
+        }
 
         var admin = $.cookie('cuser'+cookieNameSufix);
-        _vds.push(['setCS2', getPatform() + '-userId', admin]);
+        if(admin) {
+            _vds.push(['setCS12', getPatform() + '-userId', admin]);
+        }
 
-        _vds.push(['setCS3', 'clientID', '环信IM管理后台']);
+        _vds.push(['setCS13', 'clientID', '环信IM管理后台']);
 
         var appkey = getOrgname()+"#"+getAppName();
-        _vds.push(['setCS4', getPatform() + '-appkey', appkey]);
+        if(appkey) {
+            _vds.push(['setCS14', getPatform() + '-appkey', appkey]);
+        }
 
         (function(){
             _vds.push(['setAccountId', '8bb5da75505521d9fa9a3dea82f4e2e2']);
