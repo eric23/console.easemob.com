@@ -303,6 +303,18 @@ var EasemobCommon = function () {
             toPageAppCounters: function () {
                 window.location.href = 'app_counters.html';
             },
+            toPageAccoutOverview: function () {
+                window.location.href = 'accout_overview.html';
+            },
+            toPageRechargeRecord: function () {
+                window.location.href = 'recharge_record.html';
+            },
+            toPageRecordsOfConsumption: function () {
+                window.location.href = 'records_of_consumption.html';
+            },
+            toPageImmediatelyRecharge: function () {
+                window.location.href = 'immediately_recharge.html';
+            },
             sessionTimeOut: function () {
                 this.logOut();
             }

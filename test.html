@@ -11,43 +11,20 @@
         var count = 0;
         $(function () {
             EasemobCommon.init();
-
             count = 0;
             loginAdminInfo();
-
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAdminCreate()
-
             initOrgAminCreateForm();
         });
-
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?3e5b3453fdcff1e4dec124ea22f1e189";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-
+        /*var _hmt = _hmt || [];
+         (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?3e5b3453fdcff1e4dec124ea22f1e189";
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();*/
         var _vds = _vds || [];
-
-        var orgName = $.cookie('orgName'+cookieNameSufix);
-        if(orgName) {
-            _vds.push(['setCS11', getPatform() + '-orgId', orgName]);
-        }
-
-        var admin = $.cookie('cuser'+cookieNameSufix);
-        if(admin) {
-            _vds.push(['setCS12', getPatform() + '-userId', admin]);
-        }
-
-        _vds.push(['setCS13', 'clientID', '环信IM管理后台']);
-
-        var appkey = getOrgname()+"#"+getAppName();
-        if(appkey) {
-            _vds.push(['setCS14', getPatform() + '-appkey', appkey]);
-        }
-
         (function(){
             _vds.push(['setAccountId', '8bb5da75505521d9fa9a3dea82f4e2e2']);
             (function() {
@@ -108,21 +85,27 @@
             <li><a href="javascript:EasemobCommon.disPatcher.toPageAppList()" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp"></span> </a></li>
             <li class="active"><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminList()" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo"></span></a></li>
             <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminHome()" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo"></span></a></li>
-            <li><a href="javascript:EasemobCommon.disPatcher.toPageAccoutOverview()" target="_self"><i class="icon-account"></i><span id="left_nav_account">帐户</span> </a></li>
+
+
+            <li><a href="javascript:EasemobCommon.disPatcher.toPageAppList()" target="_self"><i class="icon-account"></i><span id="left_nav_account">帐户</span> </a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
     <div class="clearfix" id="main-content">
         <div id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="icon-home"></i>&nbsp;&nbsp;<span id="admin_create_second_nav_orgInfo">企业信息</span><span class="divider"> <i class="icon-angle-right"></i> </span><span id="admin_create_second_nav_addOrgAdmin"></span>
+                <li><i class="icon-account"></i>&nbsp;&nbsp;<span id="accout_overview_myaccount">我的帐户</span><!-- <span class="divider"> <i class="icon-angle-right"></i> </span><span id="admin_create_second_nav_addOrgAdmin"></span> -->
                 </li>
             </ul>
         </div>
         <div class="clearfix" id="page-content">
             <div class="pagination pagination-left">
                 <ul>
-                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminCreate()" target="_self"><span id="admin_create_third_nav_addOrgAdmin"></span></a></li>
+                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminHome()" target="_self"><font color="green"><span id="admin_home_second_nav_btn_accountInfo"></span></font></a></li>
+                </ul>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <ul>
+                    <li><a href="javascript:EasemobCommon.disPatcher.toPageOrgAdminPassword()" target="_self"><span id="admin_home_second_nav_resetpassword"></span></a></li>
                 </ul>
             </div>
             <div class="row-fluid">
@@ -158,8 +141,7 @@
                                                     <input type="password" id="admin_create_adminPassword" name="admin_create_adminPassword" value="" onblur="onBlurAdminPasswordCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
                                                     <span id="admin_create_adminPasswordMsg"></span>
-                                                    <span id="admin_create_adminPasswordEMsg" style="color:red;"></span>
-                                                    <span id="admin_create_adminPasswordEMatchMsg" style="color:red;"></span>
+                                                    <span id="admin_create_adminPasswordEMsg"><font color="red"></font></span>
                                                     <span id="admin_create_adminPasswordOMsg" style="font-size:12px;color:blue;"></span>
                                                 </div>
                                             </div>
