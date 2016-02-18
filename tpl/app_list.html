@@ -1,0 +1,55 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3" translate="nav.APPS"></h1>
+</div>
+<div class="wrapper-md" ng-controller="ApplicationsController">
+    <div class="panel panel-default">
+        <div class="panel-heading" translate="common.LIST"></div>
+        <div class="row wrapper">
+            <div class="col-sm-5 m-b-xs">
+                <select class="input-sm form-control w-sm inline v-middle">
+                    <option value="0" translate="common.ops.ACTIONS">Bulk action</option>
+                    <option value="1" translate="common.ops.DELETE">Delete selected</option>
+                    <option value="2" translate="common.ops.EDIT">Bulk edit</option>
+                    <option value="3" translate="common.ops.EXPORT">Export</option>
+                </select>
+                <button class="btn btn-sm btn-default" translate="common.ops.APPLY">Apply</button>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <input type="text" class="input-sm form-control">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" translate="common.ops.SEARCH">Search</button>
+                      </span>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                <tr>
+                    <th style="width:20px;">
+                        <label class="i-checks m-b-none">
+                            <input type="checkbox" ng-click="toggleAllSelection()"><i></i>
+                        </label>
+                    </th>
+                    <th translate="application.NAME">
+                        Name
+                    </th>
+                    <th translate="application.STATUS">
+                        Status
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="row in data">
+                    <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]" ng-checked="row.selected" ng-click="toggleSelection(row)"><i></i></label></td>
+                    <td><a class="text-info" ng-click="showApplicationDetail(row)">{{row.name}}</a></td>
+                    <td>{{row.status}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

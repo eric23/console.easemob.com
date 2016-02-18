@@ -1,0 +1,24 @@
+{
+  "nav": {
+    "HEADER": "Navigator",
+    "APPS": "Applications",
+    "ORG": "Organization",
+    "PROFILE": "Profile",
+    "ACCOUNT": "Account"
+  },
+  "common": {
+    "LIST": "List",
+    "ops": {
+      "ACTIONS": "Select an action",
+      "DELETE": "Delete",
+      "EDIT": "Edit",
+      "EXPORT": "Export",
+      "APPLY": "Apply",
+      "SEARCH": "Search"
+    }
+  },
+  "application": {
+    "NAME": "Name",
+    "STATUS": "Status"
+  }
+}

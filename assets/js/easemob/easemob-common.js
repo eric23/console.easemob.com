@@ -304,7 +304,7 @@ var EasemobCommon = function () {
                 window.location.href = 'app_counters.html';
             },
             toPageAccoutOverview: function () {
-                window.location.href = 'accout_overview.html';
+                window.location.href = 'account_overview.html';
             },
             toPageRechargeRecord: function () {
                 window.location.href = 'recharge_record.html';

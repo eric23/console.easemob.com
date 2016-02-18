@@ -1,0 +1,24 @@
+{
+  "nav": {
+    "HEADER": "导航",
+    "APPS": "我的应用",
+    "ORG": "企业信息",
+    "PROFILE": "个人信息",
+    "ACCOUNT": "账户信息"
+  },
+  "common": {
+    "LIST": "列表",
+    "ops": {
+      "ACTIONS": "请选择一项操作",
+      "DELETE": "删除",
+      "EDIT": "编辑",
+      "EXPORT": "导出",
+      "APPLY": "应用",
+      "SEARCH": "搜索"
+    }
+  },
+  "application": {
+    "NAME": "应用名称",
+    "STATUS": "应用状态"
+  }
+}
