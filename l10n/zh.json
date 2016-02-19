@@ -6,8 +6,21 @@
     "PROFILE": "个人信息",
     "ACCOUNT": "账户信息"
   },
+  "header": {
+    "LINKS": "快捷链接",
+    "link": {
+      "DOCUMENT": "文档",
+      "HELP": "帮助",
+      "COMMUNITY": "社区",
+      "DOWNLOAD": "下载"
+    }
+  },
   "common": {
+    "TITLE": "环信开发者中心",
+    "NAME": "环信",
     "LIST": "列表",
+    "CURRENCY": "元",
+    "MORE": "更多...",
     "ops": {
       "ACTIONS": "请选择一项操作",
       "DELETE": "删除",
@@ -15,10 +28,30 @@
       "EXPORT": "导出",
       "APPLY": "应用",
       "SEARCH": "搜索"
+    },
+    "tip": {
+      "CURRENCY": "例如: 500.00"
     }
   },
   "application": {
     "NAME": "应用名称",
     "STATUS": "应用状态"
+  },
+  "account": {
+    "WELCOME": "管理您账户的消费及账单情况.",
+    "CONSUMPTION_CHART_TITLE": "消费趋势图",
+    "CONSUMPTION_CHART_DESC": "近6个月数据",
+    "BALANCE": "账户余额",
+    "RECHARGE_TIP": "请及时充值.",
+    "RECHARGE": "立即充值",
+    "HISTORY": "账户历史",
+    "RECHARGES": "充值记录",
+    "CONSUMPTIONS": "消费记录",
+    "RECHARGE_HELP": "充值时请勿退出或关闭该窗口.",
+    "RECHARGE_AMOUNT": "充值金额",
+    "QUIT_RECHARGE": "稍后再说",
+    "PAYMENT_TYPE": "支付渠道",
+    "ALIPAY": "支付宝支付",
+    "OTHER_PAY": "其他方式即将开通..."
   }
 }

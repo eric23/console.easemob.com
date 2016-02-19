@@ -1,0 +1,31 @@
+<div class="modal-body wrapper-lg">
+  <div class="row">
+    <div class="col-sm-6 b-r">
+      <h3 class="m-t-none m-b font-thin" translate="account.RECHARGE"></h3>
+      <p translate="account.RECHARGE_HELP"></p>
+      <form role="form">
+        <div class="form-group">
+          <label translate="account.BALANCE"></label>
+          {{account.balance | currency:""}}
+        </div>
+        <div class="form-group">
+          <label translate="account.RECHARGE_AMOUNT"></label>
+          <input type="number" class="form-control" placeholder="{{'common.tip.CURRENCY' | translate}}">
+        </div>
+        <div class="m-t-lg">
+          <button class="btn btn-sm btn-info pull-right text-uc m-t-n-xs" ng-click="cancel()" translate="account.QUIT_RECHARGE"></button>
+          <button class="btn btn-sm btn-success pull-right text-uc m-t-n-xs" ng-click="ok()" translate="account.RECHARGE"></button>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-6">
+      <h4 translate="account.PAYMENT_TYPE"></h4>
+      <a href class="btn btn-info btn-lg btn-block m-b-sm">
+          <i class="iconfont icon-zhifubaoa pull-left"></i>
+          <span translate="account.ALIPAY" class="font-thin"></span>
+          <i class="icon icon-check pull-right"></i>
+      </a>
+      <a href class="btn btn-success btn-lg btn-block m-b-sm"><i class="fa fa-credit-card pull-left"></i><span translate="account.OTHER_PAY"></span></a>
+    </div>
+  </div>
+</div>

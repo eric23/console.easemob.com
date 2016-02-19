@@ -6,8 +6,21 @@
     "PROFILE": "Profile",
     "ACCOUNT": "Account"
   },
+  "header": {
+    "LINKS": "Quick Links",
+    "link": {
+      "DOCUMENT": "Document",
+      "HELP": "Help",
+      "COMMUNITY": "Community",
+      "DOWNLOAD": "Download"
+    }
+  },
   "common": {
+    "TITLE": "Console of Easemob",
+    "NAME": "Easemob",
     "LIST": "List",
+    "CURRENCY": "RMB",
+    "MORE": "More...",
     "ops": {
       "ACTIONS": "Select an action",
       "DELETE": "Delete",
@@ -15,10 +28,30 @@
       "EXPORT": "Export",
       "APPLY": "Apply",
       "SEARCH": "Search"
+    },
+    "tip": {
+      "CURRENCY": "eg. 500.00"
     }
   },
   "application": {
     "NAME": "Name",
     "STATUS": "Status"
+  },
+  "account": {
+    "WELCOME": "Manage your cost and billings here.",
+    "CONSUMPTION_CHART_TITLE": "Consumption Trends",
+    "CONSUMPTION_CHART_DESC": "Data of last 6 months",
+    "BALANCE": "Balance",
+    "RECHARGE_TIP": "Please recharge in time.",
+    "RECHARGE": "Recharge",
+    "HISTORY": "History",
+    "RECHARGES": "Recharge Records",
+    "CONSUMPTIONS": "Consumption Records",
+    "RECHARGE_HELP": "Please don't close the window when recharging.",
+    "RECHARGE_AMOUNT": "Amount",
+    "QUIT_RECHARGE": "Later",
+    "PAYMENT_TYPE": "Payment Channel",
+    "ALIPAY": "Pay With AliPay",
+    "OTHER_PAY": "Coming Soon..."
   }
 }

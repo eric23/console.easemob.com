@@ -35,7 +35,7 @@ app.controller('ApplicationsController', ['$scope', '$http', function($scope, $h
     };
 
     $scope.toggleSelection = function(e) {
-        e.selected = true;
+        e.selected = !e.selected;
     };
 
     $scope.showApplicationDetail = function(e) {
