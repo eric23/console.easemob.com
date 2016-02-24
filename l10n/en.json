@@ -21,6 +21,8 @@
     "LIST": "List",
     "CURRENCY": "RMB",
     "MORE": "More...",
+    "BACK": "Back To Application",
+    "COPYRIGHT": "Easemob Technologies Inc. All rights reserved.<br>&copy; 2016",
     "ops": {
       "ACTIONS": "Select an action",
       "DELETE": "Delete",

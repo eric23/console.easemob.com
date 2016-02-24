@@ -31,4 +31,5 @@ angular.module('app')
   }])
   .config(function(BillingProvider) {
       BillingProvider.setHost('http://172.16.3.241:8080');
+      BillingProvider.setCluster('sdb');
   });

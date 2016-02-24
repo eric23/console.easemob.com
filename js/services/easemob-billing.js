@@ -3,7 +3,8 @@
  */
 angular.module('app').provider('Billing', function () {
     this.host = 'http://localhost:8080';
-    this.paymentCallback = 'http://localhost:8080';
+    this.cluster = 'sdb';
+    this.paymentCallback = '/main.html#/integration/payment';
     this.settings = {
         'account': '',
         'token': '',
@@ -12,6 +13,11 @@ angular.module('app').provider('Billing', function () {
     this.setHost = function (newHost) {
         if(newHost) {
             this.host = newHost;
+        }
+    };
+    this.setCluster = function (newCluster) {
+        if(newCluster) {
+            this.cluster = newCluster;
         }
     };
 
@@ -62,7 +68,12 @@ angular.module('app').provider('Billing', function () {
                     url: self.host + '/account/get',
                     method: 'GET',
                     params: {
-                        clientId: self.settings.account
+                        clientId: self.settings.account,
+                        org: self.settings.account,
+                        cluster: self.cluster
+                    },
+                    headers: {
+                        'Authorization': 'Bearer ' + self.settings.token
                     }
                 });
             },
@@ -71,10 +82,15 @@ angular.module('app').provider('Billing', function () {
                 return $http({
                     url: self.host + '/transaction/start_recharge',
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                    params: {
+                        org: self.settings.account,
+                        cluster: self.cluster
                     },
-                    data: 'accountId=' + self.settings.accountID + '&returnUrl=' + self.paymentCallback + '&amount=' + (amount * 100)
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': 'Bearer ' + self.settings.token
+                    },
+                    data: 'accountId=' + self.settings.accountID + '&returnUrl=' + self.host + self.paymentCallback + '&amount=' + (amount * 100)
                 });
             },
             
@@ -83,7 +99,12 @@ angular.module('app').provider('Billing', function () {
                     url: self.host + '/transaction/query_recharge_status',
                     method: 'GET',
                     params: {
-                        internalOrderNo: id
+                        internalOrderNo: id,
+                        org: self.settings.account,
+                        cluster: self.cluster
+                    },
+                    headers: {
+                        'Authorization': 'Bearer ' + self.settings.token
                     }
                 });
             },
@@ -95,7 +116,12 @@ angular.module('app').provider('Billing', function () {
                     params: {
                         accountId: self.settings.accountID,
                         startDate: start,
-                        endDate: end
+                        endDate: end,
+                        org: self.settings.account,
+                        cluster: self.cluster
+                    },
+                    headers: {
+                        'Authorization': 'Bearer ' + self.settings.token
                     }
                 });
             },
@@ -107,7 +133,12 @@ angular.module('app').provider('Billing', function () {
                     params: {
                         accountId: self.settings.accountID,
                         startDate: start,
-                        endDate: end
+                        endDate: end,
+                        org: self.settings.account,
+                        cluster: self.cluster
+                    },
+                    headers: {
+                        'Authorization': 'Bearer ' + self.settings.token
                     }
                 });
             },
@@ -117,7 +148,12 @@ angular.module('app').provider('Billing', function () {
                     url: self.host + '/transaction/overview',
                     method: 'GET',
                     params: {
-                        accountId: self.settings.accountID
+                        accountId: self.settings.accountID,
+                        org: self.settings.account,
+                        cluster: self.cluster
+                    },
+                    headers: {
+                        'Authorization': 'Bearer ' + self.settings.token
                     }
                 });
             }

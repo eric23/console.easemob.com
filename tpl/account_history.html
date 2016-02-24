@@ -36,7 +36,7 @@
                 <tr ng-repeat="row in data">
                     <td>{{row.date | date:"yyyy-MM-dd hh:mm:ss"}}</td>
                     <td ng-class="{true: 'text-success', false: 'text-danger'}[row.recharge]">{{row.amount | currency:row.recharge?"+":"-"}}</td>
-                    <td>{{row.desc}}</td>
+                    <td translate="account.{{row.desc}}"></td>
                     <td>{{row.id}}</td>
                     <td ng-class="{true: 'text-success', false: 'text-info'}[row.status === 'CHARGED']" translate="account.enum.{{row.status}}"></td>
                 </tr>

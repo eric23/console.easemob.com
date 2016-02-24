@@ -21,6 +21,8 @@
     "LIST": "列表",
     "CURRENCY": "元",
     "MORE": "更多...",
+    "BACK": "返回到应用",
+    "COPYRIGHT": "所有解释权归环信所有.<br>&copy; 2016",
     "ops": {
       "ACTIONS": "请选择一项操作",
       "DELETE": "删除",

@@ -45,7 +45,7 @@
                                   { data: {{d4}}, lines: { show: true, lineWidth: 1, fill:true, fillColor: { colors: [{opacity: 0.2}, {opacity: 0.8}] } } }
                                 ],
                                 {
-                                  colors: ['{{app.color.light}}'],
+                                  colors: ['{{app.color.info}}'],
                                   series: { shadowSize: 3 },
                                   xaxis:{ show:false },
                                   yaxis:{ font: { color: '#a1a7ac' } },
@@ -71,7 +71,7 @@
                                         <div class="pull-left">{{recharge.id}}</div>
                                         <div class="pull-right">{{recharge.rechargeDatetime | date:"yyyy-MM-dd hh:mm:ss"}}</div>
                                         <div class="clear">
-                                            <div>{{recharge.amount/100 | currency:"+"}}</div>
+                                            <div class="text-success">{{recharge.amount/100 | currency:"+"}}</div>
                                             <small class="text-muted" translate="account.enum.{{recharge.status}}"></small>
                                         </div>
                                     </li>
@@ -101,9 +101,9 @@
                                 </ul>
                                 <div class="text-center">
                                     <a href class="btn btn-sm btn-info padder-md m-b" translate="common.MORE" ng-show="account.moreConsumption" ui-sref="app.account_history({type:'consume'})"></a>
+                                </div>
                             </div>
-                        </div>
-                    </tab>
+                        </tab>
                     </tabset>
                 </div>
             </div>

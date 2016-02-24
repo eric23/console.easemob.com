@@ -60,6 +60,14 @@ angular.module('app')
                                 }]
                         }
                     })
+                    .state('integration', {
+                        url: '/integration',
+                        template: '<div ui-view class="fade-in-right-big smooth"></div>'
+                    })
+                    .state('integration.payment', {
+                        url: '/payment',
+                        templateUrl: 'tpl/payment_succeed.html'
+                    })
                     .state('app.dashboard-v1', {
                         url: '/dashboard-v1',
                         templateUrl: 'tpl/app_dashboard_v1.html',
