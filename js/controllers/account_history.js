@@ -1,7 +1,7 @@
 /**
  * Created by eric on 16/2/23.
  */
-app.controller('AccountHistoryController', ['$scope', '$http', '$stateParams', 'Billing', function($scope, $http, $stateParams, Billing) {
+app.controller('AccountHistoryController', ['$scope', '$http', '$stateParams', '$translate', 'toaster', 'Billing', function($scope, $http, $stateParams, $translate, toaster, Billing) {
     $scope.config = {
         queryPeriod: '1',
         type: $stateParams.type
@@ -51,6 +51,9 @@ app.controller('AccountHistoryController', ['$scope', '$http', '$stateParams', '
                     }
                 }
             }, function error(msg) {
+                $translate('account.error.GET_HISTORY').then(function(text){
+                    toaster.pop('error', text, msg.message);
+                });
                 console.log(msg);
             });
         } else if($scope.config.type === 'consumption') {
@@ -70,6 +73,9 @@ app.controller('AccountHistoryController', ['$scope', '$http', '$stateParams', '
                     }
                 }
             }, function error(msg) {
+                $translate('account.error.GET_HISTORY').then(function(text){
+                    toaster.pop('error', text, msg.message);
+                });
                 console.log(msg);
             });
         } else {

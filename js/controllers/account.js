@@ -1,4 +1,4 @@
-app.controller('AccountController', ['$scope', 'Billing', function($scope, Billing){
+app.controller('AccountController', ['$scope', '$translate', 'toaster', 'Billing', function($scope, $translate, toaster, Billing){
     $scope.account = {
         notEnoughBalance: false,
         balance: 0.0,
@@ -28,6 +28,10 @@ app.controller('AccountController', ['$scope', 'Billing', function($scope, Billi
                 }
             }
         }, function error(msg){
+            $translate('account.error.GET_ACCOUNT').then(function(text){
+                toaster.pop('error', text, msg.message);
+            });
+
             console.log(msg);
         });
     };
@@ -68,6 +72,9 @@ app.controller('AccountController', ['$scope', 'Billing', function($scope, Billi
                 }
             }
         }, function error(msg){
+            $translate('account.error.GET_RECHARGES').then(function(text){
+                toaster.pop('error', text, msg.message);
+            });
             console.log(msg);
         });
     };
@@ -83,6 +90,9 @@ app.controller('AccountController', ['$scope', 'Billing', function($scope, Billi
                 }
             }
         }, function error(msg){
+            $translate('account.error.GET_CONSUMPTIONS').then(function(text){
+                toaster.pop('error', text, msg.message);
+            });
             console.log(msg);
         });
     };
@@ -91,15 +101,9 @@ app.controller('AccountController', ['$scope', 'Billing', function($scope, Billi
 
 }]);
 
-app.controller('AccountRechargeCtrl', ['$scope', '$modalInstance', 'Billing', function($scope, $modalInstance, Billing) {
+app.controller('AccountRechargeCtrl', ['$scope', '$modalInstance', '$translate', 'toaster', 'Billing', function($scope, $modalInstance, $translate, toaster, Billing) {
     $scope.account = {processing:false, done:false};
-    $scope.invoice = {
-        id: '2016022321001004010268423614',
-        channel: 'ALIPAY',
-        account: 'yanjun23@sina.com',
-        before: 0,
-        after: 100
-    };
+    $scope.invoice = {};
     $scope.ok = function () {
         var amount = $scope.account.rechargeAmount;
 
@@ -120,6 +124,9 @@ app.controller('AccountRechargeCtrl', ['$scope', '$modalInstance', 'Billing', fu
                 }
 
             }, function error(msg) {
+                $translate('account.error.START_RECHARGING').then(function(text){
+                    toaster.pop('error', text, msg.message);
+                });
                 console.log(msg);
             });
         }
@@ -147,6 +154,9 @@ app.controller('AccountRechargeCtrl', ['$scope', '$modalInstance', 'Billing', fu
                     }
                 }
             }, function error(msg){
+                $translate('account.error.CHECK_RECHARGING').then(function(text){
+                    toaster.pop('error', text, msg.message);
+                });
                 console.log(msg);
             });
         }

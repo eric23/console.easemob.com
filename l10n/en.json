@@ -90,6 +90,14 @@
     "enum": {
       "CHARGING": "Waiting for payment",
       "CHARGED": "Succeed"
+    },
+    "error": {
+      "GET_ACCOUNT": "Error occurs when querying account",
+      "GET_RECHARGES": "Error occurs when querying current recharges",
+      "GET_CONSUMPTIONS": "Error occurs when querying current consumptions",
+      "START_RECHARGING": "Error occurs when submitting payment",
+      "CHECK_RECHARGING": "Error occurs when check payment status",
+      "GET_HISTORY": "Error occurs when querying account history"
     }
   }
 }

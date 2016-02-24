@@ -90,6 +90,14 @@
     "enum": {
       "CHARGING": "待支付",
       "CHARGED": "支付成功"
+    },
+    "error": {
+      "GET_ACCOUNT": "查询账户时发生错误",
+      "GET_RECHARGES": "查询充值记录时发生错误",
+      "GET_CONSUMPTIONS": "查询消费记录时发生错误",
+      "START_RECHARGING": "提交支付时发生错误",
+      "CHECK_RECHARGING": "检查支付状态时发生错误",
+      "GET_HISTORY": "查询账户历史时发生错误"
     }
   }
 }

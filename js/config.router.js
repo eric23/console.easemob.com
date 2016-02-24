@@ -26,7 +26,7 @@ angular.module('app')
                         resolve: {
                             deps: ['$ocLazyLoad',
                                 function ($ocLazyLoad) {
-                                    return $ocLazyLoad.load(['ngGrid']);
+                                    return $ocLazyLoad.load(['toaster']);
                                 }]
                         }
                     })
