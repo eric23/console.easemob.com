@@ -1,31 +1,69 @@
 <div class="modal-body wrapper-lg">
-  <div class="row">
-    <div class="col-sm-6 b-r">
-      <h3 class="m-t-none m-b font-thin" translate="account.RECHARGE"></h3>
-      <p translate="account.RECHARGE_HELP"></p>
-      <form role="form">
-        <div class="form-group">
-          <label translate="account.BALANCE"></label>
-          {{account.balance | currency:""}}
+    <div class="row" ng-hide="account.processing">
+        <div class="col-sm-6 b-r">
+            <h3 class="m-t-none m-b font-thin" translate="account.RECHARGE"></h3>
+            <p translate="account.RECHARGE_HELP"></p>
+            <form role="form" name="form" class="form-validation">
+                <div class="form-group">
+                    <label translate="account.RECHARGE_AMOUNT"></label>
+                    <input class="form-control" placeholder="{{'common.tip.CURRENCY' | translate}}" ng-pattern="/^[0-9]+(.[0-9]{1,2})?$/" ng-model="account.rechargeAmount" ui-validate=" '$value >= 0.01' " required>
+                </div>
+                <div class="m-t-lg">
+                    <button class="btn btn-sm btn-success pull-right text-uc m-t-n-xs" ng-click="ok()" ng-disabled="form.$invalid" translate="account.RECHARGE"></button>
+                    <button class="btn btn-sm btn-info pull-right text-uc m-t-n-xs" ng-click="cancel()" translate="account.QUIT_RECHARGE"></button>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-          <label translate="account.RECHARGE_AMOUNT"></label>
-          <input type="number" class="form-control" placeholder="{{'common.tip.CURRENCY' | translate}}">
+        <div class="col-sm-6">
+            <h4 translate="account.PAYMENT_TYPE"></h4>
+            <a href class="btn btn-info btn-lg btn-block m-b-sm">
+                <i class="iconfont icon-zhifubaoa pull-left"></i>
+                <span translate="account.ALIPAY" class="font-thin"></span>
+                <i class="icon icon-check pull-right"></i>
+            </a>
+            <a href class="btn btn-success btn-lg btn-block m-b-sm"><i class="fa fa-credit-card pull-left"></i><span translate="account.OTHER_PAY"></span></a>
         </div>
-        <div class="m-t-lg">
-          <button class="btn btn-sm btn-info pull-right text-uc m-t-n-xs" ng-click="cancel()" translate="account.QUIT_RECHARGE"></button>
-          <button class="btn btn-sm btn-success pull-right text-uc m-t-n-xs" ng-click="ok()" translate="account.RECHARGE"></button>
-        </div>
-      </form>
     </div>
-    <div class="col-sm-6">
-      <h4 translate="account.PAYMENT_TYPE"></h4>
-      <a href class="btn btn-info btn-lg btn-block m-b-sm">
-          <i class="iconfont icon-zhifubaoa pull-left"></i>
-          <span translate="account.ALIPAY" class="font-thin"></span>
-          <i class="icon icon-check pull-right"></i>
-      </a>
-      <a href class="btn btn-success btn-lg btn-block m-b-sm"><i class="fa fa-credit-card pull-left"></i><span translate="account.OTHER_PAY"></span></a>
+    <div class="row" ng-show="account.processing">
+        <div class="col-xs-6">
+            <h4 translate="common.easemob.NAME"></h4>
+            <p translate="common.easemob.WEBSITE"></p>
+            <p translate="common.easemob.ADDRESS"></p>
+            <p translate="common.easemob.TEL"></p>
+        </div>
+        <div class="col-xs-6 m-t-lg">
+            <div class="font-thin m-b-md">
+                <span translate="account.ORDER_ID" class="wrapper-sm"></span>
+                <span>{{account.orderId}}</span>
+            </div>
+            <a href class="btn btn-info btn-lg btn-block m-b-sm" ng-hide="account.done" ng-click="check()">
+                <span translate="account.RECHARGING" class="font-thin"></span>
+                <i class="fa fa-spin fa-circle-o-notch pull-right"></i>
+            </a>
+            <a href class="btn btn-success btn-lg btn-block m-b-sm" ng-show="account.done" ng-click="done()">
+                <span translate="account.RECHARGED" class="font-thin"></span>
+                <i class="icon icon-check pull-right"></i>
+            </a>
+        </div>
     </div>
-  </div>
+    <div class="well m-t bg-light lt" ng-show="account.done">
+        <div class="row">
+            <div class="col-xs-6">
+                <h4 translate="account.invoice.TRANSACTION"></h4>
+                <p translate="account.invoice.ID"></p>
+                <p class="m-l-sm font-thin">{{invoice.id}}</p>
+                <p translate="account.invoice.CHANNEL"></p>
+                <p class="m-l-sm font-thin">{{invoice.channel}}</p>
+                <p translate="account.invoice.BUYER"></p>
+                <p class="m-l-sm font-thin">{{invoice.account}}</p>
+            </div>
+            <div class="col-xs-6">
+                <h4 translate="account.invoice.ACCOUNT"></h4>
+                <p translate="account.invoice.AFTER"></p>
+                <p class="m-l-sm font-thin">{{invoice.after | currency:""}}</p>
+                <p translate="account.invoice.BEFORE"></p>
+                <p class="m-l-sm font-thin">{{invoice.before | currency:""}}</p>
+            </div>
+        </div>
+    </div>
 </div>

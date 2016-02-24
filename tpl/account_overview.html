@@ -14,7 +14,7 @@
                     <div class="r bg-light dker item hbox no-border">
                         <div class="col w-xs v-middle" translate="account.BALANCE"></div>
                         <div class="col bg-info lter">
-                            <div class="text-white font-thin h1">{{account.balance | currency:""}} <span class="text-sm" translate="common.CURRENCY"></span></div>
+                            <div class="text-white font-thin h1">{{account.balance/100 | currency:""}} <span class="text-sm" translate="common.CURRENCY"></span></div>
                             <span class="text-xs text-danger-lter" translate="account.RECHARGE_TIP" ng-show="account.notEnoughBalance"></span>
                         </div>
                         <div class="col v-middle text-right">
@@ -24,7 +24,9 @@
                                 </script>
                                 <button class="btn btn-success m-r-md" ng-click="open('lg')" translate="account.RECHARGE"></button>
                             </span>
-                            <a class="btn btn-info m-r-md" translate="account.HISTORY"></a>
+                            <!--
+                            <a class="btn btn-info m-r-md" translate="account.HISTORY" ui-sref="app.account_history({type:'all'})"></a>
+                            -->
                         </div>
                     </div>
                 </div>
@@ -57,51 +59,51 @@
                 </div>
                 <div class="col-md-6">
                     <tabset class="nav-tabs-alt" justified="true">
-                    <tab>
-                        <tab-heading>
-                            <i class="glyphicon glyphicon-plus text-lg text-muted wrapper-sm"></i>
-                            <span class="text-lg text-muted" translate="account.RECHARGES"></span>
-                        </tab-heading>
-                        <div class="wrapper-md text-center">
-                             <ul class="list-group no-bg no-borders pull-in" ng-repeat="recharge in account.recharges">
-                                <li class="list-group-item">
-                                    <div class="pull-left">{{recharge.id}}</div>
-                                    <div class="pull-right">{{recharge.date}}</div>
-                                    <div class="clear">
-                                        <div>{{recharge.amount | currency:"+"}}</div>
-                                        <small class="text-muted">{{recharge.desc}}</small>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="text-center">
-                                <a href class="btn btn-sm btn-info padder-md m-b" translate="common.MORE" ng-show="account.moreRecharge"></a>
-                            </div>
-                        </div>
-                    </tab>
-                    <tab>
-                        <tab-heading>
-                            <i class="glyphicon glyphicon-minus text-lg text-muted wrapper-sm"></i>
-                            <span class="text-lg text-muted" translate="account.CONSUMPTIONS"></span>
-                        </tab-heading>
-                        <div class="wrapper">
-                            <ul class="timeline" ng-repeat="consumption in account.consumptions">
-                                <li class="tl-item">
-                                    <div class="tl-wrap">
-                                        <span class="tl-date">{{consumption.date}}</span>
-                                        <div class="tl-content panel padder b-a w-md w-auto-xs">
-                                            <span class="arrow left pull-up"></span>
-                                            <div class="text-lt m-b-sm">{{consumption.desc}}</div>
-                                            <div class="panel-body pull-in b-t b-light">{{consumption.amount | currency:"-"}}</div>
+                        <tab>
+                            <tab-heading>
+                                <i class="glyphicon glyphicon-plus text-lg text-muted wrapper-sm"></i>
+                                <span class="text-lg text-muted" translate="account.RECHARGES"></span>
+                            </tab-heading>
+                            <div class="wrapper-md text-center">
+                                <ul class="list-group no-bg no-borders pull-in" ng-repeat="recharge in account.recharges | limitTo:5">
+                                    <li class="list-group-item">
+                                        <div class="pull-left">{{recharge.id}}</div>
+                                        <div class="pull-right">{{recharge.rechargeDatetime | date:"yyyy-MM-dd hh:mm:ss"}}</div>
+                                        <div class="clear">
+                                            <div>{{recharge.amount/100 | currency:"+"}}</div>
+                                            <small class="text-muted" translate="account.enum.{{recharge.status}}"></small>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="text-center">
-                                <a href class="btn btn-sm btn-info padder-md m-b" translate="common.MORE" ng-show="account.moreConsumption"></a>
+                                    </li>
+                                </ul>
+                                <div class="text-center">
+                                    <a href class="btn btn-sm btn-info padder-md m-b" translate="common.MORE" ng-show="account.moreRecharge" ui-sref="app.account_history({type:'recharge'})"></a>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab>
+                            <tab-heading>
+                                <i class="glyphicon glyphicon-minus text-lg text-muted wrapper-sm"></i>
+                                <span class="text-lg text-muted" translate="account.CONSUMPTIONS"></span>
+                            </tab-heading>
+                            <div class="wrapper">
+                                <ul class="timeline" ng-repeat="consumption in account.consumptions | limitTo:5">
+                                    <li class="tl-item">
+                                        <div class="tl-wrap">
+                                            <span class="tl-date">{{consumption.date}}</span>
+                                            <div class="tl-content panel padder b-a w-md w-auto-xs">
+                                                <span class="arrow left pull-up"></span>
+                                                <div class="text-lt m-b-sm">{{consumption.desc}}</div>
+                                                <div class="panel-body pull-in b-t b-light">{{consumption.amount/100 | currency:"-"}}</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="text-center">
+                                    <a href class="btn btn-sm btn-info padder-md m-b" translate="common.MORE" ng-show="account.moreConsumption" ui-sref="app.account_history({type:'consume'})"></a>
                             </div>
                         </div>
                     </tab>
-                </tabset>
+                    </tabset>
                 </div>
             </div>
         </div>

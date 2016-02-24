@@ -28,4 +28,7 @@ angular.module('app')
     $translateProvider.preferredLanguage('zh');
     // Tell the module to store the language in the local storage
     $translateProvider.useLocalStorage();
-  }]);
+  }])
+  .config(function(BillingProvider) {
+      BillingProvider.setHost('http://172.16.3.241:8080');
+  });

@@ -31,6 +31,20 @@
     },
     "tip": {
       "CURRENCY": "例如: 500.00"
+    },
+    "query": {
+      "QUERY": "请选择查询区间",
+      "7DAYS": "最近7天",
+      "30DAYS": "最近30天",
+      "3MONTHS": "最近三个月",
+      "6MONTHS": "最近半年",
+      "1YEAR": "最近一年"
+    },
+    "easemob": {
+      "NAME": "环信即时通讯云",
+      "WEBSITE": "http://www.easemob.com",
+      "ADDRESS": "北京市海淀区中关村南大街2号数码大厦A座2010",
+      "TEL": "400-036-8099"
     }
   },
   "application": {
@@ -52,6 +66,30 @@
     "QUIT_RECHARGE": "稍后再说",
     "PAYMENT_TYPE": "支付渠道",
     "ALIPAY": "支付宝支付",
-    "OTHER_PAY": "其他方式即将开通..."
+    "OTHER_PAY": "其他方式即将开通...",
+    "RECHARGING": "充值处理中...",
+    "RECHARGED": "充值成功",
+    "ORDER_ID": "订单编号:",
+    "history": {
+      "TITLE": "账户历史",
+      "LIST_DATE": "日期",
+      "LIST_AMOUNT": "金额",
+      "LIST_DESC": "描述",
+      "LIST_ID": "流水号",
+      "LIST_STATUS": "状态"
+    },
+    "invoice": {
+      "TRANSACTION": "交易信息",
+      "ACCOUNT": "账户变动",
+      "ID": "交易流水号",
+      "CHANNEL": "交易渠道",
+      "BUYER": "付款账号",
+      "AFTER": "现余额",
+      "BEFORE": "充值前余额"
+    },
+    "enum": {
+      "CHARGING": "待支付",
+      "CHARGED": "支付成功"
+    }
   }
 }

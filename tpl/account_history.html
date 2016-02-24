@@ -1,0 +1,46 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3" translate="account.history.TITLE"></h1>
+</div>
+<div class="wrapper-md" ng-controller="AccountHistoryController">
+    <div class="panel panel-default">
+        <div class="panel-heading" translate="common.LIST"></div>
+        <div class="row wrapper">
+            <div class="col-sm-5 m-b-xs">
+                <select class="input-sm form-control w-sm inline v-middle" ng-model="config.queryPeriod" ng-change="fireQuery(config.queryPeriod)">
+                    <option value="0" translate="common.query.QUERY"></option>
+                    <option value="1" translate="common.query.7DAYS"></option>
+                    <option value="2" translate="common.query.30DAYS"></option>
+                    <option value="3" translate="common.query.3MONTHS"></option>
+                    <option value="4" translate="common.query.6MONTHS"></option>
+                    <option value="5" translate="common.query.1YEAR"></option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-3">
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                <tr>
+                    <th translate="account.history.LIST_DATE"></th>
+                    <th translate="account.history.LIST_AMOUNT"></th>
+                    <th translate="account.history.LIST_DESC"></th>
+                    <th translate="account.history.LIST_ID"></th>
+                    <th translate="account.history.LIST_STATUS"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="row in data">
+                    <td>{{row.date | date:"yyyy-MM-dd hh:mm:ss"}}</td>
+                    <td ng-class="{true: 'text-success', false: 'text-danger'}[row.recharge]">{{row.amount | currency:row.recharge?"+":"-"}}</td>
+                    <td>{{row.desc}}</td>
+                    <td>{{row.id}}</td>
+                    <td ng-class="{true: 'text-success', false: 'text-info'}[row.status === 'CHARGED']" translate="account.enum.{{row.status}}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

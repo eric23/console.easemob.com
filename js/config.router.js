@@ -50,6 +50,16 @@ angular.module('app')
                                 }]
                         }
                     })
+                    .state('app.account_history', {
+                        url: '/account/history?type',
+                        templateUrl: 'tpl/account_history.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function ($ocLazyLoad) {
+                                    return $ocLazyLoad.load(['js/controllers/account_history.js']);
+                                }]
+                        }
+                    })
                     .state('app.dashboard-v1', {
                         url: '/dashboard-v1',
                         templateUrl: 'tpl/app_dashboard_v1.html',

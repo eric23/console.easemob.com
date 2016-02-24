@@ -31,6 +31,20 @@
     },
     "tip": {
       "CURRENCY": "eg. 500.00"
+    },
+    "query": {
+      "QUERY": "Select the query scope",
+      "7DAYS": "Last 7 Days",
+      "30DAYS": "Last 30 Days",
+      "3MONTHS": "Last 3 Months",
+      "6MONTHS": "Last 6 Months",
+      "1YEAR": "Last 1 Year"
+    },
+    "easemob": {
+      "NAME": "Easemob Technologies Inc.",
+      "WEBSITE": "https://global.easemob.com",
+      "ADDRESS": "Digital Building Tower A Room 2010. Haidian District. Beijing. China",
+      "TEL": "400-036-8099"
     }
   },
   "application": {
@@ -52,6 +66,30 @@
     "QUIT_RECHARGE": "Later",
     "PAYMENT_TYPE": "Payment Channel",
     "ALIPAY": "Pay With AliPay",
-    "OTHER_PAY": "Coming Soon..."
+    "OTHER_PAY": "Coming Soon...",
+    "RECHARGING": "Processing...",
+    "RECHARGED": "Done",
+    "ORDER_ID": "Order ID:",
+    "history": {
+      "TITLE": "Account History",
+      "LIST_DATE": "Date",
+      "LIST_AMOUNT": "Amount",
+      "LIST_DESC": "Description",
+      "LIST_ID": "ID",
+      "LIST_STATUS": "Status"
+    },
+    "invoice": {
+      "TRANSACTION": "Transaction Information",
+      "ACCOUNT": "Account Changelog",
+      "ID": "Trade ID",
+      "CHANNEL": "Channel",
+      "BUYER": "Channel Account",
+      "AFTER": "Balance After",
+      "BEFORE": "Balance Before"
+    },
+    "enum": {
+      "CHARGING": "Waiting for payment",
+      "CHARGED": "Succeed"
+    }
   }
 }

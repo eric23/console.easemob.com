@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('app')
-  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', 
-    function(              $scope,   $translate,   $localStorage,   $window ) {
+  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', 'Billing',
+    function(              $scope,   $translate,   $localStorage,   $window,  Billing ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
@@ -64,6 +64,9 @@ angular.module('app')
         $translate.use(langKey);
         $scope.lang.isopen = !$scope.lang.isopen;
       };
+
+      // billing initialization
+      Billing.init();
 
       function isSmartDevice( $window )
       {
