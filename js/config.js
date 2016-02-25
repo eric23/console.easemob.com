@@ -30,6 +30,10 @@ angular.module('app')
     $translateProvider.useLocalStorage();
   }])
   .config(function(BillingProvider) {
+      // Backend RestAPI Server
       BillingProvider.setHost('http://172.16.3.241:8080');
+      // Cluster
       BillingProvider.setCluster('sdb');
+      // Payment Callback Url
+      BillingProvider.setPaymentCallbackUrl('http://localhost:8080/main.html#/integration/payment');
   });

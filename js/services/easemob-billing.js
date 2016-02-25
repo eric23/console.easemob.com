@@ -4,7 +4,7 @@
 angular.module('app').provider('Billing', function () {
     this.host = 'http://localhost:8080';
     this.cluster = 'sdb';
-    this.paymentCallback = '/main.html#/integration/payment';
+    this.paymentCallback = 'http://localhost:8080/main.html#/integration/payment';
     this.settings = {
         'account': '',
         'token': '',
@@ -20,11 +20,16 @@ angular.module('app').provider('Billing', function () {
             this.cluster = newCluster;
         }
     };
+    this.setPaymentCallbackUrl = function (newCallback) {
+        if(newCallback) {
+            this.paymentCallback = newCallback;
+        }
+    }
 
     this.$get = function ($http, $localStorage, $cookies) {
         var self = this;
 
-        // Migrate from easemob-common.js
+        // Copy from easemob-common.js
         function getCookieNameSufix() {
             var url = window.location.href;
             var cookieNameSufix = '';
@@ -90,7 +95,7 @@ angular.module('app').provider('Billing', function () {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'Authorization': 'Bearer ' + self.settings.token
                     },
-                    data: 'accountId=' + self.settings.accountID + '&returnUrl=' + self.host + self.paymentCallback + '&amount=' + (amount * 100)
+                    data: 'accountId=' + self.settings.accountID + '&returnUrl=' + self.paymentCallback + '&amount=' + (amount * 100)
                 });
             },
             
