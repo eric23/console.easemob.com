@@ -10,6 +10,8 @@ angular.module('app').provider('Billing', function () {
         'token': '',
         'accountID': ''
     };
+    this.login = false;
+
     this.setHost = function (newHost) {
         if(newHost) {
             this.host = newHost;
@@ -59,6 +61,18 @@ angular.module('app').provider('Billing', function () {
                 self.settings.account = email;
                 self.settings.token = token;
                 $localStorage.billing = self.settings;
+
+                // login
+                self.login = true;
+            },
+
+            getLoginUser: function () {
+                return $cookies['cuser' + getCookieNameSufix()];
+            },
+
+            logout: function () {
+                self.login = false;
+                location.href = '/';
             },
 
             setAccountID: function (id) {

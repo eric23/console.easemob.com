@@ -13,7 +13,8 @@
       "HELP": "帮助",
       "COMMUNITY": "社区",
       "DOWNLOAD": "下载"
-    }
+    },
+    "LOGOUT": "退出"
   },
   "common": {
     "TITLE": "环信开发者中心",

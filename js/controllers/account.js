@@ -38,7 +38,8 @@ app.controller('AccountController', ['$scope', '$translate', 'toaster', 'Billing
 
     $scope.getAccount();
 
-    $scope.getRandomData = function() {
+    $scope.getConsumptionTrends = function() {
+        /*
         var data = [],
             totalPoints = 150;
         if (data.length > 0)
@@ -59,9 +60,29 @@ app.controller('AccountController', ['$scope', '$translate', 'toaster', 'Billing
             res.push([i, data[i]])
         }
         return res;
-    }
+        */
+        var data = [
+            {"amount":-5000000,"month":"2016-02"},
+            {"amount":-4000000,"month":"2016-03"},
+            {"amount":-8000000,"month":"2016-04"},
+            {"amount":-1500000,"month":"2016-05"}
+        ];
+        var res = [];
 
-    $scope.d4 = $scope.getRandomData();
+        var monthCount = data.length;
+        if(monthCount < 6) {
+            for(var i=1; i<=6-monthCount; i++) {
+                res.push([i, 0]);
+            }
+        }
+        for(var i=0; i<data.length; i++) {
+            res.push([6-monthCount+i+1, 0-data[i].amount/100]);
+        }
+
+        return res;
+    };
+
+    $scope.d4 = $scope.getConsumptionTrends();
 
     $scope.getRecharges = function() {
         Billing.getRechargeHistory().then(function success(response){

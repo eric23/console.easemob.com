@@ -13,7 +13,8 @@
       "HELP": "Help",
       "COMMUNITY": "Community",
       "DOWNLOAD": "Download"
-    }
+    },
+    "LOGOUT": "Logout"
   },
   "common": {
     "TITLE": "Console of Easemob",
